@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Find-Yours-Pets</string>
+    <string name="app_name" translatable="false">Find-Yours-Pets</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
