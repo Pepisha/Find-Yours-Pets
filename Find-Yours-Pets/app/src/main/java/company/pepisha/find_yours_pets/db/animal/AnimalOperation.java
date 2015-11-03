@@ -3,6 +3,7 @@ package company.pepisha.find_yours_pets.db.animal;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
@@ -22,6 +23,10 @@ public class AnimalOperation {
 
     public AnimalOperation(Context context){
         dbHelper = new DataBaseWrapper(context);
+    }
+
+    public void open() throws SQLException {
+        database = dbHelper.getWritableDatabase();
     }
 
     public void close() {
@@ -72,7 +77,6 @@ public class AnimalOperation {
     }
 
     public Animal getAnimal(long animalId){
-        // now that the animal is created return it ...
         Cursor cursor = database.query(AnimalConstantes.ANIMAL,
                 ANIMAL_TABLE_COLUMNS, AnimalConstantes.ID_ANIMAL + " = "
                         + animalId, null, null, null, null);
@@ -86,7 +90,7 @@ public class AnimalOperation {
 
     private Animal parseAnimal(Cursor cursor) {
         Animal animal = new Animal();
-        animal.setIdAnimal((cursor.getInt(0)));
+        animal.setIdAnimal(cursor.getInt(0));
         animal.setType(cursor.getInt(1));
         animal.setName(cursor.getString(2));
         animal.setBreed(cursor.getString(3));
