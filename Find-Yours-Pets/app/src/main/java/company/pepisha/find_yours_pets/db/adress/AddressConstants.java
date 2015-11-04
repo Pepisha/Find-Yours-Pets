@@ -3,9 +3,9 @@ package company.pepisha.find_yours_pets.db.adress;
 
 public class AddressConstants {
 
-    protected static final String ADDRESS = "Address";
+    public static final String ADDRESS = "Address";
 
-    protected static final String ID_ADDRESS = "idAddress";
+    public static final String ID_ADDRESS = "idAddress";
     protected static final String STREET = "street";
     protected static final String ZIPCODE = "zipcode";
     protected static final String CITY = "city";
