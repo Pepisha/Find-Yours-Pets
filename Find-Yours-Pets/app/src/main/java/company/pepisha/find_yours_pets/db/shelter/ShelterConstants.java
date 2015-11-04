@@ -5,9 +5,9 @@ import company.pepisha.find_yours_pets.db.address.AddressConstants;
 
 public class ShelterConstants {
 
-    protected static final String SHELTER = "Shelter";
+    public static final String SHELTER = "Shelter";
 
-    protected static final String ID_SHELTER = "idShelter";
+    public static final String ID_SHELTER = "idShelter";
     protected static final String NAME = "name";
     protected static final String PHONE = "phone";
     protected static final String ID_ADDRESS = "idAddress";
