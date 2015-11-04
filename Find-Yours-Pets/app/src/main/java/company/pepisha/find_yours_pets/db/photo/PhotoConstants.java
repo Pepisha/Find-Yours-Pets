@@ -1,7 +1,6 @@
 package company.pepisha.find_yours_pets.db.photo;
 
 
-import company.pepisha.find_yours_pets.db.adress.AddressConstants;
 
 public class PhotoConstants {
     protected static final String PHOTO = "Photo";
