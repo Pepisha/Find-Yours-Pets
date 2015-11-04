@@ -14,10 +14,10 @@ import company.pepisha.find_yours_pets.db.DataBaseWrapper;
 public class AnimalOperation {
 
     private DataBaseWrapper dbHelper;
-    private String[] ANIMAL_TABLE_COLUMNS = { AnimalConstantes.ID_ANIMAL, AnimalConstantes.TYPE,
-            AnimalConstantes.NAME, AnimalConstantes.BREED, AnimalConstantes.AGE, AnimalConstantes.CATS_FRIEND,
-            AnimalConstantes.DOGS_FRIEND, AnimalConstantes.CHILDREN_FRIEND, AnimalConstantes.DESCRIPTION,
-            AnimalConstantes.STATE };
+    private String[] ANIMAL_TABLE_COLUMNS = { AnimalConstants.ID_ANIMAL, AnimalConstants.TYPE,
+            AnimalConstants.NAME, AnimalConstants.BREED, AnimalConstants.AGE, AnimalConstants.CATS_FRIEND,
+            AnimalConstants.DOGS_FRIEND, AnimalConstants.CHILDREN_FRIEND, AnimalConstants.DESCRIPTION,
+            AnimalConstants.STATE };
     private SQLiteDatabase database;
 
 
@@ -37,17 +37,17 @@ public class AnimalOperation {
                                 String dogsFriend, String childrenFriend, String description, String state){
         ContentValues values = new ContentValues();
 
-        values.put(AnimalConstantes.TYPE, type);
-        values.put(AnimalConstantes.NAME, name);
-        values.put(AnimalConstantes.BREED, breed);
-        values.put(AnimalConstantes.AGE, age);
-        values.put(AnimalConstantes.CATS_FRIEND, catsFriend);
-        values.put(AnimalConstantes.DOGS_FRIEND, dogsFriend);
-        values.put(AnimalConstantes.CHILDREN_FRIEND, childrenFriend);
-        values.put(AnimalConstantes.DESCRIPTION, description);
-        values.put(AnimalConstantes.STATE, state);
+        values.put(AnimalConstants.TYPE, type);
+        values.put(AnimalConstants.NAME, name);
+        values.put(AnimalConstants.BREED, breed);
+        values.put(AnimalConstants.AGE, age);
+        values.put(AnimalConstants.CATS_FRIEND, catsFriend);
+        values.put(AnimalConstants.DOGS_FRIEND, dogsFriend);
+        values.put(AnimalConstants.CHILDREN_FRIEND, childrenFriend);
+        values.put(AnimalConstants.DESCRIPTION, description);
+        values.put(AnimalConstants.STATE, state);
 
-        long animalId = database.insert(AnimalConstantes.ANIMAL, null, values);
+        long animalId = database.insert(AnimalConstants.ANIMAL, null, values);
 
         Animal animal = getAnimal(animalId);
         return animal;
@@ -55,14 +55,14 @@ public class AnimalOperation {
 
     public void deleteAnimal(Animal animal) {
         long id = animal.getIdAnimal();
-        database.delete(AnimalConstantes.ANIMAL, AnimalConstantes.ID_ANIMAL
+        database.delete(AnimalConstants.ANIMAL, AnimalConstants.ID_ANIMAL
                 + " = " + id, null);
     }
 
     public List getAllAnimals() {
         List animals = new ArrayList();
 
-        Cursor cursor = database.query(AnimalConstantes.ANIMAL,
+        Cursor cursor = database.query(AnimalConstants.ANIMAL,
                 ANIMAL_TABLE_COLUMNS, null, null, null, null, null);
 
         cursor.moveToFirst();
@@ -77,8 +77,8 @@ public class AnimalOperation {
     }
 
     public Animal getAnimal(long animalId){
-        Cursor cursor = database.query(AnimalConstantes.ANIMAL,
-                ANIMAL_TABLE_COLUMNS, AnimalConstantes.ID_ANIMAL + " = "
+        Cursor cursor = database.query(AnimalConstants.ANIMAL,
+                ANIMAL_TABLE_COLUMNS, AnimalConstants.ID_ANIMAL + " = "
                         + animalId, null, null, null, null);
 
         cursor.moveToFirst();

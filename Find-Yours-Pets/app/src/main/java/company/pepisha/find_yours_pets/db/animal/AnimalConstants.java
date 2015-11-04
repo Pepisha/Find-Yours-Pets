@@ -1,7 +1,7 @@
 package company.pepisha.find_yours_pets.db.animal;
 
 
-public class AnimalConstantes {
+public class AnimalConstants {
 
     protected static final String ANIMAL = "Animal";
 
