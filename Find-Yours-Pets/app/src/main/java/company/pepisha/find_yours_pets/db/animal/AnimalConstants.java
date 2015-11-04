@@ -3,9 +3,9 @@ package company.pepisha.find_yours_pets.db.animal;
 
 public class AnimalConstants {
 
-    protected static final String ANIMAL = "Animal";
+    public static final String ANIMAL = "Animal";
 
-    protected static final String ID_ANIMAL = "idAnimal";
+    public static final String ID_ANIMAL = "idAnimal";
     protected static final String TYPE = "idType";
     protected static final String NAME = "name";
     protected static final String BREED = "breed";

@@ -1,4 +1,4 @@
-package company.pepisha.find_yours_pets.db.adress;
+package company.pepisha.find_yours_pets.db.address;
 
 
 public class Address {

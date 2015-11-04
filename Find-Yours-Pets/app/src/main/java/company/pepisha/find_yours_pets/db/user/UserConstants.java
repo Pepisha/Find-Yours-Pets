@@ -2,9 +2,9 @@ package company.pepisha.find_yours_pets.db.user;
 
 
 public class UserConstants {
-    protected static final String USER = "User";
+    public static final String USER = "User";
 
-    protected static final String ID_USER = "idUser";
+    public static final String ID_USER = "idUser";
     protected static final String NICKNAME = "nickname";
     protected static final String PASSWORD = "password";
     protected static final String EMAIL = "email";
