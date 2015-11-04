@@ -1,6 +1,8 @@
 package company.pepisha.find_yours_pets.db.shelter;
 
 
+import company.pepisha.find_yours_pets.db.address.AddressConstants;
+
 public class ShelterConstants {
 
     protected static final String SHELTER = "Shelter";
