@@ -35,19 +35,24 @@ public class UserOperation {
     public User addUser(String nickname, String password, String email, String phone,
                         String firstname, String lastname){
 
-        ContentValues values = new ContentValues();
+        if (!userExist(nickname)) {
 
-        values.put(UserConstants.NICKNAME, nickname);
-        values.put(UserConstants.PASSWORD, password);
-        values.put(UserConstants.EMAIL, email);
-        values.put(UserConstants.PHONE, phone);
-        values.put(UserConstants.FIRSTNAME, firstname);
-        values.put(UserConstants.LASTNAME, lastname);
+            ContentValues values = new ContentValues();
 
-        long userId = database.insert(UserConstants.USER, null, values);
+            values.put(UserConstants.NICKNAME, nickname);
+            values.put(UserConstants.PASSWORD, password);
+            values.put(UserConstants.EMAIL, email);
+            values.put(UserConstants.PHONE, phone);
+            values.put(UserConstants.FIRSTNAME, firstname);
+            values.put(UserConstants.LASTNAME, lastname);
 
-        User user = getUser(userId);
-        return user;
+            long userId = database.insert(UserConstants.USER, null, values);
+
+            User user = getUser(userId);
+            return user;
+        }
+
+        return null;
     }
 
     public void deleteUser(User user){
@@ -83,6 +88,14 @@ public class UserOperation {
         User user = parseUser(cursor);
         cursor.close();
         return user;
+    }
+
+    public boolean userExist(String nickname) {
+        Cursor cursor = database.query(UserConstants.USER,
+                USER_TABLE_COLUMNS, UserConstants.NICKNAME + " = "
+                        + nickname, null, null, null, null);
+
+        return (cursor != null && cursor.getCount() > 0);
     }
 
     private User parseUser(Cursor cursor){

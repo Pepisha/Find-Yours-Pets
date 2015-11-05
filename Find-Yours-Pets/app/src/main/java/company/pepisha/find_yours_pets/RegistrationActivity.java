@@ -4,6 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+import company.pepisha.find_yours_pets.db.user.UserOperation;
+import company.pepisha.find_yours_pets.tools.RegistrationCheck;
 
 public class RegistrationActivity extends Activity {
 
@@ -11,6 +17,36 @@ public class RegistrationActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        Button registrationButton = (Button) findViewById(R.id.registrationButton);
+
+        registrationButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                UserOperation userDBOperation = new UserOperation(v.getContext());
+                userDBOperation.open();
+
+                EditText nickname = (EditText) findViewById(R.id.nickname);
+                EditText password = (EditText) findViewById(R.id.password);
+                EditText passwordConfirmation = (EditText) findViewById(R.id.passwordConfirmation);
+                EditText mail = (EditText) findViewById(R.id.mail);
+                EditText phone = (EditText) findViewById(R.id.phone);
+                EditText firstname = (EditText) findViewById(R.id.firstname);
+                EditText lastname = (EditText) findViewById(R.id.lastname);
+
+                if (RegistrationCheck.passwordsMatch(password.getText().toString(), passwordConfirmation.getText().toString())) {
+
+                    userDBOperation.addUser(nickname.getText().toString(),
+                            password.getText().toString(),
+                            mail.getText().toString(),
+                            phone.getText().toString(),
+                            firstname.getText().toString(),
+                            lastname.getText().toString());
+                }
+
+                userDBOperation.close();
+            }
+        });
     }
 
     @Override

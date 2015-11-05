@@ -33,8 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/login"
-            android:id="@+id/loginLabel"
+            android:text="@string/nickname"
+            android:id="@+id/nicknameLabel"
             android:layout_gravity="center_horizontal"
             android:textSize="25dp"
             android:textIsSelectable="false" />
@@ -42,7 +42,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/login"
+            android:id="@+id/nickname"
             android:layout_weight="0.13" />
 
         <Space
