@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Paramètres</string>
-    <string name="login">Pseudonyme</string>
+    <string name="nickname">Pseudonyme</string>
     <string name="password">Mot de passe</string>
     <string name="connectionText">Connexion</string>
     <string name="registerText">S\'inscrire</string>
@@ -9,4 +9,7 @@
     <string name="passwordConfirmation">Confirmer le mot de passe</string>
     <string name="mail">Mail</string>
     <string name="registrationText">Inscription</string>
+    <string name="phone">Téléphone</string>
+    <string name="firstname">Prénom</string>
+    <string name="lastname">Nom</string>
 </resources>

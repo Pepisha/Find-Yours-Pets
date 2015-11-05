@@ -10,19 +10,20 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:weightSum="1"
-        android:id="@+id/layout">
+        android:id="@+id/layout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/title"
             android:id="@+id/title"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.06"
-            android:textSize="40dp" />
+            android:textSize="30dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -33,34 +34,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/login"
-            android:id="@+id/loginLabel"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/nickname"
+            android:id="@+id/nicknameLabel"
             android:layout_gravity="center_horizontal"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textIsSelectable="false" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/login"
+            android:id="@+id/nickname"
             android:layout_weight="0.05" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.10" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/password"
             android:id="@+id/passwordLabel"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.05"
-            android:textSize="25dp" />
+            android:textSize="20dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -74,12 +69,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/passwordConfirmation"
             android:id="@+id/passwordConfirmationLabel"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.05"
-            android:textSize="25dp" />
+            android:textSize="20dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -93,12 +88,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/mail"
             android:id="@+id/mailLabel"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.05"
-            android:textSize="25dp" />
+            android:textSize="20dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -109,11 +104,68 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.05" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/phone"
+            android:id="@+id/phoneLabel"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.05"
+            android:textSize="20dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|phone"
+            android:ems="10"
+            android:id="@+id/phone"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.05" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/firstname"
+            android:id="@+id/firstnameLabel"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.05"
+            android:textSize="20dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/firstname"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.06" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/lastname"
+            android:id="@+id/lastnameLabel"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.05"
+            android:textSize="20dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/lastname"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.06" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/registrationText"
-            android:id="@+id/connectionButton"
+            android:id="@+id/registrationButton"
             android:layout_gravity="bottom"
             android:layout_marginBottom="0dp"
             android:layout_weight="0.08" />
