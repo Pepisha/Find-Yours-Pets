@@ -12,4 +12,6 @@
     <string name="phone">Téléphone</string>
     <string name="firstname">Prénom</string>
     <string name="lastname">Nom</string>
+    <string name="successConnection">Vous êtes connecté</string>
+    <string name="failureConnection">La connexion a échoué</string>
 </resources>

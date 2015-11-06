@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import company.pepisha.find_yours_pets.db.user.UserOperation;
 import company.pepisha.find_yours_pets.tools.RegistrationCheck;
@@ -24,24 +25,29 @@ public class RegistrationActivity extends Activity {
 
             public void onClick(View v) {
                 UserOperation userDBOperation = new UserOperation(v.getContext());
-                userDBOperation.open();
+                try {
+                    userDBOperation.open();
 
-                EditText nickname = (EditText) findViewById(R.id.nickname);
-                EditText password = (EditText) findViewById(R.id.password);
-                EditText passwordConfirmation = (EditText) findViewById(R.id.passwordConfirmation);
-                EditText mail = (EditText) findViewById(R.id.mail);
-                EditText phone = (EditText) findViewById(R.id.phone);
-                EditText firstname = (EditText) findViewById(R.id.firstname);
-                EditText lastname = (EditText) findViewById(R.id.lastname);
+                    EditText nickname = (EditText) findViewById(R.id.nickname);
+                    EditText password = (EditText) findViewById(R.id.password);
+                    EditText passwordConfirmation = (EditText) findViewById(R.id.passwordConfirmation);
+                    EditText mail = (EditText) findViewById(R.id.mail);
+                    EditText phone = (EditText) findViewById(R.id.phone);
+                    EditText firstname = (EditText) findViewById(R.id.firstname);
+                    EditText lastname = (EditText) findViewById(R.id.lastname);
 
-                if (RegistrationCheck.passwordsMatch(password.getText().toString(), passwordConfirmation.getText().toString())) {
+                    if (RegistrationCheck.passwordsMatch(password.getText().toString(), passwordConfirmation.getText().toString())) {
 
-                    userDBOperation.addUser(nickname.getText().toString(),
-                            password.getText().toString(),
-                            mail.getText().toString(),
-                            phone.getText().toString(),
-                            firstname.getText().toString(),
-                            lastname.getText().toString());
+                        userDBOperation.addUser(nickname.getText().toString(),
+                                password.getText().toString(),
+                                mail.getText().toString(),
+                                phone.getText().toString(),
+                                firstname.getText().toString(),
+                                lastname.getText().toString());
+                    }
+                } catch(android.database.SQLException e) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "DB error :" + e.toString(), Toast.LENGTH_SHORT);
+                    toast.show();
                 }
 
                 userDBOperation.close();

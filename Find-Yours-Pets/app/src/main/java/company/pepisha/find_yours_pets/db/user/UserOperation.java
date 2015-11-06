@@ -98,6 +98,15 @@ public class UserOperation {
         return (cursor != null && cursor.getCount() > 0);
     }
 
+    public boolean userConnection(String nickname, String password) {
+        Cursor cursor = database.query(UserConstants.USER,
+                USER_TABLE_COLUMNS,
+                UserConstants.NICKNAME + " = " + nickname + " AND " + UserConstants.PASSWORD + " = " + password,
+                null, null, null, null);
+
+        return (cursor != null && cursor.getCount() > 0);
+    }
+
     private User parseUser(Cursor cursor){
         User user = new User();
         user.setIdUser(cursor.getInt(0));
