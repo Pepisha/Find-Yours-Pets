@@ -12,14 +12,14 @@ public class AddressConstants {
     protected static final String LATITUDE = "latitude";
     protected static final String LONGITUDE = "longitude";
 
-    protected static final String ADDRESS_CREATE =  "create table " + ADDRESS
+    public static final String ADDRESS_CREATE =  "create table " + ADDRESS
             + "(" + ID_ADDRESS + " integer primary key autoincrement, " +
             STREET + " integer not null, " +
             ZIPCODE + " text not null, " +
             CITY + " text not null, " +
             LATITUDE + " text not null, " +
             LONGITUDE + " text not null " +
-            ");";
+            "); ";
 
-    protected static final String ADDRESS_DROP = "DROP TABLE IF EXISTS " + ADDRESS;
+    public static final String ADDRESS_DROP = "DROP TABLE IF EXISTS " + ADDRESS + "; ";
 }

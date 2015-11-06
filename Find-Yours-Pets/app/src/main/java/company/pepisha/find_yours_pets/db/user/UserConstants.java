@@ -12,7 +12,7 @@ public class UserConstants {
     protected static final String FIRSTNAME =  "firstname";
     protected static final String LASTNAME = "lastname";
 
-    protected static final String USER_CREATE = "create table " + USER
+    public static final String USER_CREATE = "create table " + USER
             + "(" + ID_USER + " integer primary key autoincrement, " +
             NICKNAME + " text not null, " +
             PASSWORD + " text not null, " +
@@ -20,7 +20,7 @@ public class UserConstants {
             PHONE + " text not null, " +
             FIRSTNAME + " text not null, " +
             LASTNAME + " text not null, " +
-            ");";
+            "); ";
 
-    protected static final String USER_DROP = "DROP TABLE IF EXISTS " + USER;
+    public static final String USER_DROP = "DROP TABLE IF EXISTS " + USER + "; ";
 }

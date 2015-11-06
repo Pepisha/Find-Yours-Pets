@@ -13,7 +13,7 @@ public class OpinionConstants {
     protected static final String ID_SHELTER = "idShelter";
     protected static final String ID_USER = "idUser";
 
-    protected static final String OPINION_CREATE = "create table " + OPINION
+    public static final String OPINION_CREATE = "create table " + OPINION
             + "(" + ID_OPINION + " integer primary key autoincrement, " +
             STARS + " integer not null, " +
             COMMENT + " text not null, " +
@@ -23,7 +23,7 @@ public class OpinionConstants {
                             + "(" + ShelterConstants.ID_SHELTER + ")," +
             "FOREIGN KEY(" + ID_USER + ") REFERENCES " + UserConstants.USER
                             + "(" + UserConstants.ID_USER + ")," +
-            ");";
+            "); ";
 
-    protected static final String OPINION_DROP = "DROP TABLE IF NOT EXISTS " + OPINION;
+    public static final String OPINION_DROP = "DROP TABLE IF NOT EXISTS " + OPINION + "; ";
 }

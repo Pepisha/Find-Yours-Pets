@@ -14,7 +14,7 @@ import company.pepisha.find_yours_pets.db.DataBaseWrapper;
 public class AnimalOperation {
 
     private DataBaseWrapper dbHelper;
-    private String[] ANIMAL_TABLE_COLUMNS = { AnimalConstants.ID_ANIMAL, AnimalConstants.TYPE,
+    private String[] ANIMAL_TABLE_COLUMNS = { AnimalConstants.ID_ANIMAL, AnimalConstants.ID_TYPE,
             AnimalConstants.NAME, AnimalConstants.BREED, AnimalConstants.AGE, AnimalConstants.CATS_FRIEND,
             AnimalConstants.DOGS_FRIEND, AnimalConstants.CHILDREN_FRIEND, AnimalConstants.DESCRIPTION,
             AnimalConstants.STATE };
@@ -37,7 +37,7 @@ public class AnimalOperation {
                                 String dogsFriend, String childrenFriend, String description, String state){
         ContentValues values = new ContentValues();
 
-        values.put(AnimalConstants.TYPE, type);
+        values.put(AnimalConstants.ID_TYPE, type);
         values.put(AnimalConstants.NAME, name);
         values.put(AnimalConstants.BREED, breed);
         values.put(AnimalConstants.AGE, age);
