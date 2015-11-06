@@ -7,6 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import company.pepisha.find_yours_pets.db.user.UserOperation;
 
 public class MainActivity extends Activity {
 
@@ -22,8 +26,32 @@ public class MainActivity extends Activity {
         connectionButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                /*Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(homeScreen);*/
+                UserOperation userDBOperation = new UserOperation(v.getContext());
+                try {
+                    userDBOperation.open();
+
+                    EditText nickname = (EditText) findViewById(R.id.nickname);
+                    EditText password = (EditText) findViewById(R.id.password);
+
+                    String toastText = "";
+                    if (userDBOperation.userConnection(nickname.getText().toString(), password.getText().toString())) {
+                        toastText = getString(R.string.successConnection);
+
+                        /*Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(homeScreen);*/
+                    } else {
+                        toastText = getString(R.string.successConnection);
+                    }
+
+                    Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
+                    toast.show();
+
+                } catch(android.database.SQLException e) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "DB error :" + e.toString(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+                userDBOperation.close();
             }
         });
 
