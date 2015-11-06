@@ -3,7 +3,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="title" translatable="false">Find Your Pets</string>
-    <string name="login">Login</string>
+    <string name="nickname">Nickname</string>
     <string name="password">Password</string>
     <string name="connectionText">Connection</string>
     <string name="registerText">Register</string>
@@ -11,4 +11,7 @@
     <string name="passwordConfirmation">Password Confirmation</string>
     <string name="mail">Mail</string>
     <string name="registrationText">Registration</string>
+    <string name="phone">Phone</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
 </resources>
