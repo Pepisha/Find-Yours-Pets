@@ -19,7 +19,7 @@ public class ShelterConstants {
     protected static final String ID_INSTAGRAM = "idInstagram";
 
 
-    protected static final String SHELTER_CREATE = "create table " + SHELTER
+    public static final String SHELTER_CREATE = "create table " + SHELTER
             + "(" + ID_SHELTER + " integer primary key autoincrement, " +
             NAME + " text not null, " +
             PHONE + " text not null, " +
@@ -27,12 +27,12 @@ public class ShelterConstants {
             DESCRIPTION + " text, " +
             MAIL + " text not null, " +
             OPERATIONAL_HOURS + " text, " +
-            ID_FACEBOOK + " text not null" +
-            ID_TWITTER + " text not null" +
-            ID_INSTAGRAM + " text not null" +
+            ID_FACEBOOK + " text not null " +
+            ID_TWITTER + " text not null " +
+            ID_INSTAGRAM + " text not null " +
             "FOREIGN KEY(" + ID_ADDRESS + ") REFERENCES " + AddressConstants.ADDRESS
-                        + "(" + AddressConstants.ID_ADDRESS + ")" +
-            ");";
+                        + " (" + AddressConstants.ID_ADDRESS + ")" +
+            "); ";
 
-    protected static final String SHELTER_DROP = "DROP TABLE IF EXISTS " + SHELTER;
+    public static final String SHELTER_DROP = "DROP TABLE IF EXISTS " + SHELTER + "; ";
 }

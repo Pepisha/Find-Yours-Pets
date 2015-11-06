@@ -6,7 +6,7 @@ public class AnimalConstants {
     public static final String ANIMAL = "Animal";
 
     public static final String ID_ANIMAL = "idAnimal";
-    protected static final String TYPE = "idType";
+    protected static final String ID_TYPE = "idType";
     protected static final String NAME = "name";
     protected static final String BREED = "breed";
     protected static final String AGE = "age";
@@ -17,9 +17,9 @@ public class AnimalConstants {
     protected static final String STATE = "idState";
 
 
-    protected static final String ANIMAL_CREATE = "create table " + ANIMAL
+    public static final String ANIMAL_CREATE = "create table " + ANIMAL
             + "(" + ID_ANIMAL + " integer primary key autoincrement, " +
-                    TYPE + " integer not null, " +
+            ID_TYPE + " integer not null, " +
                     NAME + " text not null, " +
                     BREED + " text not null, " +
                     AGE + " text not null, " +
@@ -27,9 +27,12 @@ public class AnimalConstants {
                     DOGS_FRIEND + " text, " +
                     CHILDREN_FRIEND + " text, " +
                     DESCRIPTION + " text, " +
-                    STATE + " integer not null" +
-            ");";
+                    STATE + " integer not null " +
+                    "FOREIGN KEY(" + ID_TYPE + ") REFERENCES " + AnimalTypeConstants.ANIMAL_TYPE
+                        + " (" + AnimalTypeConstants.ID_ANIMAL_TYPE + ") " +
+            "); ";
 
-    protected static final String ANIMAL_DROP = "DROP TABLE IF EXISTS " + ANIMAL;
+    public static final String ANIMAL_DROP = "DROP TABLE IF EXISTS " + ANIMAL + "; ";
+
 
 }
