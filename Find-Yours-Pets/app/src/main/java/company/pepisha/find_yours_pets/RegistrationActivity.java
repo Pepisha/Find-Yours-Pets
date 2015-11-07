@@ -45,8 +45,11 @@ public class RegistrationActivity extends Activity {
                                 firstname.getText().toString(),
                                 lastname.getText().toString());
                     }
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "Inscription de " + nickname.getText().toString(), Toast.LENGTH_LONG);
+                    toast.show();
                 } catch(android.database.SQLException e) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "DB error :" + e.toString(), Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "DB error :" + e.toString(), Toast.LENGTH_LONG);
                     toast.show();
                 }
 

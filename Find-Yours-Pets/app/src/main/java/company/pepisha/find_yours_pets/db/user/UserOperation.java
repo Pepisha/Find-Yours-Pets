@@ -92,8 +92,8 @@ public class UserOperation {
 
     public boolean userExist(String nickname) {
         Cursor cursor = database.query(UserConstants.USER,
-                USER_TABLE_COLUMNS, UserConstants.NICKNAME + " = "
-                        + nickname, null, null, null, null);
+                USER_TABLE_COLUMNS, UserConstants.NICKNAME + " = '"
+                        + nickname + "'", null, null, null, null);
 
         return (cursor != null && cursor.getCount() > 0);
     }
@@ -101,7 +101,7 @@ public class UserOperation {
     public boolean userConnection(String nickname, String password) {
         Cursor cursor = database.query(UserConstants.USER,
                 USER_TABLE_COLUMNS,
-                UserConstants.NICKNAME + " = " + nickname + " AND " + UserConstants.PASSWORD + " = " + password,
+                UserConstants.NICKNAME + " = '" + nickname + "' AND " + UserConstants.PASSWORD + " = '" + password + "'",
                 null, null, null, null);
 
         return (cursor != null && cursor.getCount() > 0);
