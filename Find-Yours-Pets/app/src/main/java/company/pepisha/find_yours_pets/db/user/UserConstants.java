@@ -19,7 +19,7 @@ public class UserConstants {
             EMAIL + " text not null, " +
             PHONE + " text not null, " +
             FIRSTNAME + " text not null, " +
-            LASTNAME + " text not null, " +
+            LASTNAME + " text not null " +
             "); ";
 
     public static final String USER_DROP = "DROP TABLE IF EXISTS " + USER + "; ";

@@ -33,14 +33,14 @@ public class MainActivity extends Activity {
                     EditText nickname = (EditText) findViewById(R.id.nickname);
                     EditText password = (EditText) findViewById(R.id.password);
 
-                    String toastText = "";
+                    String toastText;
                     if (userDBOperation.userConnection(nickname.getText().toString(), password.getText().toString())) {
                         toastText = getString(R.string.successConnection);
 
                         /*Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(homeScreen);*/
                     } else {
-                        toastText = getString(R.string.successConnection);
+                        toastText = getString(R.string.failureConnection);
                     }
 
                     Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
