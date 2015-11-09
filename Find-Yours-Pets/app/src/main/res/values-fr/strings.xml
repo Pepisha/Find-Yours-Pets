@@ -14,6 +14,7 @@
     <string name="lastname">Nom</string>
     <string name="successConnection">Vous êtes connecté</string>
     <string name="failureConnection">La connexion a échoué</string>
+    <string name="title_activity_home">Accueil</string>
     <string name="title_activity_add_animal">Ajouter un animal</string>
     <string name="addAnimal">Ajouter un animal</string>
     <string name="type">Type</string>

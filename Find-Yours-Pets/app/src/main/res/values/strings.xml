@@ -16,6 +16,7 @@
     <string name="lastname">Lastname</string>
     <string name="successConnection">You are connected</string>
     <string name="failureConnection">Failed connection</string>
+    <string name="title_activity_home">Home</string>
     <string name="title_activity_add_animal">Add Animal</string>
     <string name="name">Name</string>
     <string name="addAnimal">Add Animal</string>
