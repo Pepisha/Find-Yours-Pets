@@ -18,6 +18,7 @@ public class AnimalOperation {
             AnimalConstants.NAME, AnimalConstants.BREED, AnimalConstants.AGE, AnimalConstants.CATS_FRIEND,
             AnimalConstants.DOGS_FRIEND, AnimalConstants.CHILDREN_FRIEND, AnimalConstants.DESCRIPTION,
             AnimalConstants.STATE };
+
     private SQLiteDatabase database;
 
 
@@ -75,6 +76,8 @@ public class AnimalOperation {
         cursor.close();
         return animals;
     }
+
+
 
     public Animal getAnimal(long animalId){
         Cursor cursor = database.query(AnimalConstants.ANIMAL,
