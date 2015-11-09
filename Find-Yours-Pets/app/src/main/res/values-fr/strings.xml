@@ -14,4 +14,19 @@
     <string name="lastname">Nom</string>
     <string name="successConnection">Vous êtes connecté</string>
     <string name="failureConnection">La connexion a échoué</string>
+    <string name="title_activity_add_animal">Ajouter un animal</string>
+    <string name="addAnimal">Ajouter un animal</string>
+    <string name="type">Type</string>
+    <string name="sex">Sexe</string>
+    <string name="male">Mâle</string>
+    <string name="female">Femelle</string>
+    <string name="name">Nom</string>
+    <string name="app_name" translatable="false"></string>
+    <string name="breed">Race</string>
+    <string name="age">Age</string>
+    <string name="catsFriend">Ententes chats</string>
+    <string name="dogsAgreements">Ententes chiens</string>
+    <string name="childrenAgreements">Ententes enfants</string>
+    <string name="description">Description</string>
+    <string name="create">Ajouter</string>
 </resources>
