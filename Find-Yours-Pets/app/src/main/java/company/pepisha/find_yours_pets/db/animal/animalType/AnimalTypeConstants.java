@@ -12,13 +12,13 @@ public class AnimalTypeConstants {
     protected static final String NAC = "NAC";
 
     protected static final String ANIMAL_TYPE_CHIEN = "INSERT INTO " + ANIMAL_TYPE +
-        "( " + ID_ANIMAL_TYPE + ", " + NAME + ") VALUES (1, " + DOG + "); ";
+        "( " + ID_ANIMAL_TYPE + ", " + NAME + ") VALUES (1, '" + DOG + "'); ";
 
     protected static final String ANIMAL_TYPE_CHAT = "INSERT INTO " + ANIMAL_TYPE +
-            "( " + ID_ANIMAL_TYPE + ", " + NAME + ") VALUES (2, " + CAT + "); ";
+            "( " + ID_ANIMAL_TYPE + ", " + NAME + ") VALUES (2, '" + CAT + "'); ";
 
     protected static final String ANIMAL_TYPE_NAC = "INSERT INTO " + ANIMAL_TYPE +
-            "( " + ID_ANIMAL_TYPE + ", " + NAME + ") VALUES (3, " + NAC + "); ";
+            "( " + ID_ANIMAL_TYPE + ", " + NAME + ") VALUES (3, '" + NAC + "'); ";
 
 
     public static final String ANIMAL_TYPE_CREATE = "create table " + ANIMAL_TYPE

@@ -16,4 +16,18 @@
     <string name="lastname">Lastname</string>
     <string name="successConnection">You are connected</string>
     <string name="failureConnection">Failed connection</string>
+    <string name="title_activity_add_animal">Add Animal</string>
+    <string name="name">Name</string>
+    <string name="addAnimal">Add Animal</string>
+    <string name="type">Type</string>
+    <string name="sex">Sex</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="breed">Breed</string>
+    <string name="age">Age</string>
+    <string name="catsFriend">Cats agreements</string>
+    <string name="dogsAgreements">Dogs agreements</string>
+    <string name="childrenAgreements">Children agreements</string>
+    <string name="description">Description</string>
+    <string name="create">Create</string>
 </resources>
