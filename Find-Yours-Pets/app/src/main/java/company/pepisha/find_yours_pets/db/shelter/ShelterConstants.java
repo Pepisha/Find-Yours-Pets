@@ -27,12 +27,12 @@ public class ShelterConstants {
             DESCRIPTION + " text, " +
             MAIL + " text not null, " +
             OPERATIONAL_HOURS + " text, " +
-            ID_FACEBOOK + " text not null " +
-            ID_TWITTER + " text not null " +
-            ID_INSTAGRAM + " text not null " +
+            ID_FACEBOOK + " text not null, " +
+            ID_TWITTER + " text not null, " +
+            ID_INSTAGRAM + " text not null, " +
             "FOREIGN KEY(" + ID_ADDRESS + ") REFERENCES " + AddressConstants.ADDRESS
                         + " (" + AddressConstants.ID_ADDRESS + ")" +
-            "); ";
+            ")";
 
-    public static final String SHELTER_DROP = "DROP TABLE IF EXISTS " + SHELTER + "; ";
+    public static final String SHELTER_DROP = "DROP TABLE IF EXISTS " + SHELTER;
 }

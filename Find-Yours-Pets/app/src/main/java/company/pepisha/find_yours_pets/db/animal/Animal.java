@@ -2,11 +2,16 @@ package company.pepisha.find_yours_pets.db.animal;
 
 
 public class Animal {
+    public enum Gender {
+        MALE, FEMALE
+    }
+
     private int idAnimal;
     private int type;
     private String name;
     private String breed;
     private String age;
+    private Gender gender;
     private String catsFriend;
     private String dogsFriend;
     private String childrenFriend;
@@ -52,6 +57,10 @@ public class Animal {
     public void setAge(String age) {
         this.age = age;
     }
+
+    public Gender getGender() { return gender; }
+
+    public void setGender(Gender gender) { this.gender = gender; }
 
     public String getCatsFriend() {
         return catsFriend;

@@ -21,6 +21,10 @@
             android:label="@string/title_activity_registration" >
         </activity>
         <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
             android:name=".AddAnimalActivity"
             android:label="@string/title_activity_add_animal" >
         </activity>

@@ -16,10 +16,10 @@ public class AnimalShelterConstants {
             ID_ANIMAL + " integer not null, " +
             ID_SHELTER + " integer not null, " +
             "FOREIGN KEY(" + ID_SHELTER + ") REFERENCES " + ShelterConstants.SHELTER
-            + " (" + ShelterConstants.ID_SHELTER + ") " +
+            + " (" + ShelterConstants.ID_SHELTER + "), " +
             "FOREIGN KEY(" + ID_ANIMAL + ") REFERENCES " + AnimalConstants.ANIMAL
             + " (" + AnimalConstants.ID_ANIMAL + ") " +
-            "); ";
+            ")";
 
-    public static final String ANIMAL_SHELTER_DROP = "DROP TABLE IF EXISTS " + ANIMAL_SHELTER + "; ";
+    public static final String ANIMAL_SHELTER_DROP = "DROP TABLE IF EXISTS " + ANIMAL_SHELTER;
 }

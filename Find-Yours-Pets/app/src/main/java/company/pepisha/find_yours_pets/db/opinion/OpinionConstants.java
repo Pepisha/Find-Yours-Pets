@@ -20,10 +20,10 @@ public class OpinionConstants {
             ID_SHELTER + " integer not null, " +
             ID_USER + " integer not null, " +
             "FOREIGN KEY(" + ID_SHELTER + ") REFERENCES " + ShelterConstants.SHELTER
-                            + "(" + ShelterConstants.ID_SHELTER + ")," +
+                            + "(" + ShelterConstants.ID_SHELTER + "), " +
             "FOREIGN KEY(" + ID_USER + ") REFERENCES " + UserConstants.USER
-                            + "(" + UserConstants.ID_USER + ")," +
-            "); ";
+                            + "(" + UserConstants.ID_USER + ")" +
+            ")";
 
-    public static final String OPINION_DROP = "DROP TABLE IF NOT EXISTS " + OPINION + "; ";
+    public static final String OPINION_DROP = "DROP TABLE IF NOT EXISTS " + OPINION;
 }

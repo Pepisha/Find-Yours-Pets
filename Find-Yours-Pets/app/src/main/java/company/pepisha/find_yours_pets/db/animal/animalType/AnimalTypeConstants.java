@@ -11,23 +11,20 @@ public class AnimalTypeConstants {
     protected static final String CAT = "Cat";
     protected static final String NAC = "NAC";
 
-    protected static final String ANIMAL_TYPE_CHIEN = "INSERT INTO " + ANIMAL_TYPE +
-        "( " + ID_ANIMAL_TYPE + ", " + NAME + ") VALUES (1, '" + DOG + "'); ";
+    public static final String ANIMAL_TYPE_DOG = "INSERT INTO " + ANIMAL_TYPE +
+            "(" + NAME + ") VALUES ('" + DOG + "')";
 
-    protected static final String ANIMAL_TYPE_CHAT = "INSERT INTO " + ANIMAL_TYPE +
-            "( " + ID_ANIMAL_TYPE + ", " + NAME + ") VALUES (2, '" + CAT + "'); ";
+    public static final String ANIMAL_TYPE_CAT = "INSERT INTO " + ANIMAL_TYPE +
+            "(" + NAME + ") VALUES ('" + CAT + "')";
 
-    protected static final String ANIMAL_TYPE_NAC = "INSERT INTO " + ANIMAL_TYPE +
-            "( " + ID_ANIMAL_TYPE + ", " + NAME + ") VALUES (3, '" + NAC + "'); ";
+    public static final String ANIMAL_TYPE_NAC = "INSERT INTO " + ANIMAL_TYPE +
+            "(" + NAME + ") VALUES ('" + NAC + "')";
 
 
     public static final String ANIMAL_TYPE_CREATE = "create table " + ANIMAL_TYPE
             + "(" + ID_ANIMAL_TYPE + " integer primary key autoincrement, " +
             NAME + " text not null "  +
-            "); " +
-            ANIMAL_TYPE_CHIEN +
-            ANIMAL_TYPE_CHAT +
-            ANIMAL_TYPE_NAC;
+            ")";
 
-    public static final String ANIMAL_TYPE_DROP = "DROP TABLE IF EXISTS " + ANIMAL_TYPE + "; ";
+    public static final String ANIMAL_TYPE_DROP = "DROP TABLE IF EXISTS " + ANIMAL_TYPE;
 }

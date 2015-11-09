@@ -37,8 +37,8 @@ public class MainActivity extends Activity {
                     if (userDBOperation.userConnection(nickname.getText().toString(), password.getText().toString())) {
                         toastText = getString(R.string.successConnection);
 
-                        /*Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(homeScreen);*/
+                        Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(homeScreen);
                     } else {
                         toastText = getString(R.string.failureConnection);
                     }

@@ -15,11 +15,11 @@ public class PhotoNewsConstants {
             ID_PHOTO + " integer not null, " +
             ID_NEWS + " integer not null, " +
             "FOREIGN KEY(" + ID_PHOTO + ") REFERENCES " + PhotoConstants.PHOTO
-            + " (" + PhotoConstants.ID_PHOTO + ") " +
+            + " (" + PhotoConstants.ID_PHOTO + "), " +
             "FOREIGN KEY(" + ID_NEWS + ") REFERENCES " + NewsConstants.NEWS
             + " (" + NewsConstants.ID_NEWS + ") " +
-            "); ";
+            ")";
 
-    public static final String PHOTO_NEWS_DROP = "DROP TABLE IF EXISTS " + PHOTO_NEWS + "; ";
+    public static final String PHOTO_NEWS_DROP = "DROP TABLE IF EXISTS " + PHOTO_NEWS;
 
 }
