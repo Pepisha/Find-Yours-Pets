@@ -1,10 +1,10 @@
-package company.pepisha.find_yours_pets.db.animal;
+package company.pepisha.find_yours_pets.db.animal.animalType;
 
 public class AnimalTypeConstants {
 
-    protected static final String ANIMAL_TYPE = "AnimalType";
+    public static final String ANIMAL_TYPE = "AnimalType";
 
-    protected static final String ID_ANIMAL_TYPE = "idAnimalType";
+    public static final String ID_ANIMAL_TYPE = "idAnimalType";
     protected static final String NAME = "name";
 
     protected static final String DOG = "Dog";

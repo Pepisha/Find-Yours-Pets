@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import company.pepisha.find_yours_pets.db.address.AddressConstants;
 import company.pepisha.find_yours_pets.db.animal.AnimalConstants;
 import company.pepisha.find_yours_pets.db.animal.AnimalStateConstants;
-import company.pepisha.find_yours_pets.db.animal.AnimalTypeConstants;
+import company.pepisha.find_yours_pets.db.animal.animalType.AnimalTypeConstants;
 import company.pepisha.find_yours_pets.db.associations.AdoptConstants;
 import company.pepisha.find_yours_pets.db.associations.AnimalShelterConstants;
 import company.pepisha.find_yours_pets.db.associations.FollowAnimalConstants;

@@ -1,6 +1,8 @@
 package company.pepisha.find_yours_pets.db.animal;
 
 
+import company.pepisha.find_yours_pets.db.animal.animalType.AnimalTypeConstants;
+
 public class AnimalConstants {
 
     public static final String ANIMAL = "Animal";
