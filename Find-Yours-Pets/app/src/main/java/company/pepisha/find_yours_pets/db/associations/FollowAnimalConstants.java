@@ -16,10 +16,10 @@ public class FollowAnimalConstants {
             ID_USER + " integer not null, " +
             ID_ANIMAL + " integer not null, " +
             "FOREIGN KEY(" + ID_USER + ") REFERENCES " + UserConstants.USER
-            + " (" + UserConstants.ID_USER + ") " +
+            + " (" + UserConstants.ID_USER + "), " +
             "FOREIGN KEY(" + ID_ANIMAL + ") REFERENCES " + AnimalConstants.ANIMAL
             + " (" + AnimalConstants.ID_ANIMAL + ") " +
-            "); ";
+            ")";
 
-    public static final String FOLLOW_ANIMAL_DROP = "DROP TABLE IF EXISTS " + FOLLOW_ANIMAL + "; ";
+    public static final String FOLLOW_ANIMAL_DROP = "DROP TABLE IF EXISTS " + FOLLOW_ANIMAL;
 }

@@ -17,7 +17,7 @@ public class AdoptConstants {
 
             "FOREIGN KEY(" + ID_ANIMAL + ") REFERENCES " + AnimalConstants.ANIMAL
             + " (" + AnimalConstants.ID_ANIMAL + ") " +
-            "); ";
+            ")";
 
-    public static final String ADOPT_DROP = "DROP TABLE IF EXISTS " + ADOPT + "; ";
+    public static final String ADOPT_DROP = "DROP TABLE IF EXISTS " + ADOPT;
 }

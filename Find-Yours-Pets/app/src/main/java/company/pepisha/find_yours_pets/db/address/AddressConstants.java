@@ -19,7 +19,7 @@ public class AddressConstants {
             CITY + " text not null, " +
             LATITUDE + " text not null, " +
             LONGITUDE + " text not null " +
-            "); ";
+            ")";
 
-    public static final String ADDRESS_DROP = "DROP TABLE IF EXISTS " + ADDRESS + "; ";
+    public static final String ADDRESS_DROP = "DROP TABLE IF EXISTS " + ADDRESS;
 }

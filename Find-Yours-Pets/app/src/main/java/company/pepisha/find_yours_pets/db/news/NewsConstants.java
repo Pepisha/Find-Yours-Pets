@@ -15,8 +15,8 @@ public class NewsConstants {
             DESCRIPTION + " text not null, " +
             ID_ANIMAL + " integer not null, " +
             "FOREIGN KEY(" + ID_ANIMAL + ") REFERENCES " + AnimalConstants.ANIMAL
-            + "(" + AnimalConstants.ID_ANIMAL + ")," +
-            "); ";
+            + "(" + AnimalConstants.ID_ANIMAL + ")" +
+            ")";
 
-    public static final String NEWS_DROP = "DROP TABLE IF NOT EXISTS " + NEWS + "; ";
+    public static final String NEWS_DROP = "DROP TABLE IF NOT EXISTS " + NEWS;
 }

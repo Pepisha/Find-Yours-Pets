@@ -11,18 +11,16 @@ public class AnimalStateConstants {
     protected static final String ADOPTION = "Adoption";
     protected static final String ADOPTED = "Adopted";
 
-    protected static final String ANIMAL_STATE_ADOPTION = "INSET INTO " + ANIMAL_STATE +
-            "( " + ID_ANIMAL_STATE + ", " + NAME + " ) VALUES (1, " + ADOPTION + ") ;";
+    public static final String ANIMAL_STATE_ADOPTION = "INSERT INTO " + ANIMAL_STATE +
+            "(" + NAME + ") VALUES ('" + ADOPTION + "')";
 
-    protected static final String ANIMAL_STATE_ADOPTED = "INSET INTO " + ANIMAL_STATE +
-            "( " + ID_ANIMAL_STATE + ", " + NAME + " ) VALUES (2, " + ADOPTED + ") ;";
+    public static final String ANIMAL_STATE_ADOPTED = "INSERT INTO " + ANIMAL_STATE +
+            "(" + NAME + ") VALUES ('" + ADOPTED + "')";
 
     public static final String ANIMAL_STATE_CREATE =  "create table " + ANIMAL_STATE
             + "(" + ID_ANIMAL_STATE + " integer primary key autoincrement, " +
             NAME + " text not null "  +
-            "); " +
-            ANIMAL_STATE_ADOPTION +
-            ANIMAL_STATE_ADOPTED;
+            ")";
 
-    public static final String ANIMAL_STATE_DROP = "DROP TABLE IF EXISTS " + ANIMAL_STATE + "; ";
+    public static final String ANIMAL_STATE_DROP = "DROP TABLE IF EXISTS " + ANIMAL_STATE;
 }

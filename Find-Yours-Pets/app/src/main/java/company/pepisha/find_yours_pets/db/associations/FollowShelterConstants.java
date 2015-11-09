@@ -16,10 +16,10 @@ public class FollowShelterConstants {
             ID_USER + " integer not null, " +
             ID_SHELTER + " integer not null, " +
             "FOREIGN KEY(" + ID_USER + ") REFERENCES " + UserConstants.USER
-            + " (" + UserConstants.ID_USER + ") " +
+            + " (" + UserConstants.ID_USER + "), " +
             "FOREIGN KEY(" + ID_SHELTER + ") REFERENCES " + ShelterConstants.SHELTER
             + " (" + ShelterConstants.ID_SHELTER + ") " +
-            "); ";
+            ")";
 
-    public static final String FOLLOW_SHELTER_DROP = "DROP TABLE IF EXISTS " + FOLLOW_SHELTER +"; ";
+    public static final String FOLLOW_SHELTER_DROP = "DROP TABLE IF EXISTS " + FOLLOW_SHELTER;
 }
