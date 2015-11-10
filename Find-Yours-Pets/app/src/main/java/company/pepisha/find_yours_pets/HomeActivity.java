@@ -31,6 +31,7 @@ public class HomeActivity extends Activity {
 
             ImageButton petPicture = new ImageButton(this);
             petPicture.setImageResource(R.drawable.dog);
+            petPicture.setId(a.getIdAnimal());
 
             TextView petName = new TextView(this);
             petName.setText(a.getName());
@@ -40,6 +41,16 @@ public class HomeActivity extends Activity {
             petLayout.addView(petName);
 
             petsGrid.addView(petLayout);
+
+            petPicture.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    Intent animalScreen = new Intent(getApplicationContext(), AnimalActivity.class);
+                    animalScreen.putExtra("animalId", v.getId());
+
+                    startActivity(animalScreen);
+                }
+            });
         }
     }
 

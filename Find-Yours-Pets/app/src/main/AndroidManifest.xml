@@ -28,6 +28,10 @@
             android:name=".AddAnimalActivity"
             android:label="@string/title_activity_add_animal" >
         </activity>
+        <activity
+            android:name=".AnimalActivity"
+            android:label="@string/title_activity_animal" >
+        </activity>
     </application>
 
 </manifest>
