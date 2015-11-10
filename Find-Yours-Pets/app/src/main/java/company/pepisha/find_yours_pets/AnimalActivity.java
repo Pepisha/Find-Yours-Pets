@@ -1,9 +1,11 @@
 package company.pepisha.find_yours_pets;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +52,17 @@ public class AnimalActivity extends Activity {
         animalPicture.setImageDrawable(getResources().getDrawable(R.drawable.dog));
     }
 
+    private void onClickChangeAnimalPhoto(){
+        Button changeAnimalPhoto = (Button) findViewById(R.id.pictureButton);
+        changeAnimalPhoto.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent cameraScreen = new Intent(getApplicationContext(), CameraActivity.class);
+                startActivity(cameraScreen);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +72,7 @@ public class AnimalActivity extends Activity {
         Animal animal = getAnimal(animalId);
 
         fillAnimalFields(animal);
+        onClickChangeAnimalPhoto();
     }
 
     @Override
