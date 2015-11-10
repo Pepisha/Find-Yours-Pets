@@ -30,6 +30,7 @@ Application permettant à un utilisateur de trouver l'animal de ses rêves dans 
 
 # Technologies utilisées 
 
+- Prise de photos via l'application
 - Posts sur les réseaux sociaux automatiques
 - GPS (géolocalisation et tracé GPS)
 - Secousse du portable
