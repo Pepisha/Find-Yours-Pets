@@ -35,5 +35,9 @@
     <string name="modify">Modify</string>
     <string name="adoption">Adoption</string>
     <string name="adopted">Adopted</string>
+    <string name="title_activity_camera">CameraActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="capture">Capture</string>
 
 </resources>
