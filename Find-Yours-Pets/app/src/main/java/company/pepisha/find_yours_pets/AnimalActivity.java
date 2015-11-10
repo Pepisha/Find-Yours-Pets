@@ -15,18 +15,38 @@ import company.pepisha.find_yours_pets.db.animal.AnimalOperation;
 
 public class AnimalActivity extends Activity {
 
-    private Animal getAnimal(int id) {
+    private Animal animal;
+
+    private void getCurrentAnimal(int id) {
         AnimalOperation animalOperation = new AnimalOperation(this);
         animalOperation.open();
 
-        Animal animal = animalOperation.getAnimal(id);
+        animal = animalOperation.getAnimal(id);
 
         animalOperation.close();
-
-        return animal;
     }
 
-    private void fillAnimalFields(Animal animal) {
+    private void refreshAnimalState() {
+        TextView animalState = (TextView) findViewById(R.id.animalState);
+        animalState.setText((animal.getState() == Animal.ADOPTION)
+                ? getResources().getString(R.string.adoption) : getResources().getString(R.string.adopted));
+
+        Button stateButton = (Button) findViewById(R.id.stateButton);
+        stateButton.setText((animal.getState() == Animal.ADOPTION)
+                ? getResources().getString(R.string.adopted) : getResources().getString(R.string.adoption));
+    }
+
+    private void setAnimalState(int state) {
+        AnimalOperation animalOperation = new AnimalOperation(this);
+        animalOperation.open();
+
+        animalOperation.setState(animal.getIdAnimal(), state);
+        animal.setState(state);
+
+        animalOperation.close();
+    }
+
+    private void fillAnimalFields() {
         TextView animalName = (TextView) findViewById(R.id.animalName);
         animalName.setText(animal.getName());
 
@@ -37,19 +57,25 @@ public class AnimalActivity extends Activity {
         animalAge.setText(animal.getAge());
 
         TextView animalGender = (TextView) findViewById(R.id.animalGender);
-        animalGender.setText((animal.getGender() == Animal.Gender.MALE) ? "Male" : "Femelle");
+        animalGender.setText((animal.getGender() == Animal.Gender.MALE)
+                ? getResources().getString(R.string.male) : getResources().getString(R.string.female));
 
         TextView animalDescription = (TextView) findViewById(R.id.animalDescription);
         animalDescription.setText(animal.getDescription());
 
-        TextView animalState = (TextView) findViewById(R.id.animalState);
-        animalState.setText((animal.getState() == Animal.ADOPTION) ? "A l'adoption" : "Adopté");
-
-        Button stateButton = (Button) findViewById(R.id.stateButton);
-        stateButton.setText((animal.getState() == Animal.ADOPTION) ? "Adopté" : "De retour");
-
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
         animalPicture.setImageDrawable(getResources().getDrawable(R.drawable.dog));
+
+        refreshAnimalState();
+
+        Button stateButton = (Button) findViewById(R.id.stateButton);
+        stateButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                setAnimalState((animal.getState() == Animal.ADOPTION) ? Animal.ADOPTED : Animal.ADOPTION);
+                refreshAnimalState();
+            }
+        });
     }
 
     private void onClickChangeAnimalPhoto(){
@@ -69,9 +95,9 @@ public class AnimalActivity extends Activity {
         setContentView(R.layout.activity_animal);
 
         int animalId = getIntent().getIntExtra("animalId", 1);
-        Animal animal = getAnimal(animalId);
+        getCurrentAnimal(animalId);
 
-        fillAnimalFields(animal);
+        fillAnimalFields();
         onClickChangeAnimalPhoto();
     }
 
