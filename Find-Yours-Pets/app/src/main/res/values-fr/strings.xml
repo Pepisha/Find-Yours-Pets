@@ -31,4 +31,7 @@
     <string name="description">Description</string>
     <string name="create">Ajouter</string>
     <string name="title_activity_animal">Animal</string>
+    <string name="modify">Modifier</string>
+    <string name="adoption">A l\'adoption</string>
+    <string name="adopted">Adopté</string>
 </resources>

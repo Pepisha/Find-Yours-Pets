@@ -1,14 +1,12 @@
 package company.pepisha.find_yours_pets;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.animal.AnimalOperation;
@@ -38,6 +36,15 @@ public class AnimalActivity extends Activity {
 
         TextView animalGender = (TextView) findViewById(R.id.animalGender);
         animalGender.setText((animal.getGender() == Animal.Gender.MALE) ? "Male" : "Femelle");
+
+        TextView animalDescription = (TextView) findViewById(R.id.animalDescription);
+        animalDescription.setText(animal.getDescription());
+
+        TextView animalState = (TextView) findViewById(R.id.animalState);
+        animalState.setText((animal.getState() == Animal.ADOPTION) ? "A l'adoption" : "Adopté");
+
+        Button stateButton = (Button) findViewById(R.id.stateButton);
+        stateButton.setText((animal.getState() == Animal.ADOPTION) ? "Adopté" : "De retour");
 
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
         animalPicture.setImageDrawable(getResources().getDrawable(R.drawable.dog));
