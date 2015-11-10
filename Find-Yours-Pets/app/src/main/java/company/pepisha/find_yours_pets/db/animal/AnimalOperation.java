@@ -92,6 +92,13 @@ public class AnimalOperation {
         return animal;
     }
 
+    public void setState(int idAnimal, int state) {
+        String strFilter = AnimalConstants.ID_ANIMAL + "=" + idAnimal;
+        ContentValues values = new ContentValues();
+        values.put(AnimalConstants.STATE, state);
+        database.update(AnimalConstants.ANIMAL, values, strFilter, null);
+    }
+
     private Animal parseAnimal(Cursor cursor) {
         Animal animal = new Animal();
         animal.setIdAnimal(cursor.getInt(0));
