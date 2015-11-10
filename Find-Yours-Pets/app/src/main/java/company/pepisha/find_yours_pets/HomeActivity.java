@@ -1,10 +1,13 @@
 package company.pepisha.find_yours_pets;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -28,6 +31,7 @@ public class HomeActivity extends Activity {
 
             ImageButton petPicture = new ImageButton(this);
             petPicture.setImageResource(R.drawable.dog);
+            petPicture.setId(a.getIdAnimal());
 
             TextView petName = new TextView(this);
             petName.setText(a.getName());
@@ -37,6 +41,16 @@ public class HomeActivity extends Activity {
             petLayout.addView(petName);
 
             petsGrid.addView(petLayout);
+
+            petPicture.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    Intent animalScreen = new Intent(getApplicationContext(), AnimalActivity.class);
+                    animalScreen.putExtra("animalId", v.getId());
+
+                    startActivity(animalScreen);
+                }
+            });
         }
     }
 
@@ -53,6 +67,16 @@ public class HomeActivity extends Activity {
         addAnimals(animalOperation.getAllAnimals());
 
         animalOperation.close();
+
+        Button addAnimalButton = (Button) findViewById(R.id.button);
+
+        addAnimalButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent addAnimalScreen = new Intent(getApplicationContext(), AddAnimalActivity.class);
+                startActivity(addAnimalScreen);
+            }
+        });
     }
 
     @Override

@@ -31,4 +31,9 @@
     <string name="childrenAgreements">Children agreements</string>
     <string name="description">Description</string>
     <string name="create">Create</string>
+    <string name="title_activity_animal">Animal</string>
+    <string name="modify">Modify</string>
+    <string name="adoption">Adoption</string>
+    <string name="adopted">Adopted</string>
+
 </resources>

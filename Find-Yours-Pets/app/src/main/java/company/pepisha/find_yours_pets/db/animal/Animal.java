@@ -6,6 +6,9 @@ public class Animal {
         MALE, FEMALE
     }
 
+    public static final int ADOPTION = 1;
+    public static final int ADOPTED = 2;
+
     private int idAnimal;
     private int type;
     private String name;

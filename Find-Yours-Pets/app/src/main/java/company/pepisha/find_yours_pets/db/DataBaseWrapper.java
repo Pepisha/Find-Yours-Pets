@@ -4,8 +4,6 @@ package company.pepisha.find_yours_pets.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.SQLException;
-import android.util.Log;
 
 import company.pepisha.find_yours_pets.db.address.AddressConstants;
 import company.pepisha.find_yours_pets.db.animal.AnimalConstants;
