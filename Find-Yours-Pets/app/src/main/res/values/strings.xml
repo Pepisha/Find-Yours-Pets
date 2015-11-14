@@ -37,7 +37,7 @@
     <string name="adopted">Adopted</string>
     <string name="title_activity_camera">CameraActivity</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="capture">Capture</string>
+    <string name="title_activity_shelters">Shelters</string>
 
 </resources>

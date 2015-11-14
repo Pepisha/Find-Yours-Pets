@@ -1,6 +1,7 @@
 package company.pepisha.find_yours_pets;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,11 +47,12 @@ public class RegistrationActivity extends Activity {
                                 lastname.getText().toString());
                     }
 
-                    Toast toast = Toast.makeText(getApplicationContext(), "Inscription de " + nickname.getText().toString(), Toast.LENGTH_LONG);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "Inscription de " + nickname.getText().toString(), Toast.LENGTH_LONG).show();
+
+                    Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(homeScreen);
                 } catch(android.database.SQLException e) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "DB error :" + e.toString(), Toast.LENGTH_LONG);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "DB error :" + e.toString(), Toast.LENGTH_LONG).show();
                 }
 
                 userDBOperation.close();

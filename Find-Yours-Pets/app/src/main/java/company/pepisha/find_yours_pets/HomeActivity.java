@@ -23,7 +23,12 @@ public class HomeActivity extends Activity {
     GridLayout petsGrid;
     AnimalOperation animalOperation;
 
-    private void addAnimals(List<Animal> animals) {
+    private void addAnimals() {
+
+        animalOperation = new AnimalOperation(this);
+        animalOperation.open();
+
+        List<Animal> animals = animalOperation.getAllAnimals();
 
         for (Animal a : animals) {
             LinearLayout petLayout = new LinearLayout(this);
@@ -52,6 +57,8 @@ public class HomeActivity extends Activity {
                 }
             });
         }
+
+        animalOperation.close();
     }
 
     @Override
@@ -60,13 +67,7 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
 
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
-
-        animalOperation = new AnimalOperation(this);
-        animalOperation.open();
-
-        addAnimals(animalOperation.getAllAnimals());
-
-        animalOperation.close();
+        addAnimals();
 
         Button addAnimalButton = (Button) findViewById(R.id.button);
 
