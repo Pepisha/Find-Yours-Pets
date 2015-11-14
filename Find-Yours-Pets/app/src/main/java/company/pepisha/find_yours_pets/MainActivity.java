@@ -43,12 +43,10 @@ public class MainActivity extends Activity {
                         toastText = getString(R.string.failureConnection);
                     }
 
-                    Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();
 
                 } catch(android.database.SQLException e) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "DB error :" + e.toString(), Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "DB error :" + e.toString(), Toast.LENGTH_SHORT).show();
                 }
 
                 userDBOperation.close();
