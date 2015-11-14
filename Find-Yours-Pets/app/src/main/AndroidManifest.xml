@@ -3,7 +3,9 @@
     package="company.pepisha.find_yours_pets" >
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -39,6 +41,10 @@
         <activity
             android:name=".CameraActivity"
             android:label="@string/title_activity_camera" >
+        </activity>
+        <activity
+            android:name=".SheltersActivity"
+            android:label="@string/title_activity_shelters" >
         </activity>
     </application>
 
