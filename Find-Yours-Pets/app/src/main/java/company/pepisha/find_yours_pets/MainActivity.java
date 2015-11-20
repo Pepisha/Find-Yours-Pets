@@ -1,6 +1,7 @@
 package company.pepisha.find_yours_pets;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import company.pepisha.find_yours_pets.db.user.UserOperation;
+import java.util.HashMap;
+
+import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 
 public class MainActivity extends Activity {
 
@@ -26,30 +29,16 @@ public class MainActivity extends Activity {
         connectionButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                UserOperation userDBOperation = new UserOperation(v.getContext());
-                try {
-                    userDBOperation.open();
 
-                    EditText nickname = (EditText) findViewById(R.id.nickname);
-                    EditText password = (EditText) findViewById(R.id.password);
+                EditText nickname = (EditText) findViewById(R.id.nickname);
+                EditText password = (EditText) findViewById(R.id.password);
 
-                    String toastText;
-                    if (userDBOperation.userConnection(nickname.getText().toString(), password.getText().toString())) {
-                        toastText = getString(R.string.successConnection);
+                HashMap<String, String> request = new HashMap<String, String>();
+                request.put("page", "login");
+                request.put("nickname", nickname.getText().toString());
+                request.put("password", password.getText().toString());
 
-                        Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(homeScreen);
-                    } else {
-                        toastText = getString(R.string.failureConnection);
-                    }
-
-                    Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();
-
-                } catch(android.database.SQLException e) {
-                    Toast.makeText(getApplicationContext(), "DB error :" + e.toString(), Toast.LENGTH_SHORT).show();
-                }
-
-                userDBOperation.close();
+                new ConnectionDbOperation(getApplicationContext()).execute(request);
             }
         });
 
@@ -61,6 +50,28 @@ public class MainActivity extends Activity {
                 startActivity(registrationScreen);
             }
         });
+    }
+
+    private class ConnectionDbOperation extends ServerDbOperation {
+        public ConnectionDbOperation(Context c) {
+            super(c);
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, String> result) {
+            String toastText = "";
+
+            if (result.get("success").equals("true")) {
+                toastText = getString(R.string.successConnection);
+
+                Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(homeScreen);
+            } else {
+                toastText = getString(R.string.failureConnection);
+            }
+
+            Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
