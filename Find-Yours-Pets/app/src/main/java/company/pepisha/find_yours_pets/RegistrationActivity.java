@@ -37,7 +37,6 @@ public class RegistrationActivity extends Activity {
                 EditText lastname = (EditText) findViewById(R.id.lastname);
 
                 HashMap<String, String> request = new HashMap<String, String>();
-                request.put("page", "register");
                 request.put("nickname", nickname.getText().toString());
                 request.put("password1", password.getText().toString());
                 request.put("password2", passwordConfirmation.getText().toString());
@@ -46,19 +45,19 @@ public class RegistrationActivity extends Activity {
                 request.put("firstname", firstname.getText().toString());
                 request.put("lastname", lastname.getText().toString());
 
-                new RegistrationDbOperation(getApplicationContext()).execute(request);
+                new RegistrationDbOperation(getApplicationContext(), "register").execute(request);
             }
         });
     }
 
     private class RegistrationDbOperation extends ServerDbOperation {
-        public RegistrationDbOperation(Context c) {
-            super(c);
+        public RegistrationDbOperation(Context c, String page) {
+            super(c, page);
         }
 
         @Override
         protected void onPostExecute(HashMap<String, String> result) {
-            if (result.get("success").equals("true")) {
+            if (successResponse(result)) {
                 Toast.makeText(getApplicationContext(), "Inscription réussie", Toast.LENGTH_LONG).show();
 
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
