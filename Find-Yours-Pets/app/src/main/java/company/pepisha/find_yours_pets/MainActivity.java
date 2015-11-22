@@ -34,11 +34,10 @@ public class MainActivity extends Activity {
                 EditText password = (EditText) findViewById(R.id.password);
 
                 HashMap<String, String> request = new HashMap<String, String>();
-                request.put("page", "login");
                 request.put("nickname", nickname.getText().toString());
                 request.put("password", password.getText().toString());
 
-                new ConnectionDbOperation(getApplicationContext()).execute(request);
+                new ConnectionDbOperation(getApplicationContext(), "login").execute(request);
             }
         });
 
@@ -53,15 +52,15 @@ public class MainActivity extends Activity {
     }
 
     private class ConnectionDbOperation extends ServerDbOperation {
-        public ConnectionDbOperation(Context c) {
-            super(c);
+        public ConnectionDbOperation(Context c, String page) {
+            super(c, page);
         }
 
         @Override
         protected void onPostExecute(HashMap<String, String> result) {
             String toastText = "";
 
-            if (result.get("success").equals("true")) {
+            if (successResponse(result)) {
                 toastText = getString(R.string.successConnection);
 
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
