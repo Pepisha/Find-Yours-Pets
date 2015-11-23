@@ -17,14 +17,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.db.animal.AnimalStateConstants;
 import company.pepisha.find_yours_pets.db.animal.animalType.AnimalType;
 import company.pepisha.find_yours_pets.db.animal.animalType.AnimalTypeOperation;
 
 public class AddAnimalActivity extends Activity {
 
     private AnimalTypeOperation animalTypeDbOperation;
-
-    private static final int ADOPTION_ID = 1;
 
     private void animalAdding() {
         EditText animalName = (EditText) findViewById(R.id.animalName);
@@ -49,7 +48,7 @@ public class AddAnimalActivity extends Activity {
         request.put("dogsFriend", dogsAgreements.getText().toString());
         request.put("childrenFriend", childrenAgreements.getText().toString());
         request.put("description", description.getText().toString());
-        request.put("state", Integer.toString(ADOPTION_ID));
+        request.put("state", Integer.toString(AnimalStateConstants.ADOPTION_ID));
         request.put("idShelter", Integer.toString(1));
 
         new AddAnimalDbOperation(getApplicationContext()).execute(request);
