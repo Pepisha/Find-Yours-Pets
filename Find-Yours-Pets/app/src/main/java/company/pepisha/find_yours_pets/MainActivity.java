@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
                 request.put("nickname", nickname.getText().toString());
                 request.put("password", password.getText().toString());
 
-                new ConnectionDbOperation(getApplicationContext(), "login").execute(request);
+                new ConnectionDbOperation(getApplicationContext()).execute(request);
             }
         });
 
@@ -52,8 +52,8 @@ public class MainActivity extends Activity {
     }
 
     private class ConnectionDbOperation extends ServerDbOperation {
-        public ConnectionDbOperation(Context c, String page) {
-            super(c, page);
+        public ConnectionDbOperation(Context c) {
+            super(c, "login");
         }
 
         @Override
