@@ -8,6 +8,8 @@ public class AnimalStateConstants {
     protected static final String ID_ANIMAL_STATE = "idAnimalState";
     protected static final String NAME = "name";
 
+    public static final int ADOPTION_ID = 1;
+    public static final int ADOPTED_ID = 2;
     protected static final String ADOPTION = "Adoption";
     protected static final String ADOPTED = "Adopted";
 
