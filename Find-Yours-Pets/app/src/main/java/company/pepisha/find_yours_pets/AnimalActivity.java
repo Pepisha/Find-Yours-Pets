@@ -1,21 +1,47 @@
 package company.pepisha.find_yours_pets;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.HashMap;
+
+import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.animal.AnimalOperation;
 
 public class AnimalActivity extends Activity {
 
     private Animal animal;
+
+    private class ChangeAnimalStatusDbOperation extends ServerDbOperation {
+        public ChangeAnimalStatusDbOperation(Context c, String page) {
+            super(c, page);
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, String> result) {
+            String toastText = "";
+
+            if(successResponse(result)){
+                toastText = getString(R.string.successUpdateAnimalStatus);
+                refreshAnimalState();
+            } else {
+                toastText = "Failed status change";
+            }
+
+            Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void getCurrentAnimal(int id) {
         AnimalOperation animalOperation = new AnimalOperation(this);
@@ -72,7 +98,13 @@ public class AnimalActivity extends Activity {
         stateButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                setAnimalState((animal.getState() == Animal.ADOPTION) ? Animal.ADOPTED : Animal.ADOPTION);
+
+                int newStatus = animal.getState()==1 ? 2 : 1;
+                HashMap<String, String> request = new HashMap<>();
+                request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+                request.put("newStatus", Integer.toString(newStatus));
+
+                new ChangeAnimalStatusDbOperation(getApplicationContext(), "changeAnimalsStatus").execute(request);
                 refreshAnimalState();
             }
         });
