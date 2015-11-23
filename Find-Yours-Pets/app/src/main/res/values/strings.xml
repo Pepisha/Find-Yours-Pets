@@ -39,5 +39,6 @@
 
     <string name="capture">Capture</string>
     <string name="title_activity_shelters">Shelters</string>
+    <string name="animalAdded">Animal added</string>
 
 </resources>

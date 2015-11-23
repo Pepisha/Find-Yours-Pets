@@ -45,14 +45,14 @@ public class RegistrationActivity extends Activity {
                 request.put("firstname", firstname.getText().toString());
                 request.put("lastname", lastname.getText().toString());
 
-                new RegistrationDbOperation(getApplicationContext(), "register").execute(request);
+                new RegistrationDbOperation(getApplicationContext()).execute(request);
             }
         });
     }
 
     private class RegistrationDbOperation extends ServerDbOperation {
-        public RegistrationDbOperation(Context c, String page) {
-            super(c, page);
+        public RegistrationDbOperation(Context c) {
+            super(c, "register");
         }
 
         @Override
