@@ -90,7 +90,7 @@ public class AddAnimalActivity extends Activity {
 
     private class AddAnimalDbOperation extends ServerDbOperation {
         public AddAnimalDbOperation(Context c) {
-            super(c, "addAnimal");
+            super(c, "addAnimalInShelter");
         }
 
         @Override
