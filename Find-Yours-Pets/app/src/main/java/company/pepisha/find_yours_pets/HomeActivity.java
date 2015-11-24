@@ -14,27 +14,34 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
+import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 
 public class HomeActivity extends Activity {
 
-    GridLayout petsGrid;
+    private GridLayout petsGrid;
+
+    private Map<Integer, Animal> animalsList = new HashMap<Integer, Animal>();
 
     private void addAnimals(HashMap<String, Object> animals) {
 
         for (Map.Entry<String, Object> entry : animals.entrySet()) {
-            Animal a = (Animal) entry.getValue();
+            int animalId = Integer.parseInt(entry.getKey());
+            ParcelableAnimal a = new ParcelableAnimal((JSONObject) entry.getValue());
+            animalsList.put(animalId, a);
 
             LinearLayout petLayout = new LinearLayout(petsGrid.getContext());
             petLayout.setOrientation(LinearLayout.VERTICAL);
 
             ImageButton petPicture = new ImageButton(petsGrid.getContext());
             petPicture.setImageResource(R.drawable.dog);
-            petPicture.setId(Integer.parseInt(entry.getKey()));
+            petPicture.setId(animalId);
 
             TextView petName = new TextView(petsGrid.getContext());
             petName.setText(a.getName());
@@ -49,7 +56,7 @@ public class HomeActivity extends Activity {
 
                 public void onClick(View v) {
                     Intent animalScreen = new Intent(getApplicationContext(), AnimalActivity.class);
-                    animalScreen.putExtra("animalId", v.getId());
+                    animalScreen.putExtra("animal", (ParcelableAnimal) animalsList.get(v.getId()));
 
                     startActivity(animalScreen);
                 }

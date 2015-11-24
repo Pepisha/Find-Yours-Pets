@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,15 +16,15 @@ import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
-import company.pepisha.find_yours_pets.db.animal.AnimalOperation;
+import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 
 public class AnimalActivity extends Activity {
 
     private Animal animal;
 
     private class ChangeAnimalStatusDbOperation extends ServerDbOperation {
-        public ChangeAnimalStatusDbOperation(Context c, String page) {
-            super(c, page);
+        public ChangeAnimalStatusDbOperation(Context c) {
+            super(c, "changeAnimalsStatus");
         }
 
         @Override
@@ -43,15 +42,6 @@ public class AnimalActivity extends Activity {
         }
     }
 
-    private void getCurrentAnimal(int id) {
-        AnimalOperation animalOperation = new AnimalOperation(this);
-        animalOperation.open();
-
-        animal = animalOperation.getAnimal(id);
-
-        animalOperation.close();
-    }
-
     private void refreshAnimalState() {
         TextView animalState = (TextView) findViewById(R.id.animalState);
         animalState.setText((animal.getState() == Animal.ADOPTION)
@@ -63,13 +53,11 @@ public class AnimalActivity extends Activity {
     }
 
     private void setAnimalState(int state) {
-        AnimalOperation animalOperation = new AnimalOperation(this);
-        animalOperation.open();
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+        request.put("newStatus", Integer.toString(state));
 
-        animalOperation.setState(animal.getIdAnimal(), state);
-        animal.setState(state);
-
-        animalOperation.close();
+        new ChangeAnimalStatusDbOperation(getApplicationContext()).execute(request);
     }
 
     private void fillAnimalFields() {
@@ -98,14 +86,8 @@ public class AnimalActivity extends Activity {
         stateButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-
-                int newStatus = animal.getState()==1 ? 2 : 1;
-                HashMap<String, String> request = new HashMap<>();
-                request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
-                request.put("newStatus", Integer.toString(newStatus));
-
-                new ChangeAnimalStatusDbOperation(getApplicationContext(), "changeAnimalsStatus").execute(request);
-                refreshAnimalState();
+                int newStatus = animal.getState() == 1 ? 2 : 1;
+                setAnimalState(newStatus);
             }
         });
     }
@@ -126,8 +108,7 @@ public class AnimalActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animal);
 
-        int animalId = getIntent().getIntExtra("animalId", 1);
-        getCurrentAnimal(animalId);
+        animal = (ParcelableAnimal) getIntent().getParcelableExtra("animal");
 
         fillAnimalFields();
         onClickChangeAnimalPhoto();

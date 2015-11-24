@@ -1,6 +1,9 @@
 package company.pepisha.find_yours_pets.db.animal;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Animal {
     public enum Gender {
         MALE, FEMALE
@@ -10,7 +13,7 @@ public class Animal {
     public static final int ADOPTED = 2;
 
     private int idAnimal;
-    private int type;
+    private int idType;
     private String name;
     private String breed;
     private String age;
@@ -19,7 +22,29 @@ public class Animal {
     private String dogsFriend;
     private String childrenFriend;
     private String description;
-    private int state;
+    private int idState;
+
+    public Animal() {
+
+    }
+
+    public Animal(JSONObject obj) {
+        try {
+            idAnimal = obj.getInt("idAnimal");
+            idType = obj.getInt("idType");
+            name = obj.getString("name");
+            breed = obj.getString("breed");
+            age = obj.getString("age");
+            gender = (obj.getString("gender") == "male") ? Gender.MALE : Gender.FEMALE;
+            catsFriend = obj.getString("catsFriend");
+            dogsFriend = obj.getString("dogsFriend");
+            childrenFriend = obj.getString("childrenFriend");
+            description = obj.getString("description");
+            idState = obj.getInt("idState");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public int getIdAnimal() {
         return idAnimal;
@@ -30,11 +55,11 @@ public class Animal {
     }
 
     public int getType() {
-        return type;
+        return idType;
     }
 
     public void setType(int type) {
-        this.type = type;
+        this.idType = type;
     }
 
     public String getName() {
@@ -98,11 +123,11 @@ public class Animal {
     }
 
     public int getState() {
-        return state;
+        return idState;
     }
 
     public void setState(int state) {
-        this.state = state;
+        this.idState = state;
     }
 
 
