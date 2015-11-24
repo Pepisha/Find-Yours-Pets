@@ -94,7 +94,7 @@ public class AddAnimalActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(HashMap<String, String> result) {
+        protected void onPostExecute(HashMap<String, Object> result) {
             if (successResponse(result)) {
                 Toast.makeText(getApplicationContext(), R.string.animalAdded, Toast.LENGTH_SHORT).show();
 

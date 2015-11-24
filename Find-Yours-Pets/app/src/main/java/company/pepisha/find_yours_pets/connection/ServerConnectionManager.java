@@ -60,8 +60,8 @@ public class ServerConnectionManager {
         return null;
     }
 
-    private static HashMap<String, String> unmarshallReponse(String jsonData) {
-        HashMap<String, String> response = new HashMap<String, String>();
+    private static HashMap<String, Object> unmarshallReponse(String jsonData) {
+        HashMap<String, Object> response = new HashMap<String, Object>();
 
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
@@ -70,7 +70,7 @@ public class ServerConnectionManager {
                 Object jsonKey = iterator.next();
                 Object val = jsonObject.get(String.valueOf(jsonKey));
 
-                response.put(jsonKey.toString(), val.toString());
+                response.put(jsonKey.toString(), val);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -79,7 +79,7 @@ public class ServerConnectionManager {
         return response;
     }
 
-    public static HashMap<String, String> sendRequestToServer(HashMap<String, String> request) {
+    public static HashMap<String, Object> sendRequestToServer(HashMap<String, String> request) {
         System.setProperty("http.keepAlive", "false");
 
         HttpURLConnection urlConnection = connectToServer(url);

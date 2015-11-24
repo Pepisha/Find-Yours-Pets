@@ -29,7 +29,7 @@ public class AnimalActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(HashMap<String, String> result) {
+        protected void onPostExecute(HashMap<String, Object> result) {
             String toastText = "";
 
             if(successResponse(result)){
