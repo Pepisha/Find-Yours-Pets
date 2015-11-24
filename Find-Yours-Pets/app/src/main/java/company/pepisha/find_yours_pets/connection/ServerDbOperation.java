@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import java.util.HashMap;
 
-public class ServerDbOperation extends AsyncTask<HashMap<String, String>, Void, HashMap<String, String>> {
+public class ServerDbOperation extends AsyncTask<HashMap<String, String>, Void, HashMap<String, Object>> {
 
     private Context context;
 
@@ -16,12 +16,12 @@ public class ServerDbOperation extends AsyncTask<HashMap<String, String>, Void, 
         this.page = page;
     }
 
-    protected boolean successResponse(HashMap<String, String> result) {
-        return (result != null && result.containsKey("success") && result.get("success").equals("true"));
+    protected boolean successResponse(HashMap<String, Object> result) {
+        return (result != null && result.containsKey("success") && result.get("success").toString().equals("true"));
     }
 
     @Override
-    protected HashMap<String, String> doInBackground(HashMap<String, String>... params) {
+    protected HashMap<String, Object> doInBackground(HashMap<String, String>... params) {
         if (ServerConnectionManager.isConnected(context)) {
             HashMap<String, String> request = params[0];
             request.put("page", page);

@@ -56,14 +56,14 @@ public class RegistrationActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(HashMap<String, String> result) {
+        protected void onPostExecute(HashMap<String, Object> result) {
             if (successResponse(result)) {
                 Toast.makeText(getApplicationContext(), "Inscription réussie", Toast.LENGTH_LONG).show();
 
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(homeScreen);
             } else {
-                Toast.makeText(getApplicationContext(), result.get("error"), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), result.get("error").toString(), Toast.LENGTH_LONG).show();
             }
         }
     }

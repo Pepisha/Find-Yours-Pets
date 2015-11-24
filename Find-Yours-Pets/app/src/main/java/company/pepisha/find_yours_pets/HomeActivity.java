@@ -1,6 +1,7 @@
 package company.pepisha.find_yours_pets;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,32 +14,29 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
-import company.pepisha.find_yours_pets.db.animal.AnimalOperation;
 
 public class HomeActivity extends Activity {
 
     GridLayout petsGrid;
-    AnimalOperation animalOperation;
 
-    private void addAnimals() {
+    private void addAnimals(HashMap<String, Object> animals) {
 
-        animalOperation = new AnimalOperation(this);
-        animalOperation.open();
+        for (Map.Entry<String, Object> entry : animals.entrySet()) {
+            Animal a = (Animal) entry.getValue();
 
-        List<Animal> animals = animalOperation.getAllAnimals();
-
-        for (Animal a : animals) {
-            LinearLayout petLayout = new LinearLayout(this);
+            LinearLayout petLayout = new LinearLayout(petsGrid.getContext());
             petLayout.setOrientation(LinearLayout.VERTICAL);
 
-            ImageButton petPicture = new ImageButton(this);
+            ImageButton petPicture = new ImageButton(petsGrid.getContext());
             petPicture.setImageResource(R.drawable.dog);
-            petPicture.setId(a.getIdAnimal());
+            petPicture.setId(Integer.parseInt(entry.getKey()));
 
-            TextView petName = new TextView(this);
+            TextView petName = new TextView(petsGrid.getContext());
             petName.setText(a.getName());
             petName.setGravity(Gravity.CENTER);
 
@@ -57,8 +55,6 @@ public class HomeActivity extends Activity {
                 }
             });
         }
-
-        animalOperation.close();
     }
 
     @Override
@@ -67,7 +63,7 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
 
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
-        addAnimals();
+        new GetAnimalsDbOperation(getApplicationContext()).execute(new HashMap<String, String>());
 
         Button addAnimalButton = (Button) findViewById(R.id.button);
 
@@ -78,6 +74,19 @@ public class HomeActivity extends Activity {
                 startActivity(addAnimalScreen);
             }
         });
+    }
+
+    private class GetAnimalsDbOperation extends ServerDbOperation {
+
+        public GetAnimalsDbOperation(Context c) {
+            super(c, "getHomelessAnimals");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+
+            addAnimals(result);
+        }
     }
 
     @Override
