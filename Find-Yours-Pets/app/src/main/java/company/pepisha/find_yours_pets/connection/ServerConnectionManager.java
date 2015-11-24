@@ -101,12 +101,15 @@ public class ServerConnectionManager {
                 if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
-                   String line = reader.readLine();
-                    if (line != null) {
+                    String response = "";
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
                         Log.d("================", line);
-                        return unmarshallReponse(line);
+                        response += line;
                     }
-                    return unmarshallReponse(line);
+
+                    return unmarshallReponse(response);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
