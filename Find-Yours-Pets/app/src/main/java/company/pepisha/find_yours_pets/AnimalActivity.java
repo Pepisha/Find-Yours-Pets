@@ -43,6 +43,8 @@ public class AnimalActivity extends Activity {
     }
 
     private void refreshAnimalState() {
+        animal.setState((animal.getState() == 1) ? 2 : 1);
+
         TextView animalState = (TextView) findViewById(R.id.animalState);
         animalState.setText((animal.getState() == Animal.ADOPTION)
                 ? getResources().getString(R.string.adoption) : getResources().getString(R.string.adopted));
