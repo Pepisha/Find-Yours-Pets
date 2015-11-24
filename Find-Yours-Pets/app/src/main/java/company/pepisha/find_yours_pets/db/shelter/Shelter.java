@@ -1,6 +1,9 @@
 package company.pepisha.find_yours_pets.db.shelter;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Shelter {
     private int idShelter;
     private String name;
@@ -12,6 +15,27 @@ public class Shelter {
     private int idFacebook;
     private int idTwitter;
     private int idInstagram;
+
+    public Shelter() {
+
+    }
+
+    public Shelter(JSONObject obj) {
+        try {
+            idShelter = obj.getInt("idShelter");
+            name = obj.getString("name");
+            phone = obj.getString("phone");
+            idAddress = obj.getInt("idAddress");
+            description = obj.getString("description");
+            mail = obj.getString("mail");
+            operationalHours = obj.getString("operationalHours");
+            idFacebook = obj.getInt("idFacebook");
+            idTwitter = obj.getInt("idTwitter");
+            idInstagram = obj.getInt("idInstagram");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public int getIdInstagram() {
         return idInstagram;
