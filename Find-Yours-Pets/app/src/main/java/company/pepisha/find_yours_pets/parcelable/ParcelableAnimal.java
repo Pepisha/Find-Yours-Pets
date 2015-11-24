@@ -4,7 +4,6 @@ package company.pepisha.find_yours_pets.parcelable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import company.pepisha.find_yours_pets.db.animal.Animal;
