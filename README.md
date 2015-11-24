@@ -37,4 +37,5 @@ Application permettant à un utilisateur de trouver l'animal de ses rêves dans 
 - Appels via l'application
 - notifications
 - Internationalisation (Anglais / Français)
+- L'application doit s'adapter aux portables / tablettes (fragments)
 
