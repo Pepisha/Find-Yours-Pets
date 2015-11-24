@@ -37,6 +37,6 @@
     <string name="capture">Photographier</string>
     <string name="title_activity_shelters">Refuges</string>
     <string name="animalAdded">Animal ajouté</string>
-    <string name="successUpdateAnimalStatus">Le statut de l'animal a bien été modifié</string>
+    <string name="successUpdateAnimalStatus">Le statut de l\'animal a bien été modifié</string>
 
 </resources>
