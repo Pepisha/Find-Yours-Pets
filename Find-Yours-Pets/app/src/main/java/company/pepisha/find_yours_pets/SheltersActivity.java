@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -71,7 +72,7 @@ public class SheltersActivity extends BaseActivity {
 
         new GetSheltersDbOperation(getApplicationContext()).execute(new HashMap<String, String>());
 
-        sheltersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*sheltersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
@@ -79,6 +80,16 @@ public class SheltersActivity extends BaseActivity {
                 String message = "abc";
                 intent.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intent);
+            }
+        });*/
+
+        Button addShelterButton = (Button) findViewById(R.id.button);
+
+        addShelterButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                Intent addShelterScreen = new Intent(getApplicationContext(), AddShelterActivity.class);
+                startActivity(addShelterScreen);
             }
         });
     }
