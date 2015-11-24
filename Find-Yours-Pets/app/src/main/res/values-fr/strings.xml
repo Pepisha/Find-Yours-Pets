@@ -38,5 +38,12 @@
     <string name="title_activity_shelters">Refuges</string>
     <string name="animalAdded">Animal ajouté</string>
     <string name="successUpdateAnimalStatus">Le statut de l\'animal a bien été modifié</string>
+    <string name="addShelter">Ajouter un refuge</string>
+    <string name="operationalHours">Horaires</string>
+    <string name="address">Adresse</string>
+    <string name="city">Ville</string>
+    <string name="zipcode">Code postal</string>
+    <string name="street">Rue</string>
+    <string name="shelterAdded">Refuge ajouté</string>
 
 </resources>

@@ -49,8 +49,8 @@
             android:label="@string/title_activity_shelters" >
         </activity>
         <activity
-            android:name=".BaseActivity"
-            android:label="@string/title_activity_base" >
+            android:name=".AddShelterActivity"
+            android:label="@string/title_activity_add_shelter" >
         </activity>
     </application>
 
