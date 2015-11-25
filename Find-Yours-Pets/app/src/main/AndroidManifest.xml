@@ -52,6 +52,10 @@
             android:name=".AddShelterActivity"
             android:label="@string/title_activity_add_shelter" >
         </activity>
+        <activity
+            android:name=".UserProfileActivity"
+            android:label="@string/title_activity_user_profile" >
+        </activity>
     </application>
 
 </manifest>

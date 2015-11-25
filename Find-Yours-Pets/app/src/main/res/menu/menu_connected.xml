@@ -8,6 +8,9 @@
     <item android:id="@+id/action_shelters" android:title="@string/title_activity_shelters"
         android:icon="@drawable/animals" android:orderInCategory="100" app:showAsAction="never" />
 
+    <item android:id="@+id/action_user_profile" android:title="@string/title_activity_user_profile"
+        android:icon="@drawable/animals" android:orderInCategory="100" app:showAsAction="never" />
+
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

@@ -1,6 +1,9 @@
 package company.pepisha.find_yours_pets.db.user;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class User {
 
     private int idUser;
@@ -10,6 +13,22 @@ public class User {
     private String phone;
     private String firstname;
     private String lastname;
+
+    public User(JSONObject obj) {
+        try {
+            nickname = obj.getString("nickname");
+            email = obj.getString("mail");
+            phone = obj.getString("phone");
+            firstname = obj.getString("firstname");
+            lastname = obj.getString("lastname");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public User() {
+
+    }
 
     public int getIdUser() {
         return idUser;
