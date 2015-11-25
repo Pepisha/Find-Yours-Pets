@@ -1,12 +1,31 @@
 package company.pepisha.find_yours_pets.db.opinion;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Opinion {
     private int idOpinion;
     private int stars;
     private String comment;
     private int idShelter;
     private int idUser;
+
+    public Opinion() {
+
+    }
+
+    public Opinion(JSONObject obj) {
+        try {
+            idOpinion = obj.getInt("idOpinion");
+            stars = obj.getInt("stars");
+            comment = obj.getString("description");
+            idShelter = obj.getInt("idShelter");
+            idUser = obj.getInt("idUser");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public int getIdOpinion() {
         return idOpinion;
@@ -46,5 +65,9 @@ public class Opinion {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    public String toString() {
+        return getComment() + " [" + stars + " stars]";
     }
 }

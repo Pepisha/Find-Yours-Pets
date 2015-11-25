@@ -94,7 +94,7 @@ public class AnimalActivity extends BaseActivity {
         });
     }
 
-    private void onClickChangeAnimalPhoto(){
+    private void onClickChangeAnimalPhoto() {
         Button changeAnimalPhoto = (Button) findViewById(R.id.pictureButton);
         changeAnimalPhoto.setOnClickListener(new View.OnClickListener() {
 

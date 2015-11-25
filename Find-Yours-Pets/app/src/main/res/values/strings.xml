@@ -43,7 +43,6 @@
     <string name="successUpdateAnimalStatus">Animal\'s status successfully updated</string>
     <string name="title_activity_add_shelter">Add shelter</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="addShelter">Add Shelter</string>
     <string name="operationalHours">Operational hours</string>
     <string name="address">Address</string>
@@ -52,4 +51,5 @@
     <string name="street">Street</string>
     <string name="shelterAdded">Shelter added</string>
     <string name="title_activity_user_profile">User profile</string>
+    <string name="title_activity_shelter">ShelterActivity</string>
 </resources>
