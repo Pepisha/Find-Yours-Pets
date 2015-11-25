@@ -18,7 +18,6 @@ import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.shelter.Shelter;
-import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
 
 public class SheltersActivity extends BaseActivity {

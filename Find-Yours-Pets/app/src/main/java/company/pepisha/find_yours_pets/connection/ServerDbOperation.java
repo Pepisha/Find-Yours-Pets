@@ -23,9 +23,11 @@ public class ServerDbOperation extends AsyncTask<HashMap<String, String>, Void, 
     @Override
     protected HashMap<String, Object> doInBackground(HashMap<String, String>... params) {
         if (ServerConnectionManager.isConnected(context)) {
-            HashMap<String, String> request = params[0];
-            request.put("page", page);
-            return ServerConnectionManager.sendRequestToServer(params[0]);
+            if (params.length > 0) {
+                HashMap<String, String> request = params[0];
+                request.put("page", page);
+                return ServerConnectionManager.sendRequestToServer(params[0]);
+            }
         }
 
         return null;
