@@ -116,4 +116,8 @@ public class Shelter {
     public void setIdShelter(int idShelter) {
         this.idShelter = idShelter;
     }
+
+    public String toString() {
+        return getName() + " (" + getMail() + ")";
+    }
 }

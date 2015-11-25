@@ -3,15 +3,11 @@ package company.pepisha.find_yours_pets;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -21,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.db.shelter.Shelter;
+import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
 
 public class SheltersActivity extends BaseActivity {
@@ -41,25 +39,14 @@ public class SheltersActivity extends BaseActivity {
 
     private void addShelters(HashMap<String, Object> shelters) {
 
-        List<String> shelterStrings = new ArrayList<String>();
+        List<Shelter> shelterObjects = new ArrayList<Shelter>();
 
         for (Map.Entry<String, Object> entry : shelters.entrySet()) {
-            int shelterId = Integer.parseInt(entry.getKey());
             ParcelableShelter s = new ParcelableShelter((JSONObject) entry.getValue());
-            shelterStrings.add(s.getName() + " (" + s.getMail() + ")");
-
-            /*shelterElement.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    Intent shelterScreen = new Intent(getApplicationContext(), ShelterActivity.class);
-                    shelterScreen.putExtra("shelter", (ParcelableShelter) animalsList.get(v.getId()));
-
-                    startActivity(shelterScreen);
-                }
-            });*/
+            shelterObjects.add(s);
         }
 
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, shelterStrings);
+        ArrayAdapter<Shelter> listAdapter = new ArrayAdapter<Shelter>(this, android.R.layout.simple_list_item_1, shelterObjects);
         sheltersList.setAdapter(listAdapter);
     }
 
@@ -72,16 +59,15 @@ public class SheltersActivity extends BaseActivity {
 
         new GetSheltersDbOperation(getApplicationContext()).execute(new HashMap<String, String>());
 
-        /*sheltersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        sheltersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent intent = new Intent(MainActivity.this, SendMessage.class);
-                String message = "abc";
-                intent.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent shelterScreen = new Intent(getApplicationContext(), ShelterActivity.class);
+                ParcelableShelter s = (ParcelableShelter) sheltersList.getItemAtPosition(position);
+                shelterScreen.putExtra("shelter", s);
+                startActivity(shelterScreen);
             }
-        });*/
+        });
 
         Button addShelterButton = (Button) findViewById(R.id.button);
 
