@@ -45,5 +45,8 @@
     <string name="zipcode">Code postal</string>
     <string name="street">Rue</string>
     <string name="shelterAdded">Refuge ajouté</string>
+    <string name="title_activity_user_profile">Profil utilisateur</string>
+    <string name="title_activity_add_shelter">Ajouter un refuge</string>
+    <string name="title" translatable="false"></string>
 
 </resources>
