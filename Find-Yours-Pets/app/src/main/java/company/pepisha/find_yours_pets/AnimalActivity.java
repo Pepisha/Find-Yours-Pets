@@ -16,6 +16,7 @@ import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
+import company.pepisha.find_yours_pets.fileExplorer.FileExplorer;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 
 public class AnimalActivity extends BaseActivity {
@@ -100,6 +101,7 @@ public class AnimalActivity extends BaseActivity {
 
             public void onClick(View v) {
                 Intent cameraScreen = new Intent(getApplicationContext(), CameraActivity.class);
+                //Intent cameraScreen = new Intent(getApplicationContext(), FileExplorer.class);
                 startActivity(cameraScreen);
             }
         });
