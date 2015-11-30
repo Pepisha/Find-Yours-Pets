@@ -3,7 +3,9 @@ package company.pepisha.find_yours_pets;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +16,11 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class MainActivity extends BaseActivity {
+
+    private String nickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +35,13 @@ public class MainActivity extends BaseActivity {
 
             public void onClick(View v) {
 
-                EditText nickname = (EditText) findViewById(R.id.nickname);
-                EditText password = (EditText) findViewById(R.id.password);
+                EditText nicknameEdit = (EditText) findViewById(R.id.nickname);
+                EditText passwordEdit = (EditText) findViewById(R.id.password);
 
                 HashMap<String, String> request = new HashMap<String, String>();
-                request.put("nickname", nickname.getText().toString());
-                request.put("password", password.getText().toString());
+                request.put("nickname", nicknameEdit.getText().toString());
+                nickname = nicknameEdit.getText().toString();
+                request.put("password", passwordEdit.getText().toString());
 
                 new ConnectionDbOperation(getApplicationContext()).execute(request);
             }
@@ -62,7 +68,7 @@ public class MainActivity extends BaseActivity {
 
             if (successResponse(result)) {
                 toastText = getString(R.string.successConnection);
-
+                session.createLoginSession(nickname);
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(homeScreen);
             } else {

@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
-import company.pepisha.find_yours_pets.db.user.User;
 import company.pepisha.find_yours_pets.parcelable.ParcelableUser;
 
 public class UserProfileActivity  extends BaseActivity {
