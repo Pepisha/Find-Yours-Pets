@@ -10,11 +10,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
-import company.pepisha.find_yours_pets.parcelable.ParcelableUser;
+import company.pepisha.find_yours_pets.db.user.User;
 
 public class UserProfileActivity  extends BaseActivity {
 
-    private ParcelableUser user;
+    private User user;
 
 
     private class GetUserInformationsDbOperation extends ServerDbOperation {
@@ -24,8 +24,9 @@ public class UserProfileActivity  extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-        /*    ParcelableUser userInformations = new ParcelableUser((JSONObject) );
-            user = userInformations;*/
+            user = new User((JSONObject)result.get(session.getUserDetails().get("nickname")));
+            Toast.makeText(getApplicationContext(), "nickname : "+user.getNickname(), Toast.LENGTH_SHORT).show();
+            fillUserFields();
         }
     }
 
@@ -51,11 +52,10 @@ public class UserProfileActivity  extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        HashMap<String,String> request = new HashMap<>();
+        String nicknameUser = session.getUserDetails().get("nickname");
 
-      /*  request.put("nickname", )
+        request.put("nickname", nicknameUser);
         new GetUserInformationsDbOperation(getApplicationContext()).execute(request);
-        user = (ParcelableUser) getIntent().getParcelableExtra("user");
-*/
-        fillUserFields();
     }
 }
