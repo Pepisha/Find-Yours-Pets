@@ -41,6 +41,11 @@ public class BaseActivity extends Activity {
             startActivity(sheltersScreen);
             return true;
         }
+        else if (id == R.id.action_user_profile) {
+            Intent userProfileScreen = new Intent(getApplicationContext(), UserProfileActivity.class);
+            startActivity(userProfileScreen);
+            return true;
+        }
         else if (id == R.id.action_settings) {
             return true;
         }
