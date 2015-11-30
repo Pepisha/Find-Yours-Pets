@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import company.pepisha.find_yours_pets.session.SessionManager;
+
 public class BaseActivity extends Activity {
+    protected SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        session = new SessionManager(getApplicationContext());
     }
 
     @Override
