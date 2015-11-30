@@ -60,6 +60,10 @@
             android:name=".ShelterActivity"
             android:label="@string/title_activity_shelter" >
         </activity>
+        <activity
+            android:name=".fileExplorer.FileExplorer"
+            android:label="@string/title_activity_file_explorer" >
+        </activity>
     </application>
 
 </manifest>

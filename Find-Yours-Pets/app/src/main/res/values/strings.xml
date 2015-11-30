@@ -52,4 +52,5 @@
     <string name="shelterAdded">Shelter added</string>
     <string name="title_activity_user_profile">User profile</string>
     <string name="title_activity_shelter">ShelterActivity</string>
+    <string name="title_activity_file_explorer">File explorer</string>
 </resources>
