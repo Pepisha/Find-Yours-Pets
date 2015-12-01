@@ -49,6 +49,13 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/userPhone" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/modifyProfile"
+                android:id="@+id/updtateButton"
+                android:layout_gravity="right" />
         </LinearLayout>
 
         <LinearLayout
@@ -60,7 +67,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/animalPicture"
+                android:id="@+id/userPicture"
                 android:layout_gravity="top" />
 
             <Button

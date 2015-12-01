@@ -1,9 +1,11 @@
 package company.pepisha.find_yours_pets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -25,7 +27,6 @@ public class UserProfileActivity  extends BaseActivity {
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
             user = new User((JSONObject)result.get(session.getUserDetails().get("nickname")));
-            Toast.makeText(getApplicationContext(), "nickname : "+user.getNickname(), Toast.LENGTH_SHORT).show();
             fillUserFields();
         }
     }
@@ -57,5 +58,29 @@ public class UserProfileActivity  extends BaseActivity {
 
         request.put("nickname", nicknameUser);
         new GetUserInformationsDbOperation(getApplicationContext()).execute(request);
+
+        oncClickExecuteUpdateProfileActivity();
+    }
+
+    private void oncClickExecuteUpdateProfileActivity() {
+        Button update = (Button) findViewById(R.id.updtateButton);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent update = new Intent(getApplicationContext(), UpdateUserProfileActivity.class);
+                startActivity(update);
+            }
+        });
+    }
+
+    private void onClickExecuteUpdatePictureActivity() {
+        Button update = (Button) findViewById(R.id.pictureButton);
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent update = new Intent(getApplicationContext(), CameraActivity.class);
+                startActivity(update);
+            }
+        });
     }
 }

@@ -22,7 +22,7 @@
     <string name="male">Mâle</string>
     <string name="female">Femelle</string>
     <string name="name">Nom</string>
-    <string name="app_name" translatable="false"></string>
+    <string name="app_name" translatable="false">Find-Yours-Pets</string>
     <string name="breed">Race</string>
     <string name="age">Age</string>
     <string name="catsFriend">Ententes chats</string>
@@ -51,5 +51,8 @@
     <string name="title_activity_shelter">Refuge</string>
     <string name="title_activity_file_explorer">Explorateur de fichiers</string>
     <string name="photoConfirmation">Voulez-vous mettre en ligne cette photo ?</string>
+    <string name="title_activity_update_user_profile">Modifier profil</string>
+    <string name="title_activity_camera"></string>
+    <string name="modifyProfile">Modifier le profil</string>
 
 </resources>

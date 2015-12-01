@@ -64,6 +64,10 @@
             android:name=".fileExplorer.FileExplorer"
             android:label="@string/title_activity_file_explorer" >
         </activity>
+        <activity
+            android:name=".UpdateUserProfileActivity"
+            android:label="@string/title_activity_update_user_profile" >
+        </activity>
     </application>
 
 </manifest>
