@@ -54,5 +54,9 @@
     <string name="title_activity_update_user_profile">Modifier profil</string>
     <string name="title_activity_camera"></string>
     <string name="modifyProfile">Modifier le profil</string>
+    <string name="photoSelectionMessage">Choisissez votre mode de sélection</string>
+    <string name="photoSelectionTitle">Mode de sélection</string>
+    <string name="fileExplorerButton">Explorateur de fichiers</string>
+    <string name="cameraButton">Appareil photo</string>
 
 </resources>
