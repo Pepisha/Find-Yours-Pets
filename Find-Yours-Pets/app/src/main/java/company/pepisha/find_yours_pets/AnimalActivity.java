@@ -1,11 +1,9 @@
 package company.pepisha.find_yours_pets;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -95,14 +93,42 @@ public class AnimalActivity extends BaseActivity {
         });
     }
 
+    private void photoSelectionDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setTitle(R.string.photoSelectionTitle);
+        dialog.setContentView(R.layout.photo_selection_layout);
+
+        Button fileExplorerButton = (Button) dialog.findViewById(R.id.fileExplorerButton);
+        Button cameraButton = (Button) dialog.findViewById(R.id.cameraButton);
+
+        fileExplorerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                Intent fileExplorerScreen = new Intent(getApplicationContext(), FileExplorer.class);
+                startActivity(fileExplorerScreen);
+            }
+        });
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+                Intent cameraScreen = new Intent(getApplicationContext(), CameraActivity.class);
+                startActivity(cameraScreen);
+            }
+        });
+
+        dialog.show();
+    }
+
     private void onClickChangeAnimalPhoto() {
         Button changeAnimalPhoto = (Button) findViewById(R.id.pictureButton);
         changeAnimalPhoto.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
-                Intent cameraScreen = new Intent(getApplicationContext(), CameraActivity.class);
-                //Intent cameraScreen = new Intent(getApplicationContext(), FileExplorer.class);
-                startActivity(cameraScreen);
+                photoSelectionDialog();
             }
         });
     }

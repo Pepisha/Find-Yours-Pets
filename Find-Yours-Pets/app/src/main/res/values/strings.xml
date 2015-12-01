@@ -57,5 +57,9 @@
 
     <string name="title_activity_update_user_profile">Update profile</string>
     <string name="modifyProfile">Update profile</string>
+    <string name="photoSelectionMessage">Choose your selection mode</string>
+    <string name="photoSelectionTitle">Selection mode</string>
+    <string name="fileExplorerButton">File explorer</string>
+    <string name="cameraButton">Camera</string>
 
 </resources>
