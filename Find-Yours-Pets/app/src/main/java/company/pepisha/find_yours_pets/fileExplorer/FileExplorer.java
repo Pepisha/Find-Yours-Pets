@@ -1,6 +1,7 @@
 package company.pepisha.find_yours_pets.fileExplorer;
 
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.KeyEvent;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import company.pepisha.find_yours_pets.R;
+import company.pepisha.find_yours_pets.photo.PhotoConfirmationWindow;
 
 public class FileExplorer extends ListActivity {
 
@@ -77,11 +79,29 @@ public class FileExplorer extends ListActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    private void displayConfirmationWindow() {
+        final PhotoConfirmationWindow alertDialog = new PhotoConfirmationWindow(this);
+
+        alertDialog.setNegativeClickListener(new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                alertDialog.cancel();
+            }
+        });
+
+        alertDialog.setPositiveClickListener(new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+
+        alertDialog.show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fileList = (ListView) getListView();
+        fileList = getListView();
 
         if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             //mEmpty = (TextView) mList.getEmptyView();
@@ -110,6 +130,8 @@ public class FileExplorer extends ListActivity {
 
                     if (file.isDirectory()) {
                         updateDirectory(file);
+                    } else {
+                        displayConfirmationWindow();
                     }
                 }
             });
