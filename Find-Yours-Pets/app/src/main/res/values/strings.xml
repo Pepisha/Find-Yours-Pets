@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Find-Yours-Pets</string>
+    <string name="app_name">Find-Yours-Pets</string>
 
     <string name="action_settings">Settings</string>
     <string name="title" translatable="false">Find Your Pets</string>
@@ -54,4 +54,8 @@
     <string name="title_activity_shelter">ShelterActivity</string>
     <string name="title_activity_file_explorer">File explorer</string>
     <string name="photoConfirmation">Do you want to send this picture online ?</string>
+
+    <string name="title_activity_update_user_profile">Update profile</string>
+    <string name="modifyProfile">Update profile</string>
+
 </resources>
