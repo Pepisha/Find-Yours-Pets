@@ -1,7 +1,5 @@
 package company.pepisha.find_yours_pets;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -10,8 +8,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -25,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import company.pepisha.find_yours_pets.camera.CameraPreview;
+import company.pepisha.find_yours_pets.photo.PhotoConfirmationWindow;
 
 public class CameraActivity extends BaseActivity {
 
@@ -70,35 +67,21 @@ public class CameraActivity extends BaseActivity {
                     public void onClick(View v) {
                         // get an image from the camera
                         mCamera.takePicture(null, null, mPicture);
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                        final PhotoConfirmationWindow alertDialog = new PhotoConfirmationWindow(context);
 
-                        // set title
-                        alertDialogBuilder.setTitle("Voulez-vous mettre en ligne cette photo ? ");
+                        alertDialog.setNegativeClickListener(new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                alertDialog.cancel();
+                                mPreview.refresh();
+                            }
+                        });
 
-                        // set dialog message
-                        alertDialogBuilder
-                                .setMessage("Cliquez sur oui pour envoyer la photo !")
-                                .setCancelable(false)
-                                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // if this button is clicked, close
-                                        // current activity
-                                        //TODO lancer l'activité suivante
-                                    }
-                                })
-                                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // if this button is clicked, just close
-                                        // the dialog box and do nothing
-                                        dialog.cancel();
-                                        mPreview.refresh();
-                                    }
-                                });
+                        alertDialog.setPositiveClickListener(new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                finish();
+                            }
+                        });
 
-                        // create alert dialog
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-
-                        // show it
                         alertDialog.show();
                     }
                 }
