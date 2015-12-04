@@ -61,5 +61,7 @@
     <string name="photoSelectionTitle">Selection mode</string>
     <string name="fileExplorerButton">File explorer</string>
     <string name="cameraButton">Camera</string>
+    <string name="followAnimal">You follow this animal</string>
+    <string name="unfollowAnimal">You are no longer following this animal</string>
 
 </resources>
