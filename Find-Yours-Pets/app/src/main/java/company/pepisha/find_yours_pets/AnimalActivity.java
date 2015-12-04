@@ -21,6 +21,8 @@ public class AnimalActivity extends BaseActivity {
 
     private Animal animal;
 
+    private boolean isFollowingAnimal;
+
     private class ChangeAnimalStatusDbOperation extends ServerDbOperation {
         public ChangeAnimalStatusDbOperation(Context c) {
             super(c, "changeAnimalsStatus");
@@ -28,11 +30,11 @@ public class AnimalActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            String toastText = "";
+            String toastText;
 
-            if(successResponse(result)){
+            if (successResponse(result)) {
                 toastText = getString(R.string.successUpdateAnimalStatus);
-                refreshAnimalState();
+                setAnimalState((animal.getState() == 1) ? 2 : 1);
             } else {
                 toastText = "Failed status change";
             }
@@ -41,8 +43,48 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
-    private void refreshAnimalState() {
-        animal.setState((animal.getState() == 1) ? 2 : 1);
+    private class IsFollowingAnimalDbOperation extends ServerDbOperation {
+        public IsFollowingAnimalDbOperation(Context c) {
+            super(c, "isFollowingAnimal");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            boolean following = (result != null && result.containsKey("following") && result.get("following").toString().equals("true"));
+            setAnimalFollowing(following);
+        }
+    }
+
+    private class FollowAnimalDbOperation extends ServerDbOperation {
+        public FollowAnimalDbOperation(Context c) {
+            super(c, "followAnimal");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (successResponse(result)) {
+                setAnimalFollowing(true);
+                Toast.makeText(getApplicationContext(), R.string.followAnimal, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class UnfollowAnimalDbOperation extends ServerDbOperation {
+        public UnfollowAnimalDbOperation(Context c) {
+            super(c, "unfollowAnimal");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (successResponse(result)) {
+                setAnimalFollowing(false);
+                Toast.makeText(getApplicationContext(), R.string.unfollowAnimal, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void setAnimalState(int state) {
+        animal.setState(state);
 
         TextView animalState = (TextView) findViewById(R.id.animalState);
         animalState.setText((animal.getState() == Animal.ADOPTION)
@@ -53,12 +95,31 @@ public class AnimalActivity extends BaseActivity {
                 ? getResources().getString(R.string.adopted) : getResources().getString(R.string.adoption));
     }
 
-    private void setAnimalState(int state) {
+    private void changeAnimalState(int state) {
         HashMap<String, String> request = new HashMap<>();
         request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
         request.put("newStatus", Integer.toString(state));
 
-        new ChangeAnimalStatusDbOperation(getApplicationContext()).execute(request);
+        new ChangeAnimalStatusDbOperation(this).execute(request);
+    }
+
+    private void setAnimalFollowing(boolean followed) {
+        isFollowingAnimal = followed;
+
+        Button followButton = (Button) findViewById(R.id.followButton);
+        followButton.setText(isFollowingAnimal ? "Unfollow" : "Follow");
+    }
+
+    private void changeAnimalFollowing(boolean followed) {
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+        request.put("nickname", session.getUserDetails().get("nickname"));
+
+        if (followed) {
+            new FollowAnimalDbOperation(this).execute(request);
+        } else {
+            new UnfollowAnimalDbOperation(this).execute(request);
+        }
     }
 
     private void fillAnimalFields() {
@@ -81,14 +142,29 @@ public class AnimalActivity extends BaseActivity {
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
         animalPicture.setImageDrawable(getResources().getDrawable(R.drawable.dog));
 
-        refreshAnimalState();
+        setAnimalState(animal.getState());
 
         Button stateButton = (Button) findViewById(R.id.stateButton);
         stateButton.setOnClickListener(new View.OnClickListener() {
 
+            @Override
             public void onClick(View v) {
                 int newStatus = animal.getState() == 1 ? 2 : 1;
-                setAnimalState(newStatus);
+                changeAnimalState(newStatus);
+            }
+        });
+
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+        request.put("nickname", session.getUserDetails().get("nickname"));
+        new IsFollowingAnimalDbOperation(this).execute(request);
+
+        Button followButton = (Button) findViewById(R.id.followButton);
+        followButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                changeAnimalFollowing(!isFollowingAnimal);
             }
         });
     }

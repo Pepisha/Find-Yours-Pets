@@ -62,6 +62,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/stateButton"
                 android:layout_gravity="left" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/followButton"
+                android:layout_gravity="left" />
         </LinearLayout>
 
         <LinearLayout
