@@ -22,6 +22,7 @@ import java.util.Map;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
+import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class HomeActivity extends BaseActivity {
 
@@ -35,33 +36,9 @@ public class HomeActivity extends BaseActivity {
             int animalId = Integer.parseInt(entry.getKey());
             ParcelableAnimal a = new ParcelableAnimal((JSONObject) entry.getValue());
             animalsList.put(animalId, a);
-
-            LinearLayout petLayout = new LinearLayout(petsGrid.getContext());
-            petLayout.setOrientation(LinearLayout.VERTICAL);
-
-            ImageButton petPicture = new ImageButton(petsGrid.getContext());
-            petPicture.setImageResource(R.drawable.dog);
-            petPicture.setId(animalId);
-
-            TextView petName = new TextView(petsGrid.getContext());
-            petName.setText(a.getName());
-            petName.setGravity(Gravity.CENTER);
-
-            petLayout.addView(petPicture);
-            petLayout.addView(petName);
-
-            petsGrid.addView(petLayout);
-
-            petPicture.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View v) {
-                    Intent animalScreen = new Intent(getApplicationContext(), AnimalActivity.class);
-                    animalScreen.putExtra("animal", (ParcelableAnimal) animalsList.get(v.getId()));
-
-                    startActivity(animalScreen);
-                }
-            });
         }
+
+        AnimalViews.buildGrid(petsGrid, animalsList);
     }
 
     @Override
