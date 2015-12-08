@@ -63,5 +63,7 @@
     <string name="cameraButton">Camera</string>
     <string name="followAnimal">You follow this animal</string>
     <string name="unfollowAnimal">You are no longer following this animal</string>
+    <string name="facebook_app_id">1702801843282822</string>
+    <string name="title_activity_facebook_login">Facebook Login</string>
 
 </resources>
