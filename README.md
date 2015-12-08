@@ -9,6 +9,12 @@ Application permettant à un utilisateur de trouver l'animal de ses rêves dans 
 
 # Utilisateurs
 
+## Administrateur
+- Possède les droits d'un utilisateur simple
+- Peut créer / modifier / supprimer un refuge
+- Peut ajouter / supprimer des gestionnaires de refuges
+- Peut supprimer des comptes utilisateur
+
 ## Gestionnaire de SPA
 
 - Gestion des chiens (profil, description, photos, vidéos)
