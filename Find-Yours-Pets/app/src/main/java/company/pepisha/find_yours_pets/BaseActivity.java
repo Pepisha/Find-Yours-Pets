@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.appevents.AppEventsLogger;
+
+import company.pepisha.find_yours_pets.facebook.FacebookLogin;
 import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class BaseActivity extends Activity {
@@ -49,7 +52,28 @@ public class BaseActivity extends Activity {
         else if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_facebook_login) {
+            Intent loginFacebookScreen = new Intent(getApplicationContext(), FacebookLogin.class);
+            startActivity(loginFacebookScreen);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
+    }
+
 }
