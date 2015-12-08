@@ -3,6 +3,7 @@ package company.pepisha.find_yours_pets;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,13 +15,18 @@ import java.util.List;
 import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.opinion.Opinion;
 import company.pepisha.find_yours_pets.db.shelter.Shelter;
+import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
+import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class ShelterActivity extends BaseActivity {
 
     private Shelter shelter;
+
+    private GridLayout petsGrid;
 
     private ListView opinionsList;
 
@@ -33,6 +39,18 @@ public class ShelterActivity extends BaseActivity {
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
             addOpinions(result);
+        }
+    }
+
+    private class GetSheltersAnimalsDbOperation extends ServerDbOperation {
+
+        public GetSheltersAnimalsDbOperation(Context c) {
+            super(c, "getSheltersAnimals");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            addAnimals(result);
         }
     }
 
@@ -53,6 +71,19 @@ public class ShelterActivity extends BaseActivity {
         shelterPhone.setText(shelter.getPhone());
     }
 
+    private void addAnimals(HashMap<String, Object> animals) {
+
+        Map<Integer, Animal> animalsList = new HashMap<>();
+
+        for (Map.Entry<String, Object> entry : animals.entrySet()) {
+            int animalId = Integer.parseInt(entry.getKey());
+            ParcelableAnimal a = new ParcelableAnimal((JSONObject) entry.getValue());
+            animalsList.put(animalId, a);
+        }
+
+        AnimalViews.buildGrid(petsGrid, animalsList);
+    }
+
     private void addOpinions(HashMap<String, Object> opinions) {
         List<Opinion> opinionObjects = new ArrayList<Opinion>();
 
@@ -71,12 +102,17 @@ public class ShelterActivity extends BaseActivity {
         setContentView(R.layout.activity_shelter);
 
         shelter = (ParcelableShelter) getIntent().getParcelableExtra("shelter");
+        petsGrid = (GridLayout) findViewById(R.id.petsGrid);
         opinionsList = (ListView) findViewById(R.id.opinionsList);
 
         fillShelterFields();
 
-        HashMap<String, String> request = new HashMap<String, String>();
-        request.put("idShelter", Integer.toString(shelter.getIdShelter()));
-        new GetOpinionsAboutShelterDbOperation(getApplicationContext()).execute(request);
+        HashMap<String, String> animalsRequest = new HashMap<String, String>();
+        animalsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        new GetSheltersAnimalsDbOperation(this).execute(animalsRequest);
+
+        HashMap<String, String> opinionsRequest = new HashMap<String, String>();
+        opinionsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        new GetOpinionsAboutShelterDbOperation(this).execute(opinionsRequest);
     }
 }

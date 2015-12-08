@@ -47,6 +47,13 @@
             android:text="Medium Text"
             android:id="@+id/shelterPhone" />
 
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/petsGrid"
+            android:columnCount="3"></GridLayout>
+
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

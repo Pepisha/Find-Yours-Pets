@@ -5,19 +5,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.user.User;
+import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
+import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class UserProfileActivity  extends BaseActivity {
 
     private User user;
 
+    private GridLayout petsGrid;
 
     private class GetUserInformationsDbOperation extends ServerDbOperation {
         public GetUserInformationsDbOperation(Context c) {
@@ -31,6 +37,16 @@ public class UserProfileActivity  extends BaseActivity {
         }
     }
 
+    private class GetUsersAnimalsDbOperation extends ServerDbOperation {
+        public GetUsersAnimalsDbOperation(Context c) {
+            super(c, "getUsersAnimals");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            addAnimals(result);
+        }
+    }
 
     private void fillUserFields() {
         TextView userNickname = (TextView) findViewById(R.id.userLogin);
@@ -49,15 +65,34 @@ public class UserProfileActivity  extends BaseActivity {
         userPhone.setText(user.getPhone());
     }
 
+    private void addAnimals(HashMap<String, Object> animals) {
+
+        Map<Integer, Animal> animalsList = new HashMap<>();
+
+        for (Map.Entry<String, Object> entry : animals.entrySet()) {
+            int animalId = Integer.parseInt(entry.getKey());
+            ParcelableAnimal a = new ParcelableAnimal((JSONObject) entry.getValue());
+            animalsList.put(animalId, a);
+        }
+
+        AnimalViews.buildGrid(petsGrid, animalsList);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-        HashMap<String,String> request = new HashMap<>();
-        String nicknameUser = session.getUserDetails().get("nickname");
 
-        request.put("nickname", nicknameUser);
-        new GetUserInformationsDbOperation(getApplicationContext()).execute(request);
+        petsGrid = (GridLayout) findViewById(R.id.petsGrid);
+
+        HashMap<String,String> userRequest = new HashMap<>();
+        String nicknameUser = session.getUserDetails().get("nickname");
+        userRequest.put("nickname", nicknameUser);
+        new GetUserInformationsDbOperation(getApplicationContext()).execute(userRequest);
+
+        HashMap<String, String> animalsRequest = new HashMap<String, String>();
+        animalsRequest.put("nickname", nicknameUser);
+        new GetUsersAnimalsDbOperation(this).execute(animalsRequest);
 
         oncClickExecuteUpdateProfileActivity();
     }
