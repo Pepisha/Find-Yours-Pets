@@ -60,5 +60,6 @@
     <string name="cameraButton">Appareil photo</string>
     <string name="followAnimal">Vous suivez cet animal</string>
     <string name="unfollowAnimal">Vous ne suivez plus cet animal</string>
+    <string name="myAnimalsTitle">Mes animaux</string>
 
 </resources>
