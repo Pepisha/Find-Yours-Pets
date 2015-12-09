@@ -106,7 +106,7 @@ public class AnimalOperation {
         animal.setName(cursor.getString(2));
         animal.setBreed(cursor.getString(3));
         animal.setAge(cursor.getString(4));
-        animal.setGender((cursor.getString(5) == "Male") ? Animal.Gender.MALE : Animal.Gender.FEMALE);
+        animal.setGender((cursor.getString(5) == AnimalConstants.MALE) ? Animal.Gender.MALE : Animal.Gender.FEMALE);
         animal.setCatsFriend(cursor.getString(6));
         animal.setDogsFriend(cursor.getString(7));
         animal.setChildrenFriend(cursor.getString(8));
