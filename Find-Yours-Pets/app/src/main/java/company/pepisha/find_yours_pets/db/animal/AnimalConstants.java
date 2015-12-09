@@ -19,6 +19,8 @@ public class AnimalConstants {
     protected static final String DESCRIPTION = "description";
     protected static final String STATE = "idState";
 
+    public static final String MALE = "male";
+    public static final String FEMALE = "female";
 
     public static final String ANIMAL_CREATE = "create table " + ANIMAL
             + "(" + ID_ANIMAL + " integer primary key autoincrement, " +

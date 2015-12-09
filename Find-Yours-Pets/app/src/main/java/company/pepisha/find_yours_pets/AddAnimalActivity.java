@@ -1,11 +1,8 @@
 package company.pepisha.find_yours_pets;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.db.animal.AnimalConstants;
 import company.pepisha.find_yours_pets.db.animal.AnimalStateConstants;
 import company.pepisha.find_yours_pets.db.animal.animalType.AnimalType;
 import company.pepisha.find_yours_pets.db.animal.animalType.AnimalTypeOperation;
@@ -41,14 +39,14 @@ public class AddAnimalActivity extends BaseActivity {
         HashMap<String, String> request = new HashMap<String, String>();
         request.put("name", animalName.getText().toString());
         request.put("type", Integer.toString(radioGroupAnimalTypes.getCheckedRadioButtonId()));
-        request.put("gender", checkedAnimalGender.getText().toString());
+        request.put("gender", (checkedAnimalGender.getText().toString().equals(getResources().getString(R.string.male)))
+                                            ? AnimalConstants.MALE : AnimalConstants.FEMALE);
         request.put("breed", breedAnimal.getText().toString());
         request.put("age", ageAnimal.getText().toString());
         request.put("catsFriend", catsFriend.getText().toString());
         request.put("dogsFriend", dogsAgreements.getText().toString());
         request.put("childrenFriend", childrenAgreements.getText().toString());
         request.put("description", description.getText().toString());
-        request.put("state", Integer.toString(AnimalStateConstants.ADOPTION_ID));
         request.put("idShelter", Integer.toString(1));
 
         new AddAnimalDbOperation(getApplicationContext()).execute(request);

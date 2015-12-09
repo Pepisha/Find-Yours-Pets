@@ -35,7 +35,7 @@ public class Animal {
             name = obj.getString("name");
             breed = obj.getString("breed");
             age = obj.getString("age");
-            gender = (obj.getString("gender") == "male") ? Gender.MALE : Gender.FEMALE;
+            gender = (obj.getString("gender") == AnimalConstants.MALE) ? Gender.MALE : Gender.FEMALE;
             catsFriend = obj.getString("catsFriend");
             dogsFriend = obj.getString("dogsFriend");
             childrenFriend = obj.getString("childrenFriend");
