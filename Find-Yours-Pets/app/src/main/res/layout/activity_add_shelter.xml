@@ -126,6 +126,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/website"
+                    android:id="@+id/labelWebsite" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:ems="10"
+                    android:id="@+id/shelterWebSite"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_row="5"
+                android:layout_column="0">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/operationalHours"
                     android:id="@+id/labeloperationalHours" />
 
@@ -141,7 +162,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_row="5"
+                android:layout_row="6"
                 android:layout_column="0">
 
                 <TextView
@@ -162,7 +183,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_row="6"
+                android:layout_row="7"
                 android:layout_column="0">
 
                 <TextView
@@ -183,7 +204,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_row="7"
+                android:layout_row="8"
                 android:layout_column="0">
 
                 <TextView
@@ -195,7 +216,7 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:inputType="textMultiLine"
                     android:ems="10"
                     android:id="@+id/street"
                     android:layout_weight="1" />
@@ -204,7 +225,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_row="8"
+                android:layout_row="9"
                 android:layout_column="0">
                 <Button
                     android:layout_width="wrap_content"
@@ -216,7 +237,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_row="9"
+                android:layout_row="10"
                 android:layout_column="0">
             </TableRow>
         </GridLayout>

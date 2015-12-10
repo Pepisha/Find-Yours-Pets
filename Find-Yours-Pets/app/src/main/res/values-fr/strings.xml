@@ -62,5 +62,6 @@
     <string name="unfollowAnimal">Vous ne suivez plus cet animal</string>
     <string name="myAnimalsTitle">Mes animaux</string>
     <string name="shareOnFacebook">Partager sur Facebook</string>
+    <string name="website">Site web</string>
 
 </resources>

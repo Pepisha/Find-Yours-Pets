@@ -51,6 +51,7 @@ public class AddShelterActivity extends BaseActivity {
         EditText phone = (EditText) findViewById(R.id.shelterPhone);
         EditText description = (EditText) findViewById(R.id.shelterDescription);
         EditText mail = (EditText) findViewById(R.id.shelterMail);
+        EditText website = (EditText) findViewById(R.id.shelterWebSite);
         EditText operationalHours = (EditText) findViewById(R.id.shelteoperationalHours);
         EditText street = (EditText) findViewById(R.id.street);
         EditText zipcode = (EditText) findViewById(R.id.zipcode);
@@ -61,6 +62,7 @@ public class AddShelterActivity extends BaseActivity {
         request.put("phone", phone.getText().toString());
         request.put("description", description.getText().toString());
         request.put("mail", mail.getText().toString());
+        request.put("website", website.getText().toString());
         request.put("operationalHours", operationalHours.getText().toString());
         request.put("street", street.getText().toString());
         request.put("zipcode", zipcode.getText().toString());
