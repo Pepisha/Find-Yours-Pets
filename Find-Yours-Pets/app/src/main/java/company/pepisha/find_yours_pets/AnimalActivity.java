@@ -10,16 +10,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.share.widget.ShareDialog;
+
 import java.util.HashMap;
 
+import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
+import company.pepisha.find_yours_pets.facebook.FacebookManager;
 import company.pepisha.find_yours_pets.fileExplorer.FileExplorer;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 
 public class AnimalActivity extends BaseActivity {
 
     private Animal animal;
+    private ShareDialog shareDialog;
 
     private boolean isFollowingAnimal;
 
@@ -209,6 +214,29 @@ public class AnimalActivity extends BaseActivity {
         });
     }
 
+    private void shareOnFacebook() {
+        String title = animal.getName();
+        String description = animal.getName() + "\n"
+                + animal.getBreed()+"\n"
+                + animal.getAge()+"\n"
+                + animal.getCatsFriend()+"\n"
+                + animal.getDogsFriend()+"\n"
+                + animal.getChildrenFriend() +"\n"
+                + animal.getDescription();
+        shareDialog = new ShareDialog(this);
+        shareDialog.show(FacebookManager.share(title, description, ServerConnectionManager.url));
+    }
+
+    private void onClickShareOnFacebook() {
+        final Button shareOnFacebook = (Button) findViewById(R.id.shareFacebookButton);
+        shareOnFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareOnFacebook();
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,5 +246,6 @@ public class AnimalActivity extends BaseActivity {
 
         fillAnimalFields();
         onClickChangeAnimalPhoto();
+        onClickShareOnFacebook();
     }
 }
