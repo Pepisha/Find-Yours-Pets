@@ -21,6 +21,7 @@ import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.AnimalConstants;
 import company.pepisha.find_yours_pets.db.animal.animalType.AnimalType;
 import company.pepisha.find_yours_pets.db.animal.animalType.AnimalTypeOperation;
+import company.pepisha.find_yours_pets.facebook.FacebookManager;
 
 public class AddAnimalActivity extends BaseActivity {
 
@@ -92,19 +93,8 @@ public class AddAnimalActivity extends BaseActivity {
                 + childrenAgreements.getText().toString()+"\n"
                 + description.getText().toString();
 
-        ShareLinkContent contentPost = new ShareLinkContent.Builder()
-                .setContentTitle(postTitle)
-                .setContentDescription(postContent)
-                .build();
-        ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                .setContentTitle(animalName.getText().toString())
-                .setContentDescription(
-                        postContent)
-                .setContentUrl(Uri.parse("http://www.find-yours-pets.esy.es/"))
-                .build();
-
         shareDialog = new ShareDialog(this);
-        shareDialog.show(linkContent);
+        shareDialog.show(FacebookManager.share(postTitle, postContent, "http://www.find-yours-pets.esy.es/"));
 
         //TODO ajouter image quand l'upload d'images marchera
     }
