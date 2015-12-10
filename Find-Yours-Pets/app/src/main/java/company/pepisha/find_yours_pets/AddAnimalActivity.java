@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -37,15 +38,17 @@ public class AddAnimalActivity extends BaseActivity {
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
             if (successResponse(result)) {
-                Toast.makeText(getApplicationContext(), R.string.animalAdded, Toast.LENGTH_SHORT).show();
 
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(homeScreen);
+
+                shareAnimalOnFacebook();
             }
         }
     }
 
     private void animalAdding() {
+
         EditText animalName = (EditText) findViewById(R.id.animalName);
         RadioGroup radioGroupAnimalTypes = (RadioGroup) findViewById(R.id.radioGroupAnimalTypes);
         RadioGroup radioGroupAnimalGender = (RadioGroup) findViewById(R.id.radioGroupAnimalSexe);
@@ -75,29 +78,32 @@ public class AddAnimalActivity extends BaseActivity {
     }
 
     private void shareAnimalOnFacebook() {
-        EditText animalName = (EditText) findViewById(R.id.animalName);
-        RadioGroup radioGroupAnimalTypes = (RadioGroup) findViewById(R.id.radioGroupAnimalTypes);
-        RadioGroup radioGroupAnimalGender = (RadioGroup) findViewById(R.id.radioGroupAnimalSexe);
-        EditText breedAnimal = (EditText) findViewById(R.id.breedAnimal);
-        EditText ageAnimal = (EditText) findViewById(R.id.ageAnimal);
-        EditText catsFriend = (EditText) findViewById(R.id.catsFriend);
-        EditText dogsAgreements = (EditText) findViewById(R.id.dogsAgreements);
-        EditText childrenAgreements = (EditText) findViewById(R.id.childrenAgreements);
-        EditText description = (EditText) findViewById(R.id.description);
+        CheckBox facebookShare = (CheckBox) findViewById(R.id.checkBoxFacebook);
+        if(facebookShare.isChecked()) {
+            EditText animalName = (EditText) findViewById(R.id.animalName);
+            RadioGroup radioGroupAnimalTypes = (RadioGroup) findViewById(R.id.radioGroupAnimalTypes);
+            RadioGroup radioGroupAnimalGender = (RadioGroup) findViewById(R.id.radioGroupAnimalSexe);
+            EditText breedAnimal = (EditText) findViewById(R.id.breedAnimal);
+            EditText ageAnimal = (EditText) findViewById(R.id.ageAnimal);
+            EditText catsFriend = (EditText) findViewById(R.id.catsFriend);
+            EditText dogsAgreements = (EditText) findViewById(R.id.dogsAgreements);
+            EditText childrenAgreements = (EditText) findViewById(R.id.childrenAgreements);
+            EditText description = (EditText) findViewById(R.id.description);
 
-        String postTitle = animalName.getText().toString();
-        String postContent = animalName.getText().toString()+"\n"
-                + breedAnimal.getText().toString()+"\n"
-                + ageAnimal.getText().toString()+"\n"
-                + catsFriend.getText().toString()+"\n"
-                + dogsAgreements.getText().toString()+"\n"
-                + childrenAgreements.getText().toString()+"\n"
-                + description.getText().toString();
+            String postTitle = animalName.getText().toString();
+            String postContent = animalName.getText().toString() + "\n"
+                    + breedAnimal.getText().toString() + "\n"
+                    + ageAnimal.getText().toString() + "\n"
+                    + catsFriend.getText().toString() + "\n"
+                    + dogsAgreements.getText().toString() + "\n"
+                    + childrenAgreements.getText().toString() + "\n"
+                    + description.getText().toString();
 
-        shareDialog = new ShareDialog(this);
-        shareDialog.show(FacebookManager.share(postTitle, postContent, ServerConnectionManager.url));
+            shareDialog = new ShareDialog(this);
+            shareDialog.show(FacebookManager.share(postTitle, postContent, ServerConnectionManager.url));
 
-        //TODO ajouter image quand l'upload d'images marchera
+            //TODO ajouter image quand l'upload d'images marchera
+        }
     }
 
     @Override
@@ -113,7 +119,6 @@ public class AddAnimalActivity extends BaseActivity {
 
             public void onClick(View v) {
                 animalAdding();
-                shareAnimalOnFacebook();
             }
         });
     }
