@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 public class ServerDbOperation extends AsyncTask<HashMap<String, String>, Void, HashMap<String, Object>> {
 
-    private Context context;
+    protected Context context;
 
-    private String page;
+    protected String page;
 
     public ServerDbOperation(Context c, String page) {
         this.context = c;

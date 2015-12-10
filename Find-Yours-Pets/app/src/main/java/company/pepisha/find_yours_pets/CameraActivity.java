@@ -2,6 +2,7 @@ package company.pepisha.find_yours_pets;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.camera.CameraPreview;
 import company.pepisha.find_yours_pets.photo.PhotoConfirmationWindow;
@@ -30,6 +32,9 @@ public class CameraActivity extends BaseActivity {
     private CameraPreview mPreview;
     final Context context = this;
     private File currentPicture = null;
+
+    private int targetId;
+    private String photoDescription;
 
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
@@ -83,7 +88,11 @@ public class CameraActivity extends BaseActivity {
                         alertDialog.setPositiveClickListener(new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 if (currentPicture != null) {
-                                    new UploadImageOperation(getApplicationContext()).execute(currentPicture.getAbsolutePath());
+                                    HashMap<String, String> request = new HashMap<String, String>();
+                                    request.put("filepath", currentPicture.getAbsolutePath());
+                                    request.put("targetId", Integer.toString(targetId));
+                                    request.put("description", photoDescription);
+                                    new UploadImageOperation(getApplicationContext()).execute(request);
                                 }
 
                                 finish();
@@ -109,8 +118,11 @@ public class CameraActivity extends BaseActivity {
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
 
-        onClickButtonCapture();
+        Intent i = getIntent();
+        targetId = i.getIntExtra("id", 0);
+        photoDescription = i.getStringExtra("description");
 
+        onClickButtonCapture();
     }
 
     /** A safe way to get an instance of the Camera object. */

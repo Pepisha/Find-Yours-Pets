@@ -174,6 +174,12 @@ public class AnimalActivity extends BaseActivity {
         });
     }
 
+    private void startPhotoIntent(Intent intent) {
+        intent.putExtra("id", animal.getIdAnimal());
+        intent.putExtra("description", "");
+        startActivity(intent);
+    }
+
     private void photoSelectionDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setTitle(R.string.photoSelectionTitle);
@@ -186,9 +192,7 @@ public class AnimalActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-
-                Intent fileExplorerScreen = new Intent(getApplicationContext(), FileExplorer.class);
-                startActivity(fileExplorerScreen);
+                startPhotoIntent(new Intent(getApplicationContext(), FileExplorer.class));
             }
         });
 
@@ -196,9 +200,7 @@ public class AnimalActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-
-                Intent cameraScreen = new Intent(getApplicationContext(), CameraActivity.class);
-                startActivity(cameraScreen);
+                startPhotoIntent(new Intent(getApplicationContext(), CameraActivity.class));
             }
         });
 
