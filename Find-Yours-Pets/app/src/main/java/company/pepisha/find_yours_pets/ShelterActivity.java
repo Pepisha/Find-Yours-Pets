@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -69,6 +70,12 @@ public class ShelterActivity extends BaseActivity {
 
         TextView shelterPhone = (TextView) findViewById(R.id.shelterPhone);
         shelterPhone.setText(shelter.getPhone());
+
+        if(shelter.getWebsite() != null) {
+        Toast.makeText(getApplicationContext(), shelter.getWebsite(), Toast.LENGTH_SHORT).show();
+            TextView shelterWebsite = (TextView) findViewById(R.id.shelterWebSite);
+            shelterWebsite.setText(shelter.getWebsite());
+        }
     }
 
     private void addAnimals(HashMap<String, Object> animals) {
