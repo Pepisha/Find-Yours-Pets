@@ -2,11 +2,14 @@ package company.pepisha.find_yours_pets;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONObject;
 
@@ -15,10 +18,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.opinion.Opinion;
 import company.pepisha.find_yours_pets.db.shelter.Shelter;
+import company.pepisha.find_yours_pets.facebook.FacebookManager;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
 import company.pepisha.find_yours_pets.views.AnimalViews;
@@ -26,6 +31,8 @@ import company.pepisha.find_yours_pets.views.AnimalViews;
 public class ShelterActivity extends BaseActivity {
 
     private Shelter shelter;
+
+    private ShareDialog shareDialog;
 
     private GridLayout petsGrid;
 
@@ -72,7 +79,6 @@ public class ShelterActivity extends BaseActivity {
         shelterPhone.setText(shelter.getPhone());
 
         if(shelter.getWebsite() != null) {
-        Toast.makeText(getApplicationContext(), shelter.getWebsite(), Toast.LENGTH_SHORT).show();
             TextView shelterWebsite = (TextView) findViewById(R.id.shelterWebSite);
             shelterWebsite.setText(shelter.getWebsite());
         }
@@ -103,6 +109,24 @@ public class ShelterActivity extends BaseActivity {
         opinionsList.setAdapter(listAdapter);
     }
 
+    private void shareOnFacebook() {
+        String title = shelter.getName();
+        String description = shelter.getDescription();
+        String url = shelter.getWebsite() == null ? ServerConnectionManager.url : shelter.getWebsite();
+        shareDialog = new ShareDialog(this);
+        shareDialog.show(FacebookManager.share(title, description, url));
+    }
+
+    private void onClickShareOnFacebook() {
+        final Button shareOnFacebook = (Button) findViewById(R.id.shareFacebookButton);
+        shareOnFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareOnFacebook();
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,5 +145,7 @@ public class ShelterActivity extends BaseActivity {
         HashMap<String, String> opinionsRequest = new HashMap<String, String>();
         opinionsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
         new GetOpinionsAboutShelterDbOperation(this).execute(opinionsRequest);
+
+        onClickShareOnFacebook();
     }
 }

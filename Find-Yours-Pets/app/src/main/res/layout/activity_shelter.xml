@@ -50,6 +50,13 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/shelterWebSite" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shareOnFacebook"
+            android:id="@+id/shareFacebookButton"
+            android:layout_gravity="left" />
+
 
         <GridLayout
             android:layout_width="match_parent"
