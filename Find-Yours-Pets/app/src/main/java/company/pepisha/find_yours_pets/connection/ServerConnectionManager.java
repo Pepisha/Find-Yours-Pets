@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class ServerConnectionManager {
 
-    private static final String url = "http://www.find-yours-pets.esy.es/";
+    public static final String url = "http://www.find-yours-pets.esy.es/";
 
     public static boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);

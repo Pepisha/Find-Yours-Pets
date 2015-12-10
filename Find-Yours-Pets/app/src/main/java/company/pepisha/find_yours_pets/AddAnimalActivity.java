@@ -17,6 +17,7 @@ import com.facebook.share.widget.ShareDialog;
 import java.util.HashMap;
 import java.util.List;
 
+import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.AnimalConstants;
 import company.pepisha.find_yours_pets.db.animal.animalType.AnimalType;
@@ -94,7 +95,7 @@ public class AddAnimalActivity extends BaseActivity {
                 + description.getText().toString();
 
         shareDialog = new ShareDialog(this);
-        shareDialog.show(FacebookManager.share(postTitle, postContent, "http://www.find-yours-pets.esy.es/"));
+        shareDialog.show(FacebookManager.share(postTitle, postContent, ServerConnectionManager.url));
 
         //TODO ajouter image quand l'upload d'images marchera
     }
