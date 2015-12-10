@@ -11,10 +11,12 @@ public class Shelter {
     private int idAddress;
     private String description;
     private String mail;
+    private String website;
     private String operationalHours;
     private int idFacebook;
     private int idTwitter;
     private int idInstagram;
+
 
     public Shelter() {
 
@@ -28,6 +30,7 @@ public class Shelter {
             idAddress = obj.getInt("idAddress");
             description = obj.getString("description");
             mail = obj.getString("mail");
+            website = obj.getString("website");
             operationalHours = obj.getString("operationalHours");
             idFacebook = obj.getInt("idFacebook");
             idTwitter = obj.getInt("idTwitter");
@@ -108,6 +111,10 @@ public class Shelter {
     public void setMail(String mail) {
         this.mail = mail;
     }
+
+    public String getWebsite() { return website; }
+
+    public void setWebsite(String website) { this.website = website; }
 
     public int getIdShelter() {
         return idShelter;
