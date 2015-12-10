@@ -2,6 +2,7 @@ package company.pepisha.find_yours_pets.fileExplorer;
 
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.KeyEvent;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import company.pepisha.find_yours_pets.R;
@@ -21,6 +23,9 @@ import company.pepisha.find_yours_pets.photo.PhotoConfirmationWindow;
 import company.pepisha.find_yours_pets.photo.UploadImageOperation;
 
 public class FileExplorer extends ListActivity {
+
+    private int targetId;
+    private String photoDescription;
 
     private ListView fileList = null;
 
@@ -94,7 +99,11 @@ public class FileExplorer extends ListActivity {
         alertDialog.setPositiveClickListener(new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 if (fileToUpload != null) {
-                    new UploadImageOperation(getApplicationContext()).execute(fileToUpload.getAbsolutePath());
+                    HashMap<String, String> request = new HashMap<String, String>();
+                    request.put("filepath", fileToUpload.getAbsolutePath());
+                    request.put("targetId", Integer.toString(targetId));
+                    request.put("description", photoDescription);
+                    new UploadImageOperation(getApplicationContext()).execute(request);
                 }
 
                 finish();
@@ -107,6 +116,10 @@ public class FileExplorer extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent i = getIntent();
+        targetId = i.getIntExtra("id", 0);
+        photoDescription = i.getStringExtra("description");
 
         fileList = getListView();
 

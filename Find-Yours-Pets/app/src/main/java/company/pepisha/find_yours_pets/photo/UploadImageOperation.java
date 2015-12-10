@@ -2,36 +2,37 @@ package company.pepisha.find_yours_pets.photo;
 
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.widget.Toast;
+
+import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.R;
 import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
+import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 
-public class UploadImageOperation extends AsyncTask<String, Void, Boolean> {
-
-    private Context context;
+public class UploadImageOperation extends ServerDbOperation {
 
     public UploadImageOperation(Context c) {
-        this.context = c;
+        super(c, "uploadImage");
     }
 
     @Override
-    protected Boolean doInBackground(String... params) {
+    protected HashMap<String, Object> doInBackground(HashMap<String, String>... params) {
         if (ServerConnectionManager.isConnected(context)) {
             if (params.length > 0) {
-                String filePath = params[0];
-                return ServerConnectionManager.sendFileToServer(filePath);
+                HashMap<String, String> request = params[0];
+                request.put("page", page);
+                return ServerConnectionManager.sendFileToServer(request);
             }
         }
 
-        return false;
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Boolean result) {
-        String toastText = result ? context.getResources().getString(R.string.uploadSuccess)
-                                    : context.getResources().getString(R.string.uploadFail);
+    protected void onPostExecute(HashMap<String, Object> result) {
+        String toastText = (successResponse(result)) ? context.getResources().getString(R.string.uploadSuccess)
+                                                        : context.getResources().getString(R.string.uploadFail);
         Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
     }
 }

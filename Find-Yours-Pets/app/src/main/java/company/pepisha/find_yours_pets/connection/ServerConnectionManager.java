@@ -29,6 +29,10 @@ public class ServerConnectionManager {
 
     public static final String url = "http://www.find-yours-pets.esy.es/";
 
+    private static final String lineEnd = "\r\n";
+    private static final String twoHyphens = "--";
+    private static final String boundary =  "*****";
+
     public static boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -139,21 +143,26 @@ public class ServerConnectionManager {
         return null;
     }
 
-    public static boolean sendFileToServer(String filePath) {
+    private static void writeFileHeader(DataOutputStream out, String id, String value) throws IOException {
+        out.writeBytes(twoHyphens + boundary + lineEnd);
+        out.writeBytes("Content-Disposition: form-data; name=\"" + id + "\"" + lineEnd);
+        out.writeBytes(lineEnd);
+        out.writeBytes(value);
+        out.writeBytes(lineEnd);
+        out.writeBytes(twoHyphens + boundary + lineEnd);
+    }
+
+    public static HashMap<String, Object> sendFileToServer(HashMap<String, String> request) {
         HttpURLConnection urlConnection = null;
         FileInputStream fileInputStream = null;
         DataOutputStream imageWriter = null;
 
         try {
-            File fileToUpload = new File(filePath);
+            File fileToUpload = new File(request.remove("filepath"));
             fileInputStream = new FileInputStream(fileToUpload);
 
             urlConnection = connectToServer(url);
             if (urlConnection != null) {
-                String lineEnd = "\r\n";
-                String twoHyphens = "--";
-                String boundary =  "*****";
-
                 urlConnection.setDoInput(true);
                 urlConnection.setUseCaches(false);
 
@@ -161,6 +170,10 @@ public class ServerConnectionManager {
                 urlConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
 
                 imageWriter = new DataOutputStream(urlConnection.getOutputStream());
+                for (Map.Entry<String, String> entry : request.entrySet()) {
+                    writeFileHeader(imageWriter, entry.getKey(), entry.getValue());
+                }
+
                 imageWriter.writeBytes(twoHyphens + boundary + lineEnd);
                 imageWriter.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileToUpload.getName() + "\"" + lineEnd);
                 imageWriter.writeBytes(lineEnd);
@@ -180,8 +193,7 @@ public class ServerConnectionManager {
                 imageWriter.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
                 imageWriter.flush();
 
-                HashMap<String, Object> result = getResponse(urlConnection);
-                return (result != null && result.containsKey("success") && result.get("success").toString().equals("true"));
+                return getResponse(urlConnection);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,6 +203,6 @@ public class ServerConnectionManager {
             try{urlConnection.disconnect();}catch(Exception e){}
         }
 
-        return false;
+        return null;
     }
 }
