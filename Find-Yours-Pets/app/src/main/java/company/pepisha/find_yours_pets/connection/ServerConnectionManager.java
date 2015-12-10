@@ -9,6 +9,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -79,13 +83,38 @@ public class ServerConnectionManager {
         return response;
     }
 
+    private static HashMap<String, Object> getResponse(HttpURLConnection urlConnection) {
+        BufferedReader reader = null;
+
+        try {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+                String response = "";
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    Log.d("================", line);
+                    response += line;
+                }
+
+                return unmarshallReponse(response);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try{reader.close();}catch(Exception e){}
+        }
+
+        return null;
+    }
+
     public static HashMap<String, Object> sendRequestToServer(HashMap<String, String> request) {
         System.setProperty("http.keepAlive", "false");
 
         HttpURLConnection urlConnection = connectToServer(url);
         if (urlConnection != null) {
             OutputStreamWriter writer = null;
-            BufferedReader reader = null;
 
             try {
                 writer = new OutputStreamWriter(urlConnection.getOutputStream());
@@ -98,28 +127,70 @@ public class ServerConnectionManager {
                 writer.write(dataToSend);
                 writer.flush();
 
-                if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
-                    String response = "";
-                    String line;
-
-                    while ((line = reader.readLine()) != null) {
-                        Log.d("================", line);
-                        response += line;
-                    }
-
-                    return unmarshallReponse(response);
-                }
+                return getResponse(urlConnection);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 try{writer.close();}catch(Exception e){}
-                try{reader.close();}catch(Exception e){}
                 try{urlConnection.disconnect();}catch(Exception e){}
             }
         }
 
         return null;
+    }
+
+    public static boolean sendFileToServer(String filePath) {
+        HttpURLConnection urlConnection = null;
+        FileInputStream fileInputStream = null;
+        DataOutputStream imageWriter = null;
+
+        try {
+            File fileToUpload = new File(filePath);
+            fileInputStream = new FileInputStream(fileToUpload);
+
+            urlConnection = connectToServer(url);
+            if (urlConnection != null) {
+                String lineEnd = "\r\n";
+                String twoHyphens = "--";
+                String boundary =  "*****";
+
+                urlConnection.setDoInput(true);
+                urlConnection.setUseCaches(false);
+
+                urlConnection.setRequestProperty("Connection", "Keep-Alive");
+                urlConnection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+
+                imageWriter = new DataOutputStream(urlConnection.getOutputStream());
+                imageWriter.writeBytes(twoHyphens + boundary + lineEnd);
+                imageWriter.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileToUpload.getName() + "\"" + lineEnd);
+                imageWriter.writeBytes(lineEnd);
+
+                int bufferSize = Math.min(fileInputStream.available(), 1024*1024);
+                byte[] buffer = new byte[bufferSize];
+
+                int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                while (bytesRead > 0)
+                {
+                    imageWriter.write(buffer, 0, bufferSize);
+                    bufferSize = Math.min(fileInputStream.available(), 1024*1024);
+                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                }
+
+                imageWriter.writeBytes(lineEnd);
+                imageWriter.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+                imageWriter.flush();
+
+                HashMap<String, Object> result = getResponse(urlConnection);
+                return (result != null && result.containsKey("success") && result.get("success").toString().equals("true"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try{fileInputStream.close();} catch (IOException e) {}
+            try{imageWriter.close();}catch(Exception e){}
+            try{urlConnection.disconnect();}catch(Exception e){}
+        }
+
+        return false;
     }
 }

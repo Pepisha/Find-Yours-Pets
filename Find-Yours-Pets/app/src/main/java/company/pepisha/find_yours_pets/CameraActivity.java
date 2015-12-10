@@ -22,12 +22,14 @@ import java.util.Date;
 
 import company.pepisha.find_yours_pets.camera.CameraPreview;
 import company.pepisha.find_yours_pets.photo.PhotoConfirmationWindow;
+import company.pepisha.find_yours_pets.photo.UploadImageOperation;
 
 public class CameraActivity extends BaseActivity {
 
     private Camera mCamera;
     private CameraPreview mPreview;
     final Context context = this;
+    private File currentPicture = null;
 
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
@@ -48,8 +50,10 @@ public class CameraActivity extends BaseActivity {
                 FileOutputStream fos = new FileOutputStream(pictureFile);
                 fos.write(data);
                 fos.close();
-                Toast t = Toast.makeText(getApplicationContext(),"Picture saved : " + pictureFile.getPath(), Toast.LENGTH_LONG);
-                t.show();
+                Toast.makeText(getApplicationContext(),"Picture saved : " + pictureFile.getPath(), Toast.LENGTH_LONG).show();
+
+                currentPicture = pictureFile;
+
                 Log.d("FILEPATH",pictureFile.getPath() );
             } catch (FileNotFoundException e) {
                 Log.d("TAG", "File not found: " + e.getMessage());
@@ -78,6 +82,10 @@ public class CameraActivity extends BaseActivity {
 
                         alertDialog.setPositiveClickListener(new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                if (currentPicture != null) {
+                                    new UploadImageOperation(getApplicationContext()).execute(currentPicture.getAbsolutePath());
+                                }
+
                                 finish();
                             }
                         });
