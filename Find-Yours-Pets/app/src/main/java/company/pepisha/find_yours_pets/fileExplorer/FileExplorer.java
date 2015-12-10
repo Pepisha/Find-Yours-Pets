@@ -18,6 +18,7 @@ import java.util.List;
 
 import company.pepisha.find_yours_pets.R;
 import company.pepisha.find_yours_pets.photo.PhotoConfirmationWindow;
+import company.pepisha.find_yours_pets.photo.UploadImageOperation;
 
 public class FileExplorer extends ListActivity {
 
@@ -28,6 +29,8 @@ public class FileExplorer extends ListActivity {
     private boolean atRoot = false;
 
     private File currentFile = null;
+
+    private File fileToUpload = null;
 
     private void clearList() {
         if (!adapter.isEmpty()) {
@@ -90,6 +93,10 @@ public class FileExplorer extends ListActivity {
 
         alertDialog.setPositiveClickListener(new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                if (fileToUpload != null) {
+                    new UploadImageOperation(getApplicationContext()).execute(fileToUpload.getAbsolutePath());
+                }
+
                 finish();
             }
         });
@@ -131,6 +138,7 @@ public class FileExplorer extends ListActivity {
                     if (file.isDirectory()) {
                         updateDirectory(file);
                     } else {
+                        fileToUpload = file;
                         displayConfirmationWindow();
                     }
                 }
