@@ -67,5 +67,6 @@
     <string name="title_activity_facebook_login">Facebook Login</string>
     <string name="myAnimalsTitle">My animals</string>
     <string name="shareOnFacebook">Share on Facebook</string>
-    
+    <string name="website">Website</string>
+
 </resources>
