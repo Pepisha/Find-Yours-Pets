@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.share.widget.ShareDialog;
 
@@ -60,6 +63,19 @@ public class ShelterActivity extends BaseActivity {
         protected void onPostExecute(HashMap<String, Object> result) {
             addAnimals(result);
         }
+    }
+
+    private class AddCommentToShelterDbOperation extends ServerDbOperation {
+
+        public AddCommentToShelterDbOperation(Context c) { super(c, "giveOpinionAboutShelter"); }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if(successResponse(result)) {
+                Toast.makeText(getApplicationContext(), "Comment added", Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     private void fillShelterFields() {
@@ -127,6 +143,44 @@ public class ShelterActivity extends BaseActivity {
         });
     }
 
+    private void initialiseNoteNumberPicker() {
+        NumberPicker shelterNote = (NumberPicker) findViewById(R.id.shelterNote);
+        shelterNote.setMaxValue(5);
+        shelterNote.setMinValue(0);
+    }
+
+    private void commentShelter() {
+        String userNickname = session.getUserDetails().get("nickname");
+        EditText commentBox = (EditText) findViewById(R.id.shelterComment);
+        String comment = commentBox.getText().toString();
+
+        NumberPicker notePicker = (NumberPicker) findViewById(R.id.shelterNote);
+        String note = Integer.toString(notePicker.getValue());
+
+        HashMap<String, String> request = new HashMap<String, String>();
+        request.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        request.put("nickname", userNickname);
+        request.put("stars", note);
+        request.put("description", comment);
+
+        new AddCommentToShelterDbOperation(getApplicationContext()).execute(request);
+    }
+
+    private void onClickCommentButton() {
+        final Button commentButton = (Button) findViewById(R.id.commentButton);
+        commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               commentShelter();
+            }
+        });
+    }
+
+    private void initialiseShelterComment() {
+        initialiseNoteNumberPicker();
+        onClickCommentButton();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +189,8 @@ public class ShelterActivity extends BaseActivity {
         shelter = (ParcelableShelter) getIntent().getParcelableExtra("shelter");
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
         opinionsList = (ListView) findViewById(R.id.opinionsList);
+
+        initialiseShelterComment();
 
         fillShelterFields();
 

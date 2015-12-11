@@ -70,5 +70,6 @@
     <string name="website">Website</string>
     <string name="uploadSuccess">Image uploaded</string>
     <string name="uploadFail">Failed to upload</string>
+    <string name="comment">Comment</string>
 
 </resources>
