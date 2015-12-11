@@ -2,10 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="company.pepisha.find_yours_pets.HomeActivity">
+
     <item android:id="@+id/action_facebook_login" android:title="Login fb"
         android:icon="@drawable/animals" android:orderInCategory="100"  app:showAsAction="never"/>
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" android:showAsAction="never" />
-
 
 </menu>
