@@ -68,15 +68,5 @@ public class SheltersActivity extends BaseActivity {
                 startActivity(shelterScreen);
             }
         });
-
-        Button addShelterButton = (Button) findViewById(R.id.button);
-
-        addShelterButton.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Intent addShelterScreen = new Intent(getApplicationContext(), AddShelterActivity.class);
-                startActivity(addShelterScreen);
-            }
-        });
     }
 }
