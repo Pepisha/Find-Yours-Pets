@@ -23,6 +23,7 @@ public class Animal {
     private String childrenFriend;
     private String description;
     private int idState;
+    private String photo;
 
     public Animal() {
 
@@ -41,6 +42,7 @@ public class Animal {
             childrenFriend = obj.getString("childrenFriend");
             description = obj.getString("description");
             idState = obj.getInt("idState");
+            photo = obj.getString("photo");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -130,5 +132,11 @@ public class Animal {
         this.idState = state;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
 
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }

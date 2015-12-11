@@ -1,6 +1,8 @@
 package company.pepisha.find_yours_pets.connection;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -9,11 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -24,6 +28,8 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import company.pepisha.find_yours_pets.tools.FileTools;
 
 public class ServerConnectionManager {
 
@@ -178,15 +184,13 @@ public class ServerConnectionManager {
                 imageWriter.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileToUpload.getName() + "\"" + lineEnd);
                 imageWriter.writeBytes(lineEnd);
 
-                int bufferSize = Math.min(fileInputStream.available(), 1024*1024);
-                byte[] buffer = new byte[bufferSize];
+                Bitmap bitmap = FileTools.fileToBitmap(fileToUpload);
+                String extension = FileTools.getFileExtension(fileToUpload);
 
-                int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-                while (bytesRead > 0)
-                {
-                    imageWriter.write(buffer, 0, bufferSize);
-                    bufferSize = Math.min(fileInputStream.available(), 1024*1024);
-                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                if (extension.toLowerCase().equals("jpg")) {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, imageWriter);
+                } else if (extension.toLowerCase().equals("png")) {
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, imageWriter);
                 }
 
                 imageWriter.writeBytes(lineEnd);
@@ -201,6 +205,25 @@ public class ServerConnectionManager {
             try{fileInputStream.close();} catch (IOException e) {}
             try{imageWriter.close();}catch(Exception e){}
             try{urlConnection.disconnect();}catch(Exception e){}
+        }
+
+        return null;
+    }
+
+    public static Bitmap downloadImage(String filename) {
+        HttpURLConnection urlConnection = connectToServer(url + "images/" + filename);
+        if (urlConnection != null) {
+
+            try {
+                urlConnection.setDoInput(true);
+                urlConnection.connect();
+
+                InputStream input = urlConnection.getInputStream();
+                Bitmap bitmap = BitmapFactory.decodeStream(input);
+                return bitmap;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return null;
