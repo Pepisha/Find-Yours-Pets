@@ -1,13 +1,8 @@
 package company.pepisha.find_yours_pets;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +11,6 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
-import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class MainActivity extends BaseActivity {
 
@@ -25,6 +19,13 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (session.isLoggedIn()) {
+            Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
+            startActivity(homeScreen);
+            return;
+        }
+
         setContentView(R.layout.activity_main);
 
         Button connectionButton = (Button) findViewById(R.id.connectionButton);

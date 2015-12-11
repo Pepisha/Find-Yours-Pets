@@ -66,5 +66,6 @@
     <string name="uploadSuccess">Image envoyée</string>
     <string name="uploadFail">Echec de l\'envoi</string>
     <string name="comment">Commenter</string>
+    <string name="disconnection">Déconnexion</string>
 
 </resources>
