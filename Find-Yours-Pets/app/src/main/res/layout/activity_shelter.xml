@@ -57,6 +57,25 @@
             android:id="@+id/shareFacebookButton"
             android:layout_gravity="left" />
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/shelterComment" />
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/shelterNote" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/comment"
+            android:id="@+id/commentButton"
+            android:layout_gravity="left" />
+
 
         <GridLayout
             android:layout_width="match_parent"
@@ -64,6 +83,9 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/petsGrid"
             android:columnCount="3"></GridLayout>
+
+
+
 
         <ListView
             android:layout_width="match_parent"
