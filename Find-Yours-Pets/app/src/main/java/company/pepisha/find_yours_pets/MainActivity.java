@@ -68,7 +68,8 @@ public class MainActivity extends BaseActivity {
 
             if (successResponse(result)) {
                 toastText = getString(R.string.successConnection);
-                session.createLoginSession(nickname);
+                Boolean isAdmin =  Boolean.valueOf(result.get("isAdmin").toString());
+                session.createLoginSession(nickname,isAdmin);
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(homeScreen);
             } else {
