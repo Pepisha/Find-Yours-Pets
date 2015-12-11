@@ -1,6 +1,7 @@
 package company.pepisha.find_yours_pets.fileExplorer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import company.pepisha.find_yours_pets.R;
+import company.pepisha.find_yours_pets.tools.FileTools;
 
 public class FileAdapter extends ArrayAdapter<File> {
 
@@ -57,7 +59,12 @@ public class FileAdapter extends ArrayAdapter<File> {
             imageView.setImageResource(R.drawable.folder);
             sizeView.setText("");
         } else {
-            imageView.setImageResource(R.drawable.image);
+            Bitmap img = FileTools.fileToScaledBitmap(item, 200, 200);
+            if (img != null) {
+                imageView.setImageBitmap(img);
+            } else {
+                imageView.setImageResource(R.drawable.image);
+            }
 
             float fileSize = (float) item.length() / (1024 * 1024);
             sizeView.setText(String.format("%.2f", fileSize) + " Mo");

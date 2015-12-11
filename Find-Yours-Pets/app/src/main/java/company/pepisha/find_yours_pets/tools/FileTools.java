@@ -12,6 +12,15 @@ public class FileTools {
         return BitmapFactory.decodeFile(file.getAbsolutePath());
     }
 
+    public static Bitmap fileToScaledBitmap(File file, int width, int height) {
+        Bitmap img = FileTools.fileToBitmap(file);
+        if (img != null) {
+            return Bitmap.createScaledBitmap(img, width, height, false);
+        }
+
+        return img;
+    }
+
     public static String getFileExtension(File file) {
         String filename = file.getName();
         int dot = filename.lastIndexOf('.');

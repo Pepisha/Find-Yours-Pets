@@ -13,4 +13,7 @@
 
     <item android:id="@+id/action_add_shelter" android:title="@string/title_activity_add_shelter"
         android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_disconnection" android:title="@string/disconnection"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
 
@@ -66,9 +65,15 @@ public class BaseActivity extends Activity {
             Intent loginFacebookScreen = new Intent(getApplicationContext(), FacebookLogin.class);
             startActivity(loginFacebookScreen);
             return true;
-        } else if (id == R.id.action_add_shelter) {
+        }
+        else if (id == R.id.action_add_shelter) {
             Intent addShelterScreen = new Intent(getApplicationContext(), AddShelterActivity.class);
             startActivity(addShelterScreen);
+        }
+        else if (id == R.id.action_disconnection) {
+            session.logoutUser();
+            Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(mainScreen);
         }
 
         return super.onOptionsItemSelected(item);
