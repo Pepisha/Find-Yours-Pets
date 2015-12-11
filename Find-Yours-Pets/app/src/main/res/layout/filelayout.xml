@@ -19,4 +19,12 @@
         android:id="@+id/fileName"
         android:layout_gravity="center_vertical" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fileSize"
+        android:layout_gravity="center_vertical"
+        android:gravity="right"
+        android:layout_marginRight="10dp" />
+
 </LinearLayout>

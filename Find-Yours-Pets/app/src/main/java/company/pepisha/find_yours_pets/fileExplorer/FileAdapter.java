@@ -44,17 +44,23 @@ public class FileAdapter extends ArrayAdapter<File> {
             fileView = mInflater.inflate(R.layout.filelayout, null);
         }
 
-        TextView textView = (TextView) fileView.findViewById(R.id.fileName);
+        TextView nameView = (TextView) fileView.findViewById(R.id.fileName);
+        TextView sizeView = (TextView) fileView.findViewById(R.id.fileSize);
         ImageView imageView = (ImageView) fileView.findViewById(R.id.fileIcon);
 
         File item = getItem(position);
-        textView.setTextColor(Color.BLACK);
-        textView.setText(item.getName());
+        nameView.setTextColor(Color.BLACK);
+        nameView.setText(item.getName());
+        sizeView.setTextColor(Color.DKGRAY);
 
         if (item.isDirectory()) {
             imageView.setImageResource(R.drawable.folder);
+            sizeView.setText("");
         } else {
             imageView.setImageResource(R.drawable.image);
+
+            float fileSize = (float) item.length() / (1024 * 1024);
+            sizeView.setText(String.format("%.2f", fileSize) + " Mo");
         }
 
         return fileView;
