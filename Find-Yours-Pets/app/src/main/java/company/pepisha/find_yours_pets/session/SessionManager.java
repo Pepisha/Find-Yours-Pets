@@ -31,6 +31,9 @@ public class SessionManager {
     // User name (make variable public to access from outside)
     public static final String KEY_NAME = "nickname";
 
+    // User type (admin or not)
+    public  static final String IS_ADMIN = "isAdmin";
+
 
     // Constructor
     public SessionManager(Context context){
@@ -42,12 +45,13 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name){
+    public void createLoginSession(String name, boolean isAdmin){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
         editor.putString(KEY_NAME, name);
+        editor.putBoolean(IS_ADMIN, isAdmin);
 
         // commit changes
         editor.commit();
@@ -75,8 +79,6 @@ public class SessionManager {
 
     }
 
-
-
     /**
      * Get stored session data
      * */
@@ -87,6 +89,14 @@ public class SessionManager {
 
         // return user
         return user;
+    }
+
+    /**
+     *
+     * @return true si l'utilisateur est un admin, false sinon
+     */
+    public boolean isUserAdmin() {
+        return pref.getBoolean(IS_ADMIN, false);
     }
 
     /**
