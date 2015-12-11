@@ -1,6 +1,7 @@
 package company.pepisha.find_yours_pets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -73,6 +74,10 @@ public class ShelterActivity extends BaseActivity {
         protected void onPostExecute(HashMap<String, Object> result) {
             if(successResponse(result)) {
                 Toast.makeText(getApplicationContext(), "Comment added", Toast.LENGTH_SHORT).show();
+                Intent shelterScreen = new Intent(getApplicationContext(), ShelterActivity.class);
+                ParcelableShelter s = (ParcelableShelter) shelter;
+                shelterScreen.putExtra("shelter", s);
+                startActivity(shelterScreen);
             }
         }
 
