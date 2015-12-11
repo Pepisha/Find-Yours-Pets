@@ -20,6 +20,7 @@ import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.facebook.FacebookManager;
 import company.pepisha.find_yours_pets.fileExplorer.FileExplorer;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
+import company.pepisha.find_yours_pets.photo.DownloadImage;
 
 public class AnimalActivity extends BaseActivity {
 
@@ -146,6 +147,7 @@ public class AnimalActivity extends BaseActivity {
 
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
         animalPicture.setImageDrawable(getResources().getDrawable(R.drawable.dog));
+        new DownloadImage(this, animalPicture.getId()).execute(animal.getPhoto());
 
         setAnimalState(animal.getState());
 

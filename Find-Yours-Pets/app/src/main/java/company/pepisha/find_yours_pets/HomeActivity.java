@@ -1,44 +1,35 @@
 package company.pepisha.find_yours_pets;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
-import company.pepisha.find_yours_pets.db.animal.Animal;
-import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class HomeActivity extends BaseActivity {
 
     private GridLayout petsGrid;
 
-    private Map<Integer, Animal> animalsList = new HashMap<Integer, Animal>();
+    private class GetAnimalsDbOperation extends ServerDbOperation {
 
-    private void addAnimals(HashMap<String, Object> animals) {
-
-        for (Map.Entry<String, Object> entry : animals.entrySet()) {
-            int animalId = Integer.parseInt(entry.getKey());
-            ParcelableAnimal a = new ParcelableAnimal((JSONObject) entry.getValue());
-            animalsList.put(animalId, a);
+        public GetAnimalsDbOperation(Context c) {
+            super(c, "getHomelessAnimals");
         }
 
-        AnimalViews.buildGrid(petsGrid, animalsList);
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            addAnimals(result);
+        }
+    }
+
+    private void addAnimals(HashMap<String, Object> animals) {
+        AnimalViews.addAnimalsToGrid(this, animals, petsGrid);
     }
 
     @Override
@@ -58,18 +49,5 @@ public class HomeActivity extends BaseActivity {
                 startActivity(addAnimalScreen);
             }
         });
-    }
-
-    private class GetAnimalsDbOperation extends ServerDbOperation {
-
-        public GetAnimalsDbOperation(Context c) {
-            super(c, "getHomelessAnimals");
-        }
-
-        @Override
-        protected void onPostExecute(HashMap<String, Object> result) {
-
-            addAnimals(result);
-        }
     }
 }

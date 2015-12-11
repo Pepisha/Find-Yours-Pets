@@ -11,12 +11,9 @@ import android.widget.TextView;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
-import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.user.User;
-import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class UserProfileActivity  extends BaseActivity {
@@ -66,16 +63,7 @@ public class UserProfileActivity  extends BaseActivity {
     }
 
     private void addAnimals(HashMap<String, Object> animals) {
-
-        Map<Integer, Animal> animalsList = new HashMap<>();
-
-        for (Map.Entry<String, Object> entry : animals.entrySet()) {
-            int animalId = Integer.parseInt(entry.getKey());
-            ParcelableAnimal a = new ParcelableAnimal((JSONObject) entry.getValue());
-            animalsList.put(animalId, a);
-        }
-
-        AnimalViews.buildGrid(petsGrid, animalsList);
+        AnimalViews.addAnimalsToGrid(this, animals, petsGrid);
     }
 
     @Override

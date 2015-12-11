@@ -28,6 +28,7 @@ public class ParcelableAnimal extends Animal implements Parcelable {
         out.writeString(getChildrenFriend());
         out.writeString(getDescription());
         out.writeInt(getState());
+        out.writeString(getPhoto());
     }
 
     public static final Parcelable.Creator<ParcelableAnimal> CREATOR = new Parcelable.Creator<ParcelableAnimal>() {
@@ -54,6 +55,7 @@ public class ParcelableAnimal extends Animal implements Parcelable {
         setChildrenFriend(in.readString());
         setDescription(in.readString());
         setState(in.readInt());
+        setPhoto(in.readString());
     }
 
     public ParcelableAnimal(JSONObject obj) {
