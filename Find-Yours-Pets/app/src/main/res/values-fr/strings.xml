@@ -47,7 +47,7 @@
     <string name="shelterAdded">Refuge ajouté</string>
     <string name="title_activity_user_profile">Profil utilisateur</string>
     <string name="title_activity_add_shelter">Ajouter un refuge</string>
-    <string name="title" translatable="false"></string>
+    <string name="title" translatable="false">Find Your Pets</string>
     <string name="title_activity_shelter">Refuge</string>
     <string name="title_activity_file_explorer">Explorateur de fichiers</string>
     <string name="photoConfirmation">Voulez-vous mettre en ligne cette photo ?</string>

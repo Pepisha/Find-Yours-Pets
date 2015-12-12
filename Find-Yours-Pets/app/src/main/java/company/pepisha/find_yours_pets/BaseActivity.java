@@ -69,11 +69,13 @@ public class BaseActivity extends Activity {
         else if (id == R.id.action_add_shelter) {
             Intent addShelterScreen = new Intent(getApplicationContext(), AddShelterActivity.class);
             startActivity(addShelterScreen);
+            return true;
         }
         else if (id == R.id.action_disconnection) {
             session.logoutUser();
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainScreen);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
