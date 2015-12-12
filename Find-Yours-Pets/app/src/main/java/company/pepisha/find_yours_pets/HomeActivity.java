@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -23,6 +24,8 @@ import company.pepisha.find_yours_pets.views.AnimalViews;
 public class HomeActivity extends BaseActivity implements SensorEventListener {
 
     private static final float SHAKE_THRESHOLD_GRAVITY = 1.5F;
+
+    Vibrator vibrator = null;
 
     private SensorManager sensorManager = null;
 
@@ -70,6 +73,8 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
             Animal animal = getRandomAnimal();
 
             if (animal != null) {
+                vibrator.vibrate(200);
+
                 Intent animalScreen = new Intent(getApplicationContext(), AnimalActivity.class);
                 animalScreen.putExtra("animal", (ParcelableAnimal) animal);
                 startActivity(animalScreen);
@@ -94,6 +99,7 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
         new GetAnimalsDbOperation(getApplicationContext()).execute(new HashMap<String, String>());
