@@ -23,7 +23,7 @@ import company.pepisha.find_yours_pets.photo.DownloadImage;
 
 public class AnimalViews {
 
-    private static void buildGrid(GridLayout grid, final Map<Integer, Animal> animals) {
+    public static void buildGrid(GridLayout grid, final Map<Integer, Animal> animals) {
 
         for (Map.Entry<Integer, Animal> entry : animals.entrySet()) {
             LinearLayout petLayout = new LinearLayout(grid.getContext());
@@ -55,7 +55,7 @@ public class AnimalViews {
         }
     }
 
-    public static void addAnimalsToGrid(Activity activity, Map<String, Object> animals, GridLayout grid) {
+    public static Map<Integer, Animal> getAnimalsList(Activity activity, Map<String, Object> animals) {
         Map<Integer, Animal> animalsList = new HashMap<>();
 
         for (Map.Entry<String, Object> entry : animals.entrySet()) {
@@ -66,7 +66,7 @@ public class AnimalViews {
             new DownloadImage(activity, animalId).execute(a.getPhoto());
         }
 
-        AnimalViews.buildGrid(grid, animalsList);
+        return animalsList;
     }
 }
 

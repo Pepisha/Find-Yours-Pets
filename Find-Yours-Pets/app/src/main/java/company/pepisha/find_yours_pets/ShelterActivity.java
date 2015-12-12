@@ -24,6 +24,7 @@ import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.opinion.Opinion;
 import company.pepisha.find_yours_pets.db.shelter.Shelter;
 import company.pepisha.find_yours_pets.facebook.FacebookManager;
@@ -37,6 +38,8 @@ public class ShelterActivity extends BaseActivity {
     private ShareDialog shareDialog;
 
     private GridLayout petsGrid;
+
+    private Map<Integer, Animal> animalsList = new HashMap<>();
 
     private ListView opinionsList;
 
@@ -60,7 +63,9 @@ public class ShelterActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            addAnimals(result);
+            if (result != null) {
+                addAnimals(result);
+            }
         }
     }
 
@@ -78,7 +83,6 @@ public class ShelterActivity extends BaseActivity {
                 startActivity(shelterScreen);
             }
         }
-
     }
 
     private void fillShelterFields() {
@@ -104,7 +108,8 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void addAnimals(HashMap<String, Object> animals) {
-        AnimalViews.addAnimalsToGrid(this, animals, petsGrid);
+        animalsList = AnimalViews.getAnimalsList(this, animals);
+        AnimalViews.buildGrid(petsGrid, animalsList);
     }
 
     private void addOpinions(HashMap<String, Object> opinions) {

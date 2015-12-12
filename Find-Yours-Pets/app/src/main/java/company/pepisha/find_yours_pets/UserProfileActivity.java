@@ -11,8 +11,10 @@ import android.widget.TextView;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.user.User;
 import company.pepisha.find_yours_pets.views.AnimalViews;
 
@@ -21,6 +23,8 @@ public class UserProfileActivity  extends BaseActivity {
     private User user;
 
     private GridLayout petsGrid;
+
+    private Map<Integer, Animal> animalsList = new HashMap<>();
 
     private class GetUserInformationsDbOperation extends ServerDbOperation {
         public GetUserInformationsDbOperation(Context c) {
@@ -41,7 +45,9 @@ public class UserProfileActivity  extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            addAnimals(result);
+            if (result != null) {
+                addAnimals(result);
+            }
         }
     }
 
@@ -63,7 +69,8 @@ public class UserProfileActivity  extends BaseActivity {
     }
 
     private void addAnimals(HashMap<String, Object> animals) {
-        AnimalViews.addAnimalsToGrid(this, animals, petsGrid);
+        animalsList = AnimalViews.getAnimalsList(this, animals);
+        AnimalViews.buildGrid(petsGrid, animalsList);
     }
 
     @Override
