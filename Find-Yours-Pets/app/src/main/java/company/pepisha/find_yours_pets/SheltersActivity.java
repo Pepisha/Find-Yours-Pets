@@ -44,6 +44,7 @@ public class SheltersActivity extends BaseActivity {
         for (Map.Entry<String, Object> entry : shelters.entrySet()) {
             ParcelableShelter s = new ParcelableShelter((JSONObject) entry.getValue());
             shelterObjects.add(s);
+
         }
 
         ArrayAdapter<Shelter> listAdapter = new ArrayAdapter<Shelter>(this, android.R.layout.simple_list_item_1, shelterObjects);

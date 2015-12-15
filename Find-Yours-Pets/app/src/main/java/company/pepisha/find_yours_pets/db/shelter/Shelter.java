@@ -16,6 +16,7 @@ public class Shelter {
     private int idFacebook;
     private int idTwitter;
     private int idInstagram;
+    private double stars;
 
 
     public Shelter() {
@@ -35,9 +36,18 @@ public class Shelter {
             idFacebook = obj.getInt("idFacebook");
             idTwitter = obj.getInt("idTwitter");
             idInstagram = obj.getInt("idInstagram");
+            stars = obj.getDouble("average");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public double getStars() {
+        return stars;
+    }
+
+    public void setStars(double stars) {
+        this.stars = stars;
     }
 
     public int getIdInstagram() {

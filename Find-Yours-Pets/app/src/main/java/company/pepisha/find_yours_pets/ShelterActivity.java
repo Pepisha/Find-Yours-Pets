@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -87,7 +88,14 @@ public class ShelterActivity extends BaseActivity {
 
     private void fillShelterFields() {
         TextView shelterName = (TextView) findViewById(R.id.shelterName);
-        shelterName.setText(shelter.getName());
+        if(shelter.getStars() != 0) {
+            shelterName.setText(shelter.getName()+" - "+shelter.getStars());
+        } else {
+            shelterName.setText(shelter.getName());
+            ImageView shelterStar = (ImageView) findViewById(R.id.shelterStar);
+            shelterStar.setVisibility(View.INVISIBLE);
+        }
+
 
         TextView shelterDescription = (TextView) findViewById(R.id.shelterDescription);
         shelterDescription.setText(shelter.getDescription());
@@ -105,6 +113,7 @@ public class ShelterActivity extends BaseActivity {
             TextView shelterWebsite = (TextView) findViewById(R.id.shelterWebSite);
             shelterWebsite.setText(shelter.getWebsite());
         }
+
     }
 
     private void addAnimals(HashMap<String, Object> animals) {
