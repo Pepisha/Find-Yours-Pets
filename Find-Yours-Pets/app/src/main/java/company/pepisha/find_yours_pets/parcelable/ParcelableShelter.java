@@ -28,6 +28,7 @@ public class ParcelableShelter extends Shelter implements Parcelable {
         out.writeInt(getIdFacebook());
         out.writeInt(getIdTwitter());
         out.writeInt(getIdInstagram());
+        out.writeDouble(getStars());
     }
 
     public static final Parcelable.Creator<ParcelableShelter> CREATOR = new Parcelable.Creator<ParcelableShelter>() {
@@ -52,6 +53,7 @@ public class ParcelableShelter extends Shelter implements Parcelable {
         setIdFacebook(in.readInt());
         setIdTwitter(in.readInt());
         setIdInstagram(in.readInt());
+        setStars(in.readDouble());
     }
 
     public ParcelableShelter(JSONObject obj) {
