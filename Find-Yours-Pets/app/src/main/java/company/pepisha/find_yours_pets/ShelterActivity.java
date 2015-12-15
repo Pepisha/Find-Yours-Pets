@@ -2,6 +2,7 @@ package company.pepisha.find_yours_pets;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -189,6 +190,18 @@ public class ShelterActivity extends BaseActivity {
         onClickCommentButton();
     }
 
+    private void onClickCallShelter() {
+        final Button callButton = (Button) findViewById(R.id.callButton);
+        callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + shelter.getPhone()));
+                startActivity(callIntent);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,5 +224,6 @@ public class ShelterActivity extends BaseActivity {
         new GetOpinionsAboutShelterDbOperation(this).execute(opinionsRequest);
 
         onClickShareOnFacebook();
+        onClickCallShelter();
     }
 }
