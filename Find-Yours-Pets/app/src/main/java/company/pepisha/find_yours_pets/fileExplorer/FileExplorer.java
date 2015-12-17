@@ -104,6 +104,12 @@ public class FileExplorer extends ListActivity {
                     request.put("targetId", Integer.toString(targetId));
                     request.put("description", photoDescription);
                     new UploadImageOperation(getApplicationContext()).execute(request);
+
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("photo", fileToUpload.getAbsolutePath());
+                    setResult(RESULT_OK, returnIntent);
+                } else {
+                    setResult(RESULT_CANCELED);
                 }
 
                 finish();

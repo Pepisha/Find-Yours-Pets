@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.facebook.share.widget.ShareDialog;
 
+import java.io.File;
 import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
@@ -21,13 +22,14 @@ import company.pepisha.find_yours_pets.facebook.FacebookManager;
 import company.pepisha.find_yours_pets.fileExplorer.FileExplorer;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 import company.pepisha.find_yours_pets.photo.DownloadImage;
+import company.pepisha.find_yours_pets.tools.FileTools;
 
 public class AnimalActivity extends BaseActivity {
 
+    private static final int PHOTO_CHANGE_REQUEST = 1;
+
     private Animal animal;
     private ShareDialog shareDialog;
-
-    private boolean isFollowingAnimal;
 
     private class ChangeAnimalStatusDbOperation extends ServerDbOperation {
         public ChangeAnimalStatusDbOperation(Context c) {
@@ -98,14 +100,14 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void setAnimalFollowing(boolean followed) {
-        isFollowingAnimal = followed;
+        animal.setFollowed(followed);
 
         ImageView followingStar = (ImageView) findViewById(R.id.followingStar);
-        int starRes = isFollowingAnimal ? R.drawable.star : 0;
+        int starRes = animal.isFollowed() ? R.drawable.star : 0;
         followingStar.setImageResource(starRes);
 
         Button followButton = (Button) findViewById(R.id.followButton);
-        followButton.setText(isFollowingAnimal ? "Unfollow" : "Follow");
+        followButton.setText(animal.isFollowed() ? "Unfollow" : "Follow");
     }
 
     private void changeAnimalFollowing(boolean followed) {
@@ -160,7 +162,7 @@ public class AnimalActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                changeAnimalFollowing(!isFollowingAnimal);
+                changeAnimalFollowing(!animal.isFollowed());
             }
         });
     }
@@ -168,7 +170,7 @@ public class AnimalActivity extends BaseActivity {
     private void startPhotoIntent(Intent intent) {
         intent.putExtra("id", animal.getIdAnimal());
         intent.putExtra("description", "");
-        startActivity(intent);
+        startActivityForResult(intent, PHOTO_CHANGE_REQUEST);
     }
 
     private void photoSelectionDialog() {
@@ -228,6 +230,16 @@ public class AnimalActivity extends BaseActivity {
                 shareOnFacebook();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PHOTO_CHANGE_REQUEST && resultCode == RESULT_OK) {
+            ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
+
+            File file = new File(data.getStringExtra("photo"));
+            animalPicture.setImageBitmap(FileTools.fileToScaledBitmap(file, 195, 195));
+        }
     }
 
     @Override
