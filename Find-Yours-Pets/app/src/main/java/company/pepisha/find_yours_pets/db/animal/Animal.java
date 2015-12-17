@@ -24,6 +24,7 @@ public class Animal {
     private String description;
     private int idState;
     private String photo;
+    private boolean followed;
 
     public Animal() {
 
@@ -43,6 +44,7 @@ public class Animal {
             description = obj.getString("description");
             idState = obj.getInt("idState");
             photo = obj.getString("photo");
+            followed = obj.getBoolean("followed");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -138,5 +140,13 @@ public class Animal {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public boolean isFollowed() {
+        return followed;
+    }
+
+    public void setFollowed(boolean followed) {
+        this.followed = followed;
     }
 }
