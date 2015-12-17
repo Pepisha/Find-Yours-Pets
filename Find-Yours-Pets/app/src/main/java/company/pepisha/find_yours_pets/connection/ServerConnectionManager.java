@@ -212,15 +212,20 @@ public class ServerConnectionManager {
         HttpURLConnection urlConnection = connectToServer(url + "images/" + filename);
         if (urlConnection != null) {
 
+            InputStream input = null;
+
             try {
                 urlConnection.setDoInput(true);
                 urlConnection.connect();
 
-                InputStream input = urlConnection.getInputStream();
+                input = urlConnection.getInputStream();
                 Bitmap bitmap = BitmapFactory.decodeStream(input);
                 return bitmap;
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                try{input.close();} catch (IOException e) {}
+                try{urlConnection.disconnect();}catch(Exception e){}
             }
         }
 

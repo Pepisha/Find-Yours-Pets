@@ -119,7 +119,7 @@ public class ShelterActivity extends BaseActivity {
 
     private void addAnimals(HashMap<String, Object> animals) {
         animalsList = AnimalViews.getAnimalsList(this, animals);
-        AnimalViews.buildGrid(petsGrid, animalsList);
+        AnimalViews.buildGrid(petsGrid, animalsList, session);
     }
 
     private void addOpinions(HashMap<String, Object> opinions) {

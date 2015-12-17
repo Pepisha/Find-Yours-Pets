@@ -49,18 +49,6 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
-    private class IsFollowingAnimalDbOperation extends ServerDbOperation {
-        public IsFollowingAnimalDbOperation(Context c) {
-            super(c, "isFollowingAnimal");
-        }
-
-        @Override
-        protected void onPostExecute(HashMap<String, Object> result) {
-            boolean following = (result != null && result.containsKey("following") && result.get("following").toString().equals("true"));
-            setAnimalFollowing(following);
-        }
-    }
-
     private class FollowAnimalDbOperation extends ServerDbOperation {
         public FollowAnimalDbOperation(Context c) {
             super(c, "followAnimal");
@@ -112,6 +100,10 @@ public class AnimalActivity extends BaseActivity {
     private void setAnimalFollowing(boolean followed) {
         isFollowingAnimal = followed;
 
+        ImageView followingStar = (ImageView) findViewById(R.id.followingStar);
+        int starRes = isFollowingAnimal ? R.drawable.star : 0;
+        followingStar.setImageResource(starRes);
+
         Button followButton = (Button) findViewById(R.id.followButton);
         followButton.setText(isFollowingAnimal ? "Unfollow" : "Follow");
     }
@@ -161,10 +153,7 @@ public class AnimalActivity extends BaseActivity {
             }
         });
 
-        HashMap<String, String> request = new HashMap<>();
-        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
-        request.put("nickname", session.getUserDetails().get("nickname"));
-        new IsFollowingAnimalDbOperation(this).execute(request);
+        setAnimalFollowing(animal.isFollowed());
 
         Button followButton = (Button) findViewById(R.id.followButton);
         followButton.setOnClickListener(new View.OnClickListener() {

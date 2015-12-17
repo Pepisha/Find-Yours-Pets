@@ -29,6 +29,7 @@ public class ParcelableAnimal extends Animal implements Parcelable {
         out.writeString(getDescription());
         out.writeInt(getState());
         out.writeString(getPhoto());
+        out.writeByte((byte) (isFollowed() ? 1 : 0));
     }
 
     public static final Parcelable.Creator<ParcelableAnimal> CREATOR = new Parcelable.Creator<ParcelableAnimal>() {
@@ -56,6 +57,7 @@ public class ParcelableAnimal extends Animal implements Parcelable {
         setDescription(in.readString());
         setState(in.readInt());
         setPhoto(in.readString());
+        setFollowed(in.readByte() != 0);
     }
 
     public ParcelableAnimal(JSONObject obj) {

@@ -89,7 +89,7 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
     private void addAnimals(HashMap<String, Object> animals) {
         animalsList = AnimalViews.getAnimalsList(this, animals);
-        AnimalViews.buildGrid(petsGrid, animalsList);
+        AnimalViews.buildGrid(petsGrid, animalsList, session);
     }
 
     @Override
@@ -102,7 +102,9 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
-        new GetAnimalsDbOperation(getApplicationContext()).execute(new HashMap<String, String>());
+        HashMap<String, String> request = new HashMap<String, String>();
+        request.put("nickname", session.getUserDetails().get("nickname"));
+        new GetAnimalsDbOperation(getApplicationContext()).execute(request);
 
         Button addAnimalButton = (Button) findViewById(R.id.button);
 
