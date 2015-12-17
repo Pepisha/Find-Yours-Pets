@@ -8,8 +8,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
 
 import java.util.HashMap;
@@ -106,15 +104,7 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         request.put("nickname", session.getUserDetails().get("nickname"));
         new GetAnimalsDbOperation(getApplicationContext()).execute(request);
 
-        Button addAnimalButton = (Button) findViewById(R.id.button);
 
-        addAnimalButton.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                Intent addAnimalScreen = new Intent(getApplicationContext(), AddAnimalActivity.class);
-                startActivity(addAnimalScreen);
-            }
-        });
     }
 
     @Override
