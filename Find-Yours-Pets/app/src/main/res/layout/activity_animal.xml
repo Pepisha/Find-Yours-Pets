@@ -19,7 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:id="@+id/linearLayout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,12 +57,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/animalState" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/stateButton"
-                android:layout_gravity="left" />
 
             <Button
                 android:layout_width="wrap_content"
