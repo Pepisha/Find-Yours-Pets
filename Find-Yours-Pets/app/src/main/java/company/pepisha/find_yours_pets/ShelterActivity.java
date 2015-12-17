@@ -226,7 +226,7 @@ public class ShelterActivity extends BaseActivity {
 
     private void addCreateAnimalButton() {
         LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-        Button addAnimalButton = new Button(this);
+        final Button addAnimalButton = new Button(this);
         addAnimalButton.setText(getResources().getString(R.string.addAnimal));
         layout.addView(addAnimalButton);
 
@@ -234,11 +234,12 @@ public class ShelterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent addAnimalScreen = new Intent(getApplicationContext(), AddAnimalActivity.class);
+
+                addAnimalScreen.putExtra("idShelter", shelter.getIdShelter());
                 startActivity(addAnimalScreen);
             }
         });
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

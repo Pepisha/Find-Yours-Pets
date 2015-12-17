@@ -2,7 +2,6 @@ package company.pepisha.find_yours_pets;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +11,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
 import java.util.HashMap;
@@ -58,7 +56,7 @@ public class AddAnimalActivity extends BaseActivity {
         EditText dogsAgreements = (EditText) findViewById(R.id.dogsAgreements);
         EditText childrenAgreements = (EditText) findViewById(R.id.childrenAgreements);
         EditText description = (EditText) findViewById(R.id.description);
-
+        int idShelter = getIntent().getIntExtra("idShelter",1);
         RadioButton checkedAnimalGender = (RadioButton) findViewById(radioGroupAnimalGender.getCheckedRadioButtonId());
 
         HashMap<String, String> request = new HashMap<String, String>();
@@ -72,7 +70,7 @@ public class AddAnimalActivity extends BaseActivity {
         request.put("dogsFriend", dogsAgreements.getText().toString());
         request.put("childrenFriend", childrenAgreements.getText().toString());
         request.put("description", description.getText().toString());
-        request.put("idShelter", Integer.toString(1));
+        request.put("idShelter", Integer.toString(idShelter));
 
         new AddAnimalDbOperation(getApplicationContext()).execute(request);
     }
