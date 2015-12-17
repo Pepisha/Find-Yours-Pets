@@ -93,6 +93,12 @@ public class CameraActivity extends BaseActivity {
                                     request.put("targetId", Integer.toString(targetId));
                                     request.put("description", photoDescription);
                                     new UploadImageOperation(getApplicationContext()).execute(request);
+
+                                    Intent returnIntent = new Intent();
+                                    returnIntent.putExtra("photo", currentPicture.getAbsolutePath());
+                                    setResult(RESULT_OK, returnIntent);
+                                } else {
+                                    setResult(RESULT_CANCELED);
                                 }
 
                                 finish();
