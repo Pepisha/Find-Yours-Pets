@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.facebook.share.widget.ShareDialog;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
@@ -30,6 +32,7 @@ public class AnimalActivity extends BaseActivity {
 
     private Animal animal;
     private ShareDialog shareDialog;
+    private int stateButtonId;
 
     private class ChangeAnimalStatusDbOperation extends ServerDbOperation {
         public ChangeAnimalStatusDbOperation(Context c) {
@@ -79,6 +82,36 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private class IsShelterAdministratorDbOperation extends ServerDbOperation {
+        public IsShelterAdministratorDbOperation(Context c) {
+            super(c, "isShelterAdministrator");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (result.get("admin").equals(true)) {
+                addUpdateAnimalStateButton();
+            }
+        }
+    }
+
+    private void addUpdateAnimalStateButton() {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
+        final Button updateStateButton = new Button(this);
+        stateButtonId = new AtomicInteger(15).get();
+        updateStateButton.setId(stateButtonId);
+        layout.addView(updateStateButton);
+        setAnimalState(animal.getState());
+
+        updateStateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int newStatus = animal.getState() == 1 ? 2 : 1;
+                changeAnimalState(newStatus);
+            }
+        });
+    }
+
     private void setAnimalState(int state) {
         animal.setState(state);
 
@@ -86,7 +119,7 @@ public class AnimalActivity extends BaseActivity {
         animalState.setText((animal.getState() == Animal.ADOPTION)
                 ? getResources().getString(R.string.adoption) : getResources().getString(R.string.adopted));
 
-        Button stateButton = (Button) findViewById(R.id.stateButton);
+        Button stateButton = (Button) findViewById(stateButtonId);
         stateButton.setText((animal.getState() == Animal.ADOPTION)
                 ? getResources().getString(R.string.adopted) : getResources().getString(R.string.adoption));
     }
@@ -97,6 +130,8 @@ public class AnimalActivity extends BaseActivity {
         request.put("newStatus", Integer.toString(state));
 
         new ChangeAnimalStatusDbOperation(this).execute(request);
+
+
     }
 
     private void setAnimalFollowing(boolean followed) {
@@ -142,18 +177,6 @@ public class AnimalActivity extends BaseActivity {
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
         animalPicture.setImageDrawable(getResources().getDrawable(R.drawable.dog));
         new DownloadImage(this, animalPicture.getId()).execute(animal.getPhoto());
-
-        setAnimalState(animal.getState());
-
-        Button stateButton = (Button) findViewById(R.id.stateButton);
-        stateButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                int newStatus = animal.getState() == 1 ? 2 : 1;
-                changeAnimalState(newStatus);
-            }
-        });
 
         setAnimalFollowing(animal.isFollowed());
 
@@ -242,6 +265,14 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private void addUpdateAnimalStateButtonIfShelterAdministrator() {
+        HashMap<String, String> request = new HashMap<String, String>();
+        request.put("idShelter", Integer.toString(animal.getIdShelter()));
+        request.put("nickname", session.getUserDetails().get("nickname"));
+
+        new IsShelterAdministratorDbOperation(this).execute(request);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -252,5 +283,6 @@ public class AnimalActivity extends BaseActivity {
         fillAnimalFields();
         onClickChangeAnimalPhoto();
         onClickShareOnFacebook();
+        addUpdateAnimalStateButtonIfShelterAdministrator();
     }
 }

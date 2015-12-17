@@ -26,6 +26,8 @@ public class Animal {
     private String photo;
     private boolean followed;
 
+    private int idShelter;
+
     public Animal() {
 
     }
@@ -45,6 +47,8 @@ public class Animal {
             idState = obj.getInt("idState");
             photo = obj.getString("photo");
             followed = obj.getBoolean("followed");
+            idShelter = obj.getInt("idShelter");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -148,5 +152,13 @@ public class Animal {
 
     public void setFollowed(boolean followed) {
         this.followed = followed;
+    }
+
+    public int getIdShelter() {
+        return idShelter;
+    }
+
+    public void setIdShelter(int idShelter) {
+        this.idShelter = idShelter;
     }
 }
