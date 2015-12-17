@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -83,6 +84,19 @@ public class ShelterActivity extends BaseActivity {
                 ParcelableShelter s = (ParcelableShelter) shelter;
                 shelterScreen.putExtra("shelter", s);
                 startActivity(shelterScreen);
+            }
+        }
+    }
+
+    private class IsShelterAdministratorDbOperation extends ServerDbOperation {
+        public IsShelterAdministratorDbOperation(Context c) {
+            super(c, "isShelterAdministrator");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (result.get("admin").equals(true)) {
+                addCreateAnimalButton();
             }
         }
     }
@@ -202,6 +216,30 @@ public class ShelterActivity extends BaseActivity {
         });
     }
 
+    private void addAddAnimalButtonIfShelterAdministrator() {
+        HashMap<String, String> request = new HashMap<String, String>();
+        request.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        request.put("nickname", session.getUserDetails().get("nickname"));
+
+        new IsShelterAdministratorDbOperation(this).execute(request);
+    }
+
+    private void addCreateAnimalButton() {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
+        Button addAnimalButton = new Button(this);
+        addAnimalButton.setText(getResources().getString(R.string.addAnimal));
+        layout.addView(addAnimalButton);
+
+        addAnimalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addAnimalScreen = new Intent(getApplicationContext(), AddAnimalActivity.class);
+                startActivity(addAnimalScreen);
+            }
+        });
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,5 +263,8 @@ public class ShelterActivity extends BaseActivity {
 
         onClickShareOnFacebook();
         onClickCallShelter();
+        addAddAnimalButtonIfShelterAdministrator();
     }
+
+
 }
