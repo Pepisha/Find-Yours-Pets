@@ -3,6 +3,7 @@ package company.pepisha.find_yours_pets;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,9 @@ import android.widget.Toast;
 
 import com.facebook.share.widget.ShareDialog;
 
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,6 +24,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
+import company.pepisha.find_yours_pets.db.news.News;
+import company.pepisha.find_yours_pets.db.opinion.Opinion;
 import company.pepisha.find_yours_pets.facebook.FacebookManager;
 import company.pepisha.find_yours_pets.fileExplorer.FileExplorer;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
@@ -93,6 +99,40 @@ public class AnimalActivity extends BaseActivity {
                 addUpdateAnimalStateButton();
             }
         }
+    }
+
+    private class GetLastNewsFromAnimalDbOperation extends ServerDbOperation {
+        public GetLastNewsFromAnimalDbOperation(Context c) {
+            super(c, "getLastNewsFromAnimal");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if(result.get("news")!=null) {
+                News news = new News((JSONObject) result.get("news"));
+                addNews(news);
+            }
+        }
+    }
+
+    private void addNews(News news) {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayoutPrincipal);
+        LinearLayout layoutNews = new LinearLayout(this);
+        layoutNews.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT, 0.5f);
+
+        TextView descriptionView = new TextView(this);
+        descriptionView.setText(news.getDescription());
+        TextView dateView = new TextView(this);
+        dateView.setText(news.getDateNews());
+        dateView.setTextColor(Color.GRAY);
+
+        layoutNews.addView(descriptionView,param);
+        layoutNews.addView(dateView,param);
+
+        layout.addView(layoutNews);
     }
 
     private void addUpdateAnimalStateButton() {
@@ -273,6 +313,13 @@ public class AnimalActivity extends BaseActivity {
         new IsShelterAdministratorDbOperation(this).execute(request);
     }
 
+    private void addAnimalsNews() {
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+
+        new GetLastNewsFromAnimalDbOperation(this).execute(request);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -284,5 +331,6 @@ public class AnimalActivity extends BaseActivity {
         onClickChangeAnimalPhoto();
         onClickShareOnFacebook();
         addUpdateAnimalStateButtonIfShelterAdministrator();
+        addAnimalsNews();
     }
 }
