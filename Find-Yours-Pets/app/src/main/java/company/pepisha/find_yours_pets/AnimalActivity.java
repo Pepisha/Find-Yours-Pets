@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -57,6 +58,20 @@ public class AnimalActivity extends BaseActivity {
 
             Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private class GetAnimalsOwnerDbOperation extends ServerDbOperation {
+        public GetAnimalsOwnerDbOperation(Context c) {
+            super(c, "getAnimalsOwner");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (result.get("nickname") != null) {
+                addAnimalsOwner(result.get("nickname").toString());
+            }
+        }
+
     }
 
     private class FollowAnimalDbOperation extends ServerDbOperation {
@@ -126,6 +141,20 @@ public class AnimalActivity extends BaseActivity {
                 addNews(news);
             }
         }
+    }
+
+    private void addAnimalsOwner(String ownerNickname) {
+        LinearLayout layoutOwner = new LinearLayout(this);
+        layoutOwner.setOrientation(LinearLayout.HORIZONTAL);
+        TextView owner = new TextView(this);
+        owner.setText(R.string.owner);
+        TextView animalsOwner = new TextView(this);
+        animalsOwner.setText(" : "+ownerNickname);
+
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
+        layoutOwner.addView(owner);
+        layoutOwner.addView(animalsOwner);
+        layout.addView(layoutOwner);
     }
 
     private void addAddNewButton() {
@@ -262,6 +291,8 @@ public class AnimalActivity extends BaseActivity {
         TextView animalDescription = (TextView) findViewById(R.id.animalDescription);
         animalDescription.setText(animal.getDescription());
 
+        getAndAddAnimalsOwner();
+
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
         animalPicture.setImageDrawable(getResources().getDrawable(R.drawable.dog));
         new DownloadImage(this, animalPicture.getId()).execute(animal.getPhoto());
@@ -380,6 +411,13 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private void getAndAddAnimalsOwner() {
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+
+        new GetAnimalsOwnerDbOperation(this).execute(request);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -390,8 +428,10 @@ public class AnimalActivity extends BaseActivity {
         fillAnimalFields();
         onClickChangeAnimalPhoto();
         onClickShareOnFacebook();
+        addAddNewsButtonIfNeeded();
         addUpdateAnimalStateButtonIfShelterAdministrator();
         addAnimalsNews();
-        addAddNewsButtonIfNeeded();
+
+
     }
 }

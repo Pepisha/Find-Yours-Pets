@@ -80,5 +80,6 @@
     <string name="homelessAnimals">Homeless animals</string>
     <string name="addNews">Add news</string>
     <string name="title_activity_animal_add_news">Add news</string>
+    <string name="owner">Owner</string>
 
 </resources>
