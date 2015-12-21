@@ -58,4 +58,9 @@ public class News {
     public void setIdAnimal(int idAnimal) {
         this.idAnimal = idAnimal;
     }
+
+    @Override
+    public String toString() {
+        return description + "[ le " + dateNews + ']';
+    }
 }
