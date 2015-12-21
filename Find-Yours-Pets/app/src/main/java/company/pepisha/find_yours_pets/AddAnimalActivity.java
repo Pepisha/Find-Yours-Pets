@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.RatingBar;
 
 import com.facebook.share.widget.ShareDialog;
 
@@ -52,9 +52,9 @@ public class AddAnimalActivity extends BaseActivity {
         RadioGroup radioGroupAnimalGender = (RadioGroup) findViewById(R.id.radioGroupAnimalSexe);
         EditText breedAnimal = (EditText) findViewById(R.id.breedAnimal);
         EditText ageAnimal = (EditText) findViewById(R.id.ageAnimal);
-        EditText catsFriend = (EditText) findViewById(R.id.catsFriend);
-        EditText dogsAgreements = (EditText) findViewById(R.id.dogsAgreements);
-        EditText childrenAgreements = (EditText) findViewById(R.id.childrenAgreements);
+        RatingBar catsFriend = (RatingBar) findViewById(R.id.catsFriendRatingBar);
+        RatingBar dogsAgreements = (RatingBar) findViewById(R.id.dogsFriendRatingBar);
+        RatingBar childrenAgreements = (RatingBar) findViewById(R.id.childrenFriendRatingBar);
         EditText description = (EditText) findViewById(R.id.description);
         int idShelter = getIntent().getIntExtra("idShelter",1);
         RadioButton checkedAnimalGender = (RadioButton) findViewById(radioGroupAnimalGender.getCheckedRadioButtonId());
@@ -66,9 +66,9 @@ public class AddAnimalActivity extends BaseActivity {
                                             ? AnimalConstants.MALE : AnimalConstants.FEMALE);
         request.put("breed", breedAnimal.getText().toString());
         request.put("age", ageAnimal.getText().toString());
-        request.put("catsFriend", catsFriend.getText().toString());
-        request.put("dogsFriend", dogsAgreements.getText().toString());
-        request.put("childrenFriend", childrenAgreements.getText().toString());
+        request.put("catsFriend", Float.toString(catsFriend.getRating()));
+        request.put("dogsFriend", Float.toString(dogsAgreements.getRating()));
+        request.put("childrenFriend", Float.toString(childrenAgreements.getRating()));
         request.put("description", description.getText().toString());
         request.put("idShelter", Integer.toString(idShelter));
 
@@ -83,18 +83,18 @@ public class AddAnimalActivity extends BaseActivity {
             RadioGroup radioGroupAnimalGender = (RadioGroup) findViewById(R.id.radioGroupAnimalSexe);
             EditText breedAnimal = (EditText) findViewById(R.id.breedAnimal);
             EditText ageAnimal = (EditText) findViewById(R.id.ageAnimal);
-            EditText catsFriend = (EditText) findViewById(R.id.catsFriend);
-            EditText dogsAgreements = (EditText) findViewById(R.id.dogsAgreements);
-            EditText childrenAgreements = (EditText) findViewById(R.id.childrenAgreements);
+            RatingBar catsFriend = (RatingBar) findViewById(R.id.catsFriendRatingBar);
+            RatingBar dogsAgreements = (RatingBar) findViewById(R.id.dogsFriendRatingBar);
+            RatingBar childrenAgreements = (RatingBar) findViewById(R.id.childrenFriendRatingBar);
             EditText description = (EditText) findViewById(R.id.description);
 
             String postTitle = animalName.getText().toString();
             String postContent = animalName.getText().toString() + "\n"
                     + breedAnimal.getText().toString() + "\n"
                     + ageAnimal.getText().toString() + "\n"
-                    + catsFriend.getText().toString() + "\n"
-                    + dogsAgreements.getText().toString() + "\n"
-                    + childrenAgreements.getText().toString() + "\n"
+                    + Float.toString(catsFriend.getRating()) + "/5\n"
+                    + Float.toString(dogsAgreements.getRating()) + "/5\n"
+                    + Float.toString(childrenAgreements.getRating()) + "/5\n"
                     + description.getText().toString();
 
             shareDialog = new ShareDialog(this);
