@@ -37,6 +37,7 @@ public class AnimalActivity extends BaseActivity {
     private Animal animal;
     private ShareDialog shareDialog;
     private int stateButtonId;
+    private boolean isUserAdmin = false;
 
     private class ChangeAnimalStatusDbOperation extends ServerDbOperation {
         public ChangeAnimalStatusDbOperation(Context c) {
@@ -94,7 +95,21 @@ public class AnimalActivity extends BaseActivity {
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
             if (result.get("admin").equals(true)) {
+                isUserAdmin = true;
                 addUpdateAnimalStateButton();
+            }
+        }
+    }
+
+    private class IsUserAnimalsOwnerDbOperation extends ServerDbOperation {
+        public IsUserAnimalsOwnerDbOperation(Context c) {
+            super(c, "isUserAnimalsOwner");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (result.get("owner").equals(true)) {
+                addAddNewButton();
             }
         }
     }
@@ -111,6 +126,22 @@ public class AnimalActivity extends BaseActivity {
                 addNews(news);
             }
         }
+    }
+
+    private void addAddNewButton() {
+        Button addNews = new Button(this);
+        addNews.setText(R.string.addNews);
+        addNews.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent addNewsScreen = new Intent(getApplicationContext(), AnimalAddNewsActivity.class);
+                addNewsScreen.putExtra("idAnimal", animal.getIdAnimal());
+                startActivity(addNewsScreen);
+            }
+        });
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayoutPrincipal);
+        layout.addView(addNews);
     }
 
     private void addSeeMoreNewsButton(LinearLayout layout) {
@@ -143,7 +174,7 @@ public class AnimalActivity extends BaseActivity {
         dateView.setTextColor(Color.GRAY);
 
         layoutNews.addView(descriptionView, param);
-        layoutNews.addView(dateView,param);
+        layoutNews.addView(dateView, param);
 
         addSeeMoreNewsButton(layoutNews);
 
@@ -337,6 +368,18 @@ public class AnimalActivity extends BaseActivity {
         new GetLastNewsFromAnimalDbOperation(this).execute(request);
     }
 
+    private void addAddNewsButtonIfNeeded() {
+        if(isUserAdmin) {
+            addAddNewButton();
+        } else {
+            HashMap<String, String> request = new HashMap<>();
+            request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+            request.put("nickname", session.getUserDetails().get("nickname"));
+
+            new IsUserAnimalsOwnerDbOperation(this).execute(request);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -349,5 +392,6 @@ public class AnimalActivity extends BaseActivity {
         onClickShareOnFacebook();
         addUpdateAnimalStateButtonIfShelterAdministrator();
         addAnimalsNews();
+        addAddNewsButtonIfNeeded();
     }
 }

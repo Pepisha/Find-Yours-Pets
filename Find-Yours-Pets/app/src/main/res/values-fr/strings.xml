@@ -73,4 +73,6 @@
     <string name="search">Rechercher</string>
     <string name="title_activity_search_animal">Recherche d\'animal</string>
     <string name="homelessAnimals">Animaux à l\'adoption</string>
+    <string name="addNews">Donner des nouvelles</string>
+
 </resources>
