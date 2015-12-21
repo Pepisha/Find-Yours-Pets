@@ -8,6 +8,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 
 import java.util.HashMap;
@@ -22,6 +24,8 @@ import company.pepisha.find_yours_pets.views.AnimalViews;
 public class HomeActivity extends BaseActivity implements SensorEventListener {
 
     private static final float SHAKE_THRESHOLD_GRAVITY = 1.5F;
+
+    private static final int SEARCH_REQUEST = 1;
 
     Vibrator vibrator = null;
 
@@ -45,6 +49,11 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
                 addAnimals(result);
             }
         }
+    }
+
+    private void clear() {
+        animalsList.clear();
+        petsGrid.removeAllViews();
     }
 
     private Animal getRandomAnimal() {
@@ -90,6 +99,43 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         AnimalViews.buildGrid(petsGrid, animalsList, session);
     }
 
+    private void onClickSearchButton() {
+        Button searchButton = (Button) findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent searchScreen = new Intent(v.getContext(), SearchAnimalActivity.class);
+                startActivityForResult(searchScreen, SEARCH_REQUEST);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SEARCH_REQUEST && resultCode == RESULT_OK) {
+            clear();
+
+            float catsFriend = data.getFloatExtra("catsFriend", (float) -1.0);
+            float dogsFriend = data.getFloatExtra("dogsFriend", (float) -1.0);
+            float childrenFriend = data.getFloatExtra("childrenFriend", (float) -1.0);
+
+            HashMap<String, String> request = new HashMap<String, String>();
+            request.put("nickname", session.getUserDetails().get("nickname"));
+            if (catsFriend != -1.0) {
+                request.put("catsFriend", Float.toString(catsFriend));
+            }
+            if (dogsFriend != -1.0) {
+                request.put("dogsFriend", Float.toString(dogsFriend));
+            }
+            if (childrenFriend != -1.0) {
+                request.put("childrenFriend", Float.toString(childrenFriend));
+            }
+
+            new GetAnimalsDbOperation(this).execute(request);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,9 +148,9 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
         HashMap<String, String> request = new HashMap<String, String>();
         request.put("nickname", session.getUserDetails().get("nickname"));
-        new GetAnimalsDbOperation(getApplicationContext()).execute(request);
+        new GetAnimalsDbOperation(this).execute(request);
 
-
+        onClickSearchButton();
     }
 
     @Override

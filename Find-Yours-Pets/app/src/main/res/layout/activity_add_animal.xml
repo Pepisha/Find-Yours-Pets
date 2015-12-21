@@ -166,13 +166,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/catsFriend"/>
 
-            <EditText
+            <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/catsFriend"
-                android:layout_weight="1" />
+                android:id="@+id/catsFriendRatingBar"
+                android:stepSize="0.5" />
+
         </TableRow>
 
         <TableRow
@@ -187,13 +186,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dogsAgreements"/>
 
-            <EditText
+            <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/dogsAgreements"
-                android:layout_weight="1" />
+                android:id="@+id/dogsFriendRatingBar"
+                android:stepSize="0.5" />
+
         </TableRow>
 
         <TableRow
@@ -208,13 +206,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/childrenAgreements"/>
 
-            <EditText
+            <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:id="@+id/childrenAgreements"
-                android:layout_weight="1" />
+                android:id="@+id/childrenFriendRatingBar"
+                android:stepSize="0.5" />
+
         </TableRow>
 
         <TableRow

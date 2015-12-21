@@ -69,6 +69,8 @@
     <string name="disconnection">Déconnexion</string>
     <string name="call">Appeler</string>
     <string name="seeMore">Voir plus de nouvelles</string>
-    <string name="title_activity_animal_news">Nouvelles d'un animal</string>
-
+    <string name="title_activity_animal_news">Nouvelles d\'un animal</string>
+    <string name="search">Rechercher</string>
+    <string name="title_activity_search_animal">Recherche d\'animal</string>
+    <string name="homelessAnimals">Animaux à l\'adoption</string>
 </resources>

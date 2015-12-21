@@ -95,6 +95,10 @@
             android:name=".AnimalNewsActivity"
             android:label="@string/title_activity_animal_news" >
         </activity>
+        <activity
+            android:name=".SearchAnimalActivity"
+            android:label="@string/title_activity_search_animal" >
+        </activity>
     </application>
 
 </manifest>

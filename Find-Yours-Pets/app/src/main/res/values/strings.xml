@@ -75,6 +75,8 @@
     <string name="call">Call</string>
     <string name="seeMore">See more news</string>
     <string name="title_activity_animal_news">Animal News</string>
-
+    <string name="title_activity_search_animal">Find animal</string>
+    <string name="search">Search</string>
+    <string name="homelessAnimals">Homeless animals</string>
 
 </resources>
