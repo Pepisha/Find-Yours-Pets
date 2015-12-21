@@ -81,5 +81,8 @@
     <string name="addNews">Add news</string>
     <string name="title_activity_animal_add_news">Add news</string>
     <string name="owner">Owner</string>
+    <string name="title_activity_pets_preferences">Pets Preferences</string>
+    <string name="save">Save</string>
+    <string name="preferencesModified">Preferences have been modified</string>
 
 </resources>

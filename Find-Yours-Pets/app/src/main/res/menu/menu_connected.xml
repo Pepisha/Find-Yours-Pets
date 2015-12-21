@@ -11,6 +11,9 @@
     <item android:id="@+id/action_user_profile" android:title="@string/title_activity_user_profile"
         android:icon="@drawable/animals" android:orderInCategory="100" app:showAsAction="never" />
 
+    <item android:id="@+id/ation_pets_preferences" android:title="@string/title_activity_pets_preferences"
+        android:icon="@drawable/animals" android:orderInCategory="100" app:showAsAction="never" />
+
     <item android:id="@+id/action_disconnection" android:title="@string/disconnection"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

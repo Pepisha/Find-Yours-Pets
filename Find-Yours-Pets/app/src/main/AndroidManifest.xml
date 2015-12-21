@@ -103,6 +103,10 @@
             android:name=".AnimalAddNewsActivity"
             android:label="@string/title_activity_animal_add_news" >
         </activity>
+        <activity
+            android:name=".PetsPreferencesActivity"
+            android:label="@string/title_activity_pets_preferences" >
+        </activity>
     </application>
 
 </manifest>

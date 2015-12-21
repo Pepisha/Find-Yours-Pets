@@ -58,6 +58,10 @@ public class BaseActivity extends Activity {
             startActivity(userProfileScreen);
             return true;
         }
+        else if (id == R.id.ation_pets_preferences) {
+            Intent petsPreferencesScreen = new Intent(getApplicationContext(), PetsPreferencesActivity.class);
+            startActivity(petsPreferencesScreen);
+        }
         else if (id == R.id.action_settings) {
             return true;
         }
