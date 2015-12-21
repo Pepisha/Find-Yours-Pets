@@ -78,5 +78,7 @@
     <string name="title_activity_search_animal">Find animal</string>
     <string name="search">Search</string>
     <string name="homelessAnimals">Homeless animals</string>
+    <string name="addNews">Add news</string>
+    <string name="title_activity_animal_add_news">Add news</string>
 
 </resources>

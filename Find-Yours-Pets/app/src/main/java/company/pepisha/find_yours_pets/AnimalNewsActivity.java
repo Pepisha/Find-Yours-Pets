@@ -2,7 +2,6 @@ package company.pepisha.find_yours_pets;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -15,7 +14,6 @@ import java.util.Map;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.news.News;
-import company.pepisha.find_yours_pets.db.opinion.Opinion;
 
 public class AnimalNewsActivity extends BaseActivity {
 
