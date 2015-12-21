@@ -52,7 +52,7 @@
     <string name="title_activity_file_explorer">Explorateur de fichiers</string>
     <string name="photoConfirmation">Voulez-vous mettre en ligne cette photo ?</string>
     <string name="title_activity_update_user_profile">Modifier profil</string>
-    <string name="title_activity_camera"></string>
+    <string name="title_activity_camera">Prendre une photo</string>
     <string name="modifyProfile">Modifier le profil</string>
     <string name="photoSelectionMessage">Choisissez votre mode de sélection</string>
     <string name="photoSelectionTitle">Mode de sélection</string>
@@ -68,5 +68,7 @@
     <string name="comment">Commenter</string>
     <string name="disconnection">Déconnexion</string>
     <string name="call">Appeler</string>
+    <string name="seeMore">Voir plus de nouvelles</string>
+    <string name="title_activity_animal_news">Nouvelles d'un animal</string>
 
 </resources>

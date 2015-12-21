@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.facebook.share.widget.ShareDialog;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.HashMap;
@@ -25,7 +24,6 @@ import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.news.News;
-import company.pepisha.find_yours_pets.db.opinion.Opinion;
 import company.pepisha.find_yours_pets.facebook.FacebookManager;
 import company.pepisha.find_yours_pets.fileExplorer.FileExplorer;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
@@ -115,6 +113,21 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private void addSeeMoreNewsButton(LinearLayout layout) {
+        Button seeMore = new Button(this);
+        seeMore.setText(R.string.seeMore);
+        seeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent animalNewsScreen = new Intent(getApplicationContext(), AnimalNewsActivity.class);
+                animalNewsScreen.putExtra("idAnimal", animal.getIdAnimal());
+                startActivity(animalNewsScreen);
+
+            }
+        });
+        layout.addView(seeMore);
+    }
+
     private void addNews(News news) {
         LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayoutPrincipal);
         LinearLayout layoutNews = new LinearLayout(this);
@@ -129,10 +142,14 @@ public class AnimalActivity extends BaseActivity {
         dateView.setText(news.getDateNews());
         dateView.setTextColor(Color.GRAY);
 
-        layoutNews.addView(descriptionView,param);
+        layoutNews.addView(descriptionView, param);
         layoutNews.addView(dateView,param);
 
+        addSeeMoreNewsButton(layoutNews);
+
         layout.addView(layoutNews);
+
+
     }
 
     private void addUpdateAnimalStateButton() {

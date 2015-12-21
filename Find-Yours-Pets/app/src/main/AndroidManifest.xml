@@ -9,7 +9,9 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -88,6 +90,10 @@
         <activity
             android:name=".facebook.FacebookLogin"
             android:label="@string/title_activity_facebook_login" >
+        </activity>
+        <activity
+            android:name=".AnimalNewsActivity"
+            android:label="@string/title_activity_animal_news" >
         </activity>
     </application>
 
