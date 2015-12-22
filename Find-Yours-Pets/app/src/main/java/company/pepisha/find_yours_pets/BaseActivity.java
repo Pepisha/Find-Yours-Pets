@@ -8,7 +8,7 @@ import android.view.MenuItem;
 
 import com.facebook.appevents.AppEventsLogger;
 
-import company.pepisha.find_yours_pets.facebook.FacebookLogin;
+import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookLogin;
 import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class BaseActivity extends Activity {

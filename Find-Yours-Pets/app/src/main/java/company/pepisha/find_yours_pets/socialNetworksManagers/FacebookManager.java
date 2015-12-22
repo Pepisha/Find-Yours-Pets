@@ -1,4 +1,4 @@
-package company.pepisha.find_yours_pets.facebook;
+package company.pepisha.find_yours_pets.socialNetworksManagers;
 
 
 import android.net.Uri;
