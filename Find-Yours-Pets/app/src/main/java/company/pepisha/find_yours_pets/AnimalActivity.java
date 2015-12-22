@@ -4,8 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -216,7 +218,7 @@ public class AnimalActivity extends BaseActivity {
         final Button updateStateButton = new Button(this);
         stateButtonId = new AtomicInteger(15).get();
         updateStateButton.setId(stateButtonId);
-        layout.addView(updateStateButton);
+        layout.addView(updateStateButton, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         setAnimalState(animal.getState());
 
         updateStateButton.setOnClickListener(new View.OnClickListener() {
@@ -350,6 +352,21 @@ public class AnimalActivity extends BaseActivity {
         });
     }
 
+    private void onClickInterestedOnAnimal() {
+        Button interestedButton = (Button) findViewById(R.id.interestedButton);
+        interestedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView image = (ImageView) findViewById(R.id.animalPicture);
+
+                Intent animalMessageScreen = new Intent(v.getContext(), AnimalMessageActivity.class);
+                animalMessageScreen.putExtra("animal", (ParcelableAnimal) animal);
+                animalMessageScreen.putExtra("photo", ((BitmapDrawable) image.getDrawable()).getBitmap());
+                startActivity(animalMessageScreen);
+            }
+        });
+    }
+
     private void shareOnFacebook() {
         String title = animal.getName();
         String description = animal.getName() + "\n"
@@ -426,11 +443,10 @@ public class AnimalActivity extends BaseActivity {
 
         fillAnimalFields();
         onClickChangeAnimalPhoto();
+        onClickInterestedOnAnimal();
         onClickShareOnFacebook();
         addAddNewsButtonIfNeeded();
         addUpdateAnimalStateButtonIfShelterAdministrator();
         addAnimalsNews();
-
-
     }
 }

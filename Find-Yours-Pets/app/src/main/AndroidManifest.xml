@@ -107,6 +107,10 @@
             android:name=".PetsPreferencesActivity"
             android:label="@string/title_activity_pets_preferences" >
         </activity>
+        <activity
+            android:name=".AnimalMessageActivity"
+            android:label="@string/title_activity_animal_message" >
+        </activity>
     </application>
 
 </manifest>

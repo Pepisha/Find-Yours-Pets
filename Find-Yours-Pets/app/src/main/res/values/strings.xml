@@ -79,11 +79,16 @@
     <string name="search">Search</string>
     <string name="homelessAnimals">Homeless animals</string>
     <string name="addNews">Add news</string>
-    <string name="title_activity_animal_add_news">Add news</string>
+    <string name="title_activity_animal_add_news">Adding news</string>
     <string name="owner">Owner</string>
     <string name="title_activity_pets_preferences">Pets Preferences</string>
     <string name="save">Save</string>
     <string name="preferencesModified">Preferences have been modified</string>
     <string name="tweet">Tweet</string>
+    <string name="title_activity_animal_message">Sending message</string>
+    <string name="shelterContact">Contact the shelter</string>
+    <string name="sendMessage">Send message</string>
+    <string name="messageSent">Message sent</string>
+    <string name="interestedOnAnimal">I am interested</string>
 
 </resources>
