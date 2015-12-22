@@ -37,13 +37,13 @@ public class AddAnimalActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            //if (successResponse(result)) {
+            if (successResponse(result)) {
 
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(homeScreen);
 
                 shareOnSocialNetworks();
-           // }
+            }
         }
     }
 
