@@ -79,5 +79,11 @@
     <string name="save">Enregistrer</string>
     <string name="preferencesModified">Les préférences ont été modifiées</string>
     <string name="tweet">Tweet</string>
+    <string name="shelterContact">Contact du refuge</string>
+    <string name="sendMessage">Envoyer le message</string>
+    <string name="messageSent">Message envoyé</string>
+    <string name="interestedOnAnimal">Je suis intéressé</string>
+    <string name="title_activity_animal_message">Envoi de message</string>
+    <string name="title_activity_animal_add_news">Ajout de nouvelles</string>
 
 </resources>

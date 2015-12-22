@@ -106,6 +106,14 @@
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/animalPicture"/>
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/interestedOnAnimal"
+                    android:id="@+id/interestedButton"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/pictureButton"/>
+
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
