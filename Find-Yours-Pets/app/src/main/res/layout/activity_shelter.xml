@@ -85,6 +85,13 @@
                 android:id="@+id/shareFacebookButton"
                 android:layout_gravity="left" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tweet"
+                android:id="@+id/tweetButton"
+                android:layout_gravity="left" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
