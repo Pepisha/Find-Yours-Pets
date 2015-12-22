@@ -32,6 +32,7 @@ import company.pepisha.find_yours_pets.db.opinion.Opinion;
 import company.pepisha.find_yours_pets.db.shelter.Shelter;
 import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookManager;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
+import company.pepisha.find_yours_pets.socialNetworksManagers.TwitterManager;
 import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class ShelterActivity extends BaseActivity {
@@ -166,6 +167,22 @@ public class ShelterActivity extends BaseActivity {
         });
     }
 
+    private void tweet() {
+        String website = shelter.getWebsite() == null ? "" : " - "+shelter.getWebsite();
+        String description = shelter.getDescription() + website;
+        TwitterManager.tweetWithoutImage(description, this);
+    }
+
+    private void onClickTweet() {
+        final Button tweet = (Button) findViewById(R.id.tweetButton);
+        tweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tweet();
+            }
+        });
+    }
+
     private void initialiseNoteNumberPicker() {
         NumberPicker shelterNote = (NumberPicker) findViewById(R.id.shelterNote);
         shelterNote.setMaxValue(5);
@@ -264,6 +281,7 @@ public class ShelterActivity extends BaseActivity {
         new GetOpinionsAboutShelterDbOperation(this).execute(opinionsRequest);
 
         onClickShareOnFacebook();
+        onClickTweet();
         onClickCallShelter();
         addAddAnimalButtonIfShelterAdministrator();
     }
