@@ -12,8 +12,11 @@ import io.fabric.sdk.android.Fabric;
 
 public class TwitterManager {
 
+    private static final String CONSUMER_KEY = "9mKJiWsZFpZdU4XSErqVuWelv";
+    private static final String CONSUMER_SECRET = "BAmIEmDNfSc6fEW0SadQC2jrH1kwfXHAvzPm5yaraXvPAMWsCH";
+
     public static void prepareTwitter(Context applicationContext) {
-        TwitterAuthConfig authConfig =  new TwitterAuthConfig("9mKJiWsZFpZdU4XSErqVuWelv", "BAmIEmDNfSc6fEW0SadQC2jrH1kwfXHAvzPm5yaraXvPAMWsCH");
+        TwitterAuthConfig authConfig =  new TwitterAuthConfig(CONSUMER_KEY, CONSUMER_SECRET);
         Fabric.with(applicationContext, new Twitter(authConfig));
     }
 
