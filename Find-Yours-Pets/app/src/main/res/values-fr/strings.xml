@@ -78,5 +78,6 @@
     <string name="title_activity_pets_preferences">Préférences des animaux</string>
     <string name="save">Enregistrer</string>
     <string name="preferencesModified">Les préférences ont été modifiées</string>
+    <string name="tweet">Tweet</string>
 
 </resources>

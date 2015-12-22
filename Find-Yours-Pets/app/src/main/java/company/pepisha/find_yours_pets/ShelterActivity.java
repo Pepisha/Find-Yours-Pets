@@ -30,7 +30,7 @@ import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.opinion.Opinion;
 import company.pepisha.find_yours_pets.db.shelter.Shelter;
-import company.pepisha.find_yours_pets.facebook.FacebookManager;
+import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookManager;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
 import company.pepisha.find_yours_pets.views.AnimalViews;
 

@@ -84,5 +84,6 @@
     <string name="title_activity_pets_preferences">Pets Preferences</string>
     <string name="save">Save</string>
     <string name="preferencesModified">Preferences have been modified</string>
+    <string name="tweet">Tweet</string>
 
 </resources>

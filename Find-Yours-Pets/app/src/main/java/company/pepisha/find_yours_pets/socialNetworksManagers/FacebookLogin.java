@@ -1,8 +1,6 @@
-package company.pepisha.find_yours_pets.facebook;
+package company.pepisha.find_yours_pets.socialNetworksManagers;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 
 import company.pepisha.find_yours_pets.BaseActivity;

@@ -19,6 +19,7 @@ import java.util.Random;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
+import company.pepisha.find_yours_pets.socialNetworksManagers.TwitterManager;
 import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class HomeActivity extends BaseActivity implements SensorEventListener {
@@ -136,10 +137,14 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         }
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        TwitterManager.prepareTwitter(getApplicationContext());
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

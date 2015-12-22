@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 
 import com.facebook.share.widget.ShareDialog;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,8 @@ import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.AnimalConstants;
 import company.pepisha.find_yours_pets.db.animal.animalType.AnimalType;
 import company.pepisha.find_yours_pets.db.animal.animalType.AnimalTypeOperation;
-import company.pepisha.find_yours_pets.facebook.FacebookManager;
+import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookManager;
+import company.pepisha.find_yours_pets.socialNetworksManagers.TwitterManager;
 
 public class AddAnimalActivity extends BaseActivity {
 
@@ -35,14 +37,38 @@ public class AddAnimalActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if (successResponse(result)) {
+            //if (successResponse(result)) {
 
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(homeScreen);
 
-                shareAnimalOnFacebook();
-            }
+                shareOnSocialNetworks();
+           // }
         }
+    }
+
+    private void shareOnSocialNetworks() {
+        EditText animalName = (EditText) findViewById(R.id.animalName);
+        RadioGroup radioGroupAnimalTypes = (RadioGroup) findViewById(R.id.radioGroupAnimalTypes);
+        RadioGroup radioGroupAnimalGender = (RadioGroup) findViewById(R.id.radioGroupAnimalSexe);
+        EditText breedAnimal = (EditText) findViewById(R.id.breedAnimal);
+        EditText ageAnimal = (EditText) findViewById(R.id.ageAnimal);
+        RatingBar catsFriend = (RatingBar) findViewById(R.id.catsFriendRatingBar);
+        RatingBar dogsAgreements = (RatingBar) findViewById(R.id.dogsFriendRatingBar);
+        RatingBar childrenAgreements = (RatingBar) findViewById(R.id.childrenFriendRatingBar);
+        EditText description = (EditText) findViewById(R.id.description);
+
+        String postTitle = animalName.getText().toString();
+        String postContent = animalName.getText().toString() + "\n"
+                + breedAnimal.getText().toString() + "\n"
+                + ageAnimal.getText().toString() + "\n"
+                + Float.toString(catsFriend.getRating()) + "/5\n"
+                + Float.toString(dogsAgreements.getRating()) + "/5\n"
+                + Float.toString(childrenAgreements.getRating()) + "/5\n"
+                + description.getText().toString();
+
+        shareAnimalOnFacebook(postTitle, postContent);
+        tweetAnimal(postContent);
     }
 
     private void animalAdding() {
@@ -75,28 +101,16 @@ public class AddAnimalActivity extends BaseActivity {
         new AddAnimalDbOperation(getApplicationContext()).execute(request);
     }
 
-    private void shareAnimalOnFacebook() {
+    private void tweetAnimal(String postContent) {
+        CheckBox tweet = (CheckBox) findViewById(R.id.checkBoxTwitter);
+        if(tweet.isChecked()) {
+            TwitterManager.tweetWithoutImage(postContent, this);
+        }
+    }
+
+    private void shareAnimalOnFacebook(String postTitle, String postContent) {
         CheckBox facebookShare = (CheckBox) findViewById(R.id.checkBoxFacebook);
         if(facebookShare.isChecked()) {
-            EditText animalName = (EditText) findViewById(R.id.animalName);
-            RadioGroup radioGroupAnimalTypes = (RadioGroup) findViewById(R.id.radioGroupAnimalTypes);
-            RadioGroup radioGroupAnimalGender = (RadioGroup) findViewById(R.id.radioGroupAnimalSexe);
-            EditText breedAnimal = (EditText) findViewById(R.id.breedAnimal);
-            EditText ageAnimal = (EditText) findViewById(R.id.ageAnimal);
-            RatingBar catsFriend = (RatingBar) findViewById(R.id.catsFriendRatingBar);
-            RatingBar dogsAgreements = (RatingBar) findViewById(R.id.dogsFriendRatingBar);
-            RatingBar childrenAgreements = (RatingBar) findViewById(R.id.childrenFriendRatingBar);
-            EditText description = (EditText) findViewById(R.id.description);
-
-            String postTitle = animalName.getText().toString();
-            String postContent = animalName.getText().toString() + "\n"
-                    + breedAnimal.getText().toString() + "\n"
-                    + ageAnimal.getText().toString() + "\n"
-                    + Float.toString(catsFriend.getRating()) + "/5\n"
-                    + Float.toString(dogsAgreements.getRating()) + "/5\n"
-                    + Float.toString(childrenAgreements.getRating()) + "/5\n"
-                    + description.getText().toString();
-
             shareDialog = new ShareDialog(this);
             shareDialog.show(FacebookManager.share(postTitle, postContent, ServerConnectionManager.url));
 
