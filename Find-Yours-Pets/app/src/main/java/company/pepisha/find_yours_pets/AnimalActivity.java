@@ -30,6 +30,7 @@ import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookManager;
 import company.pepisha.find_yours_pets.fileExplorer.FileExplorer;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 import company.pepisha.find_yours_pets.photo.DownloadImage;
+import company.pepisha.find_yours_pets.socialNetworksManagers.TwitterManager;
 import company.pepisha.find_yours_pets.tools.FileTools;
 
 public class AnimalActivity extends BaseActivity {
@@ -390,6 +391,27 @@ public class AnimalActivity extends BaseActivity {
         });
     }
 
+    private void onClickShareOnTwitter() {
+        final Button tweet = (Button) findViewById(R.id.tweetButton);
+        tweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tweet();
+            }
+        });
+    }
+
+    private void tweet() {
+        String description = animal.getName() + "\n"
+                + animal.getBreed()+"\n"
+                + animal.getAge()+"\n"
+                + animal.getCatsFriend()+"\n"
+                + animal.getDogsFriend()+"\n"
+                + animal.getChildrenFriend() +"\n"
+                + animal.getDescription();
+        TwitterManager.tweetWithoutImage(description, this);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PHOTO_CHANGE_REQUEST && resultCode == RESULT_OK) {
@@ -442,9 +464,12 @@ public class AnimalActivity extends BaseActivity {
         animal = (ParcelableAnimal) getIntent().getParcelableExtra("animal");
 
         fillAnimalFields();
+
         onClickChangeAnimalPhoto();
         onClickInterestedOnAnimal();
         onClickShareOnFacebook();
+        onClickShareOnTwitter();
+
         addAddNewsButtonIfNeeded();
         addUpdateAnimalStateButtonIfShelterAdministrator();
         addAnimalsNews();
