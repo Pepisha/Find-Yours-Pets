@@ -296,7 +296,7 @@ public class AnimalActivity extends BaseActivity {
         getAndAddAnimalsOwner();
 
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
-        animalPicture.setImageDrawable(getResources().getDrawable(R.drawable.dog));
+        animalPicture.setImageDrawable(getResources().getDrawable(animal.getDefaultImage()));
         new DownloadImage(this, animalPicture.getId()).execute(animal.getPhoto());
 
         setAnimalFollowing(animal.isFollowed());
