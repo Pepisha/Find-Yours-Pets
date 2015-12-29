@@ -2,10 +2,12 @@ package company.pepisha.find_yours_pets;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -73,25 +75,6 @@ public class UserProfileActivity  extends BaseActivity {
         AnimalViews.buildGrid(petsGrid, animalsList, session);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
-
-        petsGrid = (GridLayout) findViewById(R.id.petsGrid);
-
-        HashMap<String,String> userRequest = new HashMap<>();
-        String nicknameUser = session.getUserDetails().get("nickname");
-        userRequest.put("nickname", nicknameUser);
-        new GetUserInformationsDbOperation(getApplicationContext()).execute(userRequest);
-
-        HashMap<String, String> animalsRequest = new HashMap<String, String>();
-        animalsRequest.put("nickname", nicknameUser);
-        new GetUsersAnimalsDbOperation(this).execute(animalsRequest);
-
-        oncClickExecuteUpdateProfileActivity();
-    }
-
     private void oncClickExecuteUpdateProfileActivity() {
         Button update = (Button) findViewById(R.id.updtateButton);
         update.setOnClickListener(new View.OnClickListener() {
@@ -103,14 +86,43 @@ public class UserProfileActivity  extends BaseActivity {
         });
     }
 
-    private void onClickExecuteUpdatePictureActivity() {
-        Button update = (Button) findViewById(R.id.pictureButton);
-        update.setOnClickListener(new View.OnClickListener() {
+    private void onClickCallUser() {
+        final ImageButton callButton = (ImageButton) findViewById(R.id.callButton);
+        callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent update = new Intent(getApplicationContext(), CameraActivity.class);
-                startActivity(update);
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + user.getPhone()));
+                startActivity(callIntent);
             }
         });
+    }
+
+    private void getUsersAnimals() {
+        String nicknameUser = session.getUserDetails().get("nickname");
+        HashMap<String, String> animalsRequest = new HashMap<String, String>();
+        animalsRequest.put("nickname", nicknameUser);
+        new GetUsersAnimalsDbOperation(this).execute(animalsRequest);
+    }
+
+    private void getUsersInformations() {
+        HashMap<String,String> userRequest = new HashMap<>();
+        String nicknameUser = session.getUserDetails().get("nickname");
+        userRequest.put("nickname", nicknameUser);
+        new GetUserInformationsDbOperation(getApplicationContext()).execute(userRequest);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_profile);
+
+        petsGrid = (GridLayout) findViewById(R.id.petsGrid);
+
+        getUsersInformations();
+        getUsersAnimals();
+
+        oncClickExecuteUpdateProfileActivity();
+        onClickCallUser();
     }
 }
