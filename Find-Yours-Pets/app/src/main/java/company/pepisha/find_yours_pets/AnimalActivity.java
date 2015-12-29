@@ -77,7 +77,7 @@ public class AnimalActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if (result.get("nickname") != null) {
+            if (result.get("nickname") != null && !result.get("nickname").toString().equals("null")) {
                 addAnimalsOwner(result.get("nickname").toString());
             }
         }
