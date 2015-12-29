@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -76,7 +77,7 @@ public class AnimalActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if (result.get("nickname") != null) {
+            if (result.get("nickname") != null && !result.get("nickname").toString().equals("null")) {
                 addAnimalsOwner(result.get("nickname").toString());
             }
         }
@@ -145,7 +146,7 @@ public class AnimalActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if(result.get("news")!=null) {
+            if(result.get("news") != null && !result.get("news").toString().equals("null")) {
                 News news = new News((JSONObject) result.get("news"));
                 addNews(news);
             }
@@ -412,7 +413,7 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void onClickShareOnFacebook() {
-        final Button shareOnFacebook = (Button) findViewById(R.id.shareFacebookButton);
+        final ImageButton shareOnFacebook = (ImageButton) findViewById(R.id.shareFacebookButton);
         shareOnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -422,7 +423,7 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void onClickShareOnTwitter() {
-        final Button tweet = (Button) findViewById(R.id.tweetButton);
+        final ImageButton tweet = (ImageButton) findViewById(R.id.tweetButton);
         tweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -461,21 +462,26 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void addAnimalsNews() {
-        HashMap<String, String> request = new HashMap<>();
-        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+        if(animal.getState() == Animal.ADOPTED) {
+            HashMap<String, String> request = new HashMap<>();
+            request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
 
-        new GetLastNewsFromAnimalDbOperation(this).execute(request);
+            new GetLastNewsFromAnimalDbOperation(this).execute(request);
+        }
     }
 
     private void addAddNewsButtonIfNeeded() {
-        if(isUserAdmin) {
-            addAddNewButton();
-        } else {
-            HashMap<String, String> request = new HashMap<>();
-            request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
-            request.put("nickname", session.getUserDetails().get("nickname"));
 
-            new IsUserAnimalsOwnerDbOperation(this).execute(request);
+        if(animal.getState() == Animal.ADOPTED) {
+            if (isUserAdmin) {
+               addAddNewButton();
+            } else {
+                HashMap<String, String> request = new HashMap<>();
+                request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+                request.put("nickname", session.getUserDetails().get("nickname"));
+
+                new IsUserAnimalsOwnerDbOperation(this).execute(request);
+            }
         }
     }
 
