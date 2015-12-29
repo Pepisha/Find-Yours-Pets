@@ -275,6 +275,7 @@ public class ShelterActivity extends BaseActivity {
         HashMap<String, String> animalsRequest = new HashMap<String, String>();
         animalsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
         animalsRequest.put("nickname", session.getUserDetails().get("nickname"));
+        animalsRequest.put("numberOfAnimals", Integer.toString(3));
         new GetSheltersAnimalsDbOperation(this).execute(animalsRequest);
 
         HashMap<String, String> opinionsRequest = new HashMap<String, String>();
