@@ -15,14 +15,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/pageTitle"
+            android:layout_centerHorizontal="true"
             android:text="@string/homelessAnimals" />
 
-        <Button
+        <ImageButton
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search"
+            android:src="@drawable/search"
             android:id="@+id/searchButton"
+            android:background="@null"
+            android:layout_below="@+id/pageTitle"
             android:layout_alignParentRight="true" />
 
     </RelativeLayout>

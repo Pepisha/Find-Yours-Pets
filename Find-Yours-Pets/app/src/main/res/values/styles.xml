@@ -5,4 +5,9 @@
         <item name="android:windowBackground">@drawable/background</item>
     </style>
 
+    <style name="FypTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="android:windowBackground">@drawable/background</item>
+        <item name="android:typeface">serif</item>
+    </style>
+
 </resources>
