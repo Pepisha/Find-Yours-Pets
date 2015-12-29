@@ -89,4 +89,7 @@
     <string name="discoverOurAnimals">Découvrez nos animaux</string>
     <string name="comments">Commentaires</string>
     <string name="seeAllAnimals">Voir tous les animaux</string>
+    <string name="seeAllComments">Voir tous les commentaires</string>
+    <string name="title_activity_shelter_animals">Animaux du refuge</string>
+    <string name="title_activity_shelter_comments">Avis sur le refuge</string>
 </resources>

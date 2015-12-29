@@ -272,6 +272,19 @@ public class ShelterActivity extends BaseActivity {
         });
     }
 
+    private void onClickSeeAllComments() {
+        final Button seeAllCommentsButton = (Button) findViewById(R.id.seeAllCommentsButton);
+        seeAllCommentsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent commentsScreen = new Intent(getApplicationContext(), ShelterCommentsActivity.class);
+                ParcelableShelter s = (ParcelableShelter) shelter;
+                commentsScreen.putExtra("shelter", s);
+                startActivity(commentsScreen);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -300,6 +313,7 @@ public class ShelterActivity extends BaseActivity {
         onClickTweet();
         onClickCallShelter();
         onClickSeeAllAnimals();
+        onClickSeeAllComments();
         addAddAnimalButtonIfShelterAdministrator();
     }
 

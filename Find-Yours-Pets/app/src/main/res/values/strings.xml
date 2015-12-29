@@ -94,8 +94,10 @@
     <string name="discoverOurAnimals">Discover our animals</string>
     <string name="comments">Comments</string>
     <string name="seeAllAnimals">See all animals</string>
-    <string name="title_activity_shelter_animals">ShelterAnimalsActivity</string>
+    <string name="title_activity_shelter_animals">Shelter\'s animals</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="seeAllComments">See all comments</string>
+    <string name="title_activity_shelter_comments">Shelter\'s opinions</string>
 
 </resources>
