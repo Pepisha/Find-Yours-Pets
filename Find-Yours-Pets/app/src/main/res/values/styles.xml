@@ -10,4 +10,10 @@
         <item name="android:typeface">serif</item>
     </style>
 
+    <style name="fypRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/fyp_rating_bar_full</item>
+        <item name="android:minHeight">32dip</item>
+        <item name="android:maxHeight">32dip</item>
+    </style>
+
 </resources>
