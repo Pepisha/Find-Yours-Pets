@@ -146,7 +146,7 @@ public class AnimalActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if(result.get("news")!=null) {
+            if(result.get("news") != null && !result.get("news").toString().equals("null")) {
                 News news = new News((JSONObject) result.get("news"));
                 addNews(news);
             }
@@ -462,21 +462,26 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void addAnimalsNews() {
-        HashMap<String, String> request = new HashMap<>();
-        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+        if(animal.getState() == Animal.ADOPTED) {
+            HashMap<String, String> request = new HashMap<>();
+            request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
 
-        new GetLastNewsFromAnimalDbOperation(this).execute(request);
+            new GetLastNewsFromAnimalDbOperation(this).execute(request);
+        }
     }
 
     private void addAddNewsButtonIfNeeded() {
-        if(isUserAdmin) {
-            addAddNewButton();
-        } else {
-            HashMap<String, String> request = new HashMap<>();
-            request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
-            request.put("nickname", session.getUserDetails().get("nickname"));
 
-            new IsUserAnimalsOwnerDbOperation(this).execute(request);
+        if(animal.getState() == Animal.ADOPTED) {
+            if (isUserAdmin) {
+               addAddNewButton();
+            } else {
+                HashMap<String, String> request = new HashMap<>();
+                request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+                request.put("nickname", session.getUserDetails().get("nickname"));
+
+                new IsUserAnimalsOwnerDbOperation(this).execute(request);
+            }
         }
     }
 
