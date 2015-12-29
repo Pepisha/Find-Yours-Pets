@@ -280,6 +280,7 @@ public class ShelterActivity extends BaseActivity {
 
         HashMap<String, String> opinionsRequest = new HashMap<String, String>();
         opinionsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        opinionsRequest.put("numberOfOpinions", Integer.toString(3));
         new GetOpinionsAboutShelterDbOperation(this).execute(opinionsRequest);
 
         onClickShareOnFacebook();
