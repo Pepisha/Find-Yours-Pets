@@ -167,6 +167,7 @@
                 android:text="@string/catsFriend"/>
 
             <RatingBar
+                style="@style/fypRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/catsFriendRatingBar"
@@ -187,6 +188,7 @@
                 android:text="@string/dogsAgreements"/>
 
             <RatingBar
+                style="@style/fypRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/dogsFriendRatingBar"
@@ -207,6 +209,7 @@
                 android:text="@string/childrenAgreements"/>
 
             <RatingBar
+                style="@style/fypRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/childrenFriendRatingBar"
