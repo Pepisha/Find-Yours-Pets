@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -158,7 +159,7 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void onClickShareOnFacebook() {
-        final Button shareOnFacebook = (Button) findViewById(R.id.shareFacebookButton);
+        final ImageButton shareOnFacebook = (ImageButton) findViewById(R.id.shareFacebookButton);
         shareOnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,7 +175,7 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void onClickTweet() {
-        final Button tweet = (Button) findViewById(R.id.tweetButton);
+        final ImageButton tweet = (ImageButton) findViewById(R.id.tweetButton);
         tweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,7 +223,7 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void onClickCallShelter() {
-        final Button callButton = (Button) findViewById(R.id.callButton);
+        final ImageButton callButton = (ImageButton) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
