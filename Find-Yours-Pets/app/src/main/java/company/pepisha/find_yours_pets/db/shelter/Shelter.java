@@ -135,6 +135,6 @@ public class Shelter {
     }
 
     public String toString() {
-        return getName() + " (" + getMail() + ")";
+        return getName();
     }
 }
