@@ -3,14 +3,15 @@ package company.pepisha.find_yours_pets;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.facebook.share.widget.ShareDialog;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,10 +28,11 @@ import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.news.News;
+import company.pepisha.find_yours_pets.photo.DownloadImage;
+import company.pepisha.find_yours_pets.photo.DownloadImageToView;
 import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookManager;
 import company.pepisha.find_yours_pets.fileExplorer.FileExplorer;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
-import company.pepisha.find_yours_pets.photo.DownloadImage;
 import company.pepisha.find_yours_pets.socialNetworksManagers.TwitterManager;
 import company.pepisha.find_yours_pets.tools.FileTools;
 
@@ -38,9 +41,12 @@ public class AnimalActivity extends BaseActivity {
     private static final int PHOTO_CHANGE_REQUEST = 1;
 
     private Animal animal;
+    private File pictureFile = null;
     private ShareDialog shareDialog;
     private int stateButtonId;
     private boolean isUserAdmin = false;
+
+    private GridLayout animalLayout;
 
     private class ChangeAnimalStatusDbOperation extends ServerDbOperation {
         public ChangeAnimalStatusDbOperation(Context c) {
@@ -145,18 +151,42 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private class DownloadImageToFile extends DownloadImage {
+
+        private File file;
+
+        public DownloadImageToFile(File f) {
+            this.file = f;
+        }
+
+        protected void onPostExecute(Bitmap image) {
+            if (image != null) {
+                FileTools.bitmapToFile(image, file);
+            }
+        }
+    }
+
+    private void addToGrid(View v, int row, int col) {
+        addToGrid(v, row, col, 1, 1);
+    }
+
+    private void addToGrid(View v, int row, int col, int rowSpan, int colSpan) {
+        GridLayout.LayoutParams params = new GridLayout.LayoutParams(GridLayout.spec(row, rowSpan),
+                GridLayout.spec(col, colSpan));
+
+        animalLayout.addView(v, params);
+    }
+
     private void addAnimalsOwner(String ownerNickname) {
-        LinearLayout layoutOwner = new LinearLayout(this);
-        layoutOwner.setOrientation(LinearLayout.HORIZONTAL);
         TextView owner = new TextView(this);
         owner.setText(R.string.owner);
-        TextView animalsOwner = new TextView(this);
-        animalsOwner.setText(" : "+ownerNickname);
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-        layoutOwner.addView(owner);
-        layoutOwner.addView(animalsOwner);
-        layout.addView(layoutOwner);
+        TextView animalsOwner = new TextView(this);
+        animalsOwner.setText(ownerNickname);
+        animalsOwner.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+
+        addToGrid(owner, 4, 0);
+        addToGrid(animalsOwner, 4, 1, 1, 3);
     }
 
     private void addAddNewButton() {
@@ -171,11 +201,11 @@ public class AnimalActivity extends BaseActivity {
                 startActivity(addNewsScreen);
             }
         });
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayoutPrincipal);
-        layout.addView(addNews);
+
+        addToGrid(addNews, 15, 4, 1, 4);
     }
 
-    private void addSeeMoreNewsButton(LinearLayout layout) {
+    private void addSeeMoreNewsButton() {
         Button seeMore = new Button(this);
         seeMore.setText(R.string.seeMore);
         seeMore.setOnClickListener(new View.OnClickListener() {
@@ -187,39 +217,31 @@ public class AnimalActivity extends BaseActivity {
 
             }
         });
-        layout.addView(seeMore);
+
+        addToGrid(seeMore, 15, 0, 1, 4);
     }
 
     private void addNews(News news) {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayoutPrincipal);
-        LinearLayout layoutNews = new LinearLayout(this);
-        layoutNews.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT, 0.5f);
-
         TextView descriptionView = new TextView(this);
         descriptionView.setText(news.getDescription());
+        descriptionView.setMaxWidth(500);
+
         TextView dateView = new TextView(this);
         dateView.setText(news.getDateNews());
         dateView.setTextColor(Color.GRAY);
 
-        layoutNews.addView(descriptionView, param);
-        layoutNews.addView(dateView, param);
+        addToGrid(descriptionView, 14, 0, 1, 6);
+        addToGrid(dateView, 14, 4);
 
-        addSeeMoreNewsButton(layoutNews);
-
-        layout.addView(layoutNews);
-
-
+        addSeeMoreNewsButton();
     }
 
     private void addUpdateAnimalStateButton() {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
         final Button updateStateButton = new Button(this);
         stateButtonId = new AtomicInteger(15).get();
         updateStateButton.setId(stateButtonId);
-        layout.addView(updateStateButton, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        addToGrid(updateStateButton, 12, 3, 1, 4);
         setAnimalState(animal.getState());
 
         updateStateButton.setOnClickListener(new View.OnClickListener() {
@@ -249,8 +271,6 @@ public class AnimalActivity extends BaseActivity {
         request.put("newStatus", Integer.toString(state));
 
         new ChangeAnimalStatusDbOperation(this).execute(request);
-
-
     }
 
     private void setAnimalFollowing(boolean followed) {
@@ -297,7 +317,7 @@ public class AnimalActivity extends BaseActivity {
 
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
         animalPicture.setImageDrawable(getResources().getDrawable(animal.getDefaultImage()));
-        new DownloadImage(this, animalPicture.getId()).execute(animal.getPhoto());
+        new DownloadImageToView(this, animalPicture.getId()).execute(animal.getPhoto());
 
         setAnimalFollowing(animal.isFollowed());
 
@@ -409,7 +429,7 @@ public class AnimalActivity extends BaseActivity {
                 + animal.getDogsFriend()+"\n"
                 + animal.getChildrenFriend() +"\n"
                 + animal.getDescription();
-        TwitterManager.tweetWithoutImage(description, this);
+        TwitterManager.tweetWithImage(description, Uri.fromFile(pictureFile), this);
     }
 
     @Override
@@ -461,6 +481,7 @@ public class AnimalActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animal);
 
+        animalLayout = (GridLayout) findViewById(R.id.animalLayout);
         animal = (ParcelableAnimal) getIntent().getParcelableExtra("animal");
 
         fillAnimalFields();
@@ -473,5 +494,14 @@ public class AnimalActivity extends BaseActivity {
         addAddNewsButtonIfNeeded();
         addUpdateAnimalStateButtonIfShelterAdministrator();
         addAnimalsNews();
+
+        File outputDir = getCacheDir();
+        File pictureFile = null;
+        try {
+            pictureFile = File.createTempFile(animal.getName(), "jpg", outputDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        new DownloadImageToFile(pictureFile).execute(animal.getPhoto());
     }
 }
