@@ -259,6 +259,32 @@ public class ShelterActivity extends BaseActivity {
         });
     }
 
+    private void onClickSeeAllAnimals() {
+        final Button seeAllAnimalsButton = (Button) findViewById(R.id.seeAllAnimalsButton);
+        seeAllAnimalsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent animalsScreen = new Intent(getApplicationContext(), ShelterAnimalsActivity.class);
+                ParcelableShelter s = (ParcelableShelter) shelter;
+                animalsScreen.putExtra("shelter", s);
+                startActivity(animalsScreen);
+            }
+        });
+    }
+
+    private void onClickSeeAllComments() {
+        final Button seeAllCommentsButton = (Button) findViewById(R.id.seeAllCommentsButton);
+        seeAllCommentsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent commentsScreen = new Intent(getApplicationContext(), ShelterCommentsActivity.class);
+                ParcelableShelter s = (ParcelableShelter) shelter;
+                commentsScreen.putExtra("shelter", s);
+                startActivity(commentsScreen);
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -275,15 +301,19 @@ public class ShelterActivity extends BaseActivity {
         HashMap<String, String> animalsRequest = new HashMap<String, String>();
         animalsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
         animalsRequest.put("nickname", session.getUserDetails().get("nickname"));
+        animalsRequest.put("numberOfAnimals", Integer.toString(3));
         new GetSheltersAnimalsDbOperation(this).execute(animalsRequest);
 
         HashMap<String, String> opinionsRequest = new HashMap<String, String>();
         opinionsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        opinionsRequest.put("numberOfOpinions", Integer.toString(3));
         new GetOpinionsAboutShelterDbOperation(this).execute(opinionsRequest);
 
         onClickShareOnFacebook();
         onClickTweet();
         onClickCallShelter();
+        onClickSeeAllAnimals();
+        onClickSeeAllComments();
         addAddAnimalButtonIfShelterAdministrator();
     }
 
