@@ -93,5 +93,9 @@
     <string name="animals">Animals</string>
     <string name="discoverOurAnimals">Discover our animals</string>
     <string name="comments">Comments</string>
+    <string name="seeAllAnimals">See all animals</string>
+    <string name="title_activity_shelter_animals">ShelterAnimalsActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
