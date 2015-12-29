@@ -86,5 +86,6 @@
     <string name="title_activity_animal_message">Envoi de message</string>
     <string name="title_activity_animal_add_news">Ajout de nouvelles</string>
     <string name="animals">Animaux</string>
-
+    <string name="discoverOurAnimals">Découvrez nos animaux</string>
+    <string name="comments">Commentaires</string>
 </resources>

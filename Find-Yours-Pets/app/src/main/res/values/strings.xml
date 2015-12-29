@@ -91,5 +91,7 @@
     <string name="messageSent">Message sent</string>
     <string name="interestedOnAnimal">I am interested</string>
     <string name="animals">Animals</string>
+    <string name="discoverOurAnimals">Discover our animals</string>
+    <string name="comments">Comments</string>
 
 </resources>
