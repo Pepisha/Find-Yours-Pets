@@ -113,6 +113,17 @@
                     android:id="@+id/userPhone"
                     android:columnCount="2"/>
 
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/call"
+                    android:src="@drawable/call"
+                    android:id="@+id/callButton"
+                    android:background="@null"
+                    android:layout_gravity="left"
+                    android:layout_column="1"
+                    />
+
             </TableRow>
 
             <Button
