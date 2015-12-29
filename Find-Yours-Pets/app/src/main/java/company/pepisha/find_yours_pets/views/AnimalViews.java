@@ -32,7 +32,7 @@ public class AnimalViews {
             RelativeLayout petLayout = new RelativeLayout(grid.getContext());
 
             final ImageButton petPicture = new ImageButton(grid.getContext());
-            petPicture.setImageResource(R.drawable.dog);
+            petPicture.setImageResource(entry.getValue().getDefaultImage());
             petPicture.setId(entry.getKey());
             petPicture.setMinimumHeight(250);
 

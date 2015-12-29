@@ -4,6 +4,8 @@ package company.pepisha.find_yours_pets.db.animal;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import company.pepisha.find_yours_pets.R;
+
 public class Animal {
     public enum Gender {
         MALE, FEMALE
@@ -160,5 +162,17 @@ public class Animal {
 
     public void setIdShelter(int idShelter) {
         this.idShelter = idShelter;
+    }
+
+    public int getDefaultImage() {
+        if (getType() == 1) {
+            return R.drawable.dog;
+        } else if (getType() == 2) {
+            return R.drawable.cat;
+        } else if (getType() == 3) {
+            return R.drawable.nac;
+        }
+
+        return 0;
     }
 }

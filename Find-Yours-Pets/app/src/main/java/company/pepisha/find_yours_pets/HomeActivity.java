@@ -9,8 +9,8 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -101,7 +101,7 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
     }
 
     private void onClickSearchButton() {
-        Button searchButton = (Button) findViewById(R.id.searchButton);
+        ImageButton searchButton = (ImageButton) findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
