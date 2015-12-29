@@ -90,5 +90,6 @@
     <string name="sendMessage">Send message</string>
     <string name="messageSent">Message sent</string>
     <string name="interestedOnAnimal">I am interested</string>
+    <string name="animals">Animals</string>
 
 </resources>

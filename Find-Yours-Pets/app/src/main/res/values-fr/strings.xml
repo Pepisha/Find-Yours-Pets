@@ -85,5 +85,6 @@
     <string name="interestedOnAnimal">Je suis intéressé</string>
     <string name="title_activity_animal_message">Envoi de message</string>
     <string name="title_activity_animal_add_news">Ajout de nouvelles</string>
+    <string name="animals">Animaux</string>
 
 </resources>

@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
-        <LinearLayout
+        <TableLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,7 +21,7 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/linearLayout">
 
-            <LinearLayout
+            <TableRow
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,14 +39,25 @@
                     android:layout_height="20dp"
                     android:id="@+id/shelterStar"
                     android:src="@drawable/star"/>
-            </LinearLayout>
 
-            <Button
-                android:layout_width="wrap_content"
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/call"
+                    android:src="@drawable/call"
+                    android:id="@+id/callButton"
+                    android:background="@null"
+                    android:layout_gravity="left"
+                    />
+            </TableRow>
+
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/call"
-                android:id="@+id/callButton"
-                android:layout_gravity="left" />
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -54,11 +65,28 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/shelterDescription" />
 
+            </TableRow>
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/shelterAddress" />
+            </TableRow>
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -66,11 +94,29 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/shelterMail" />
 
+            </TableRow>
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/shelterPhone" />
+
+            </TableRow>
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,19 +124,38 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/shelterWebSite" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/shareOnFacebook"
-                android:id="@+id/shareFacebookButton"
-                android:layout_gravity="left" />
+            </TableRow>
 
-            <Button
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tweet"
+                android:id="@+id/shareFacebookButton"
+                android:src="@drawable/faceboook"
+                android:background="@null" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/tweetButton"
-                android:layout_gravity="left" />
+                android:src="@drawable/twitter"
+                android:background="@null" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
 
             <EditText
                 android:layout_width="match_parent"
@@ -99,11 +164,28 @@
                 android:ems="10"
                 android:id="@+id/shelterComment" />
 
+            </TableRow>
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
             <NumberPicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:angle="90"
                 android:id="@+id/shelterNote" />
+            </TableRow>
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
 
             <Button
                 android:layout_width="wrap_content"
@@ -111,6 +193,22 @@
                 android:text="@string/comment"
                 android:id="@+id/commentButton"
                 android:layout_gravity="left" />
+            </TableRow>
+
+            <TableRow
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text = "@string/animals"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            </TableRow>
 
 
             <GridLayout
@@ -120,12 +218,14 @@
                 android:id="@+id/petsGrid"
                 android:columnCount="3"></GridLayout>
 
+
+
             <company.pepisha.find_yours_pets.views.NonScrollListView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/opinionsList" />
 
-        </LinearLayout>
+        </TableLayout>
     </ScrollView>
 
 </RelativeLayout>
