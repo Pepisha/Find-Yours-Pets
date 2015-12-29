@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -312,6 +313,15 @@ public class AnimalActivity extends BaseActivity {
 
         TextView animalDescription = (TextView) findViewById(R.id.animalDescription);
         animalDescription.setText(animal.getDescription());
+
+        RatingBar catsRatingBar = (RatingBar) findViewById(R.id.catsRatingBar);
+        catsRatingBar.setRating(Float.parseFloat(animal.getCatsFriend()));
+
+        RatingBar dogsRatingBar = (RatingBar) findViewById(R.id.dogsRatingBar);
+        dogsRatingBar.setRating(Float.parseFloat(animal.getDogsFriend()));
+
+        RatingBar childrenRatingBar = (RatingBar) findViewById(R.id.childrenRatingBar);
+        childrenRatingBar.setRating(Float.parseFloat(animal.getChildrenFriend()));
 
         getAndAddAnimalsOwner();
 
