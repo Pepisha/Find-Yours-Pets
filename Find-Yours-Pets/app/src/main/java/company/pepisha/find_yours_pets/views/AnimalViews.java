@@ -21,7 +21,7 @@ import company.pepisha.find_yours_pets.AnimalActivity;
 import company.pepisha.find_yours_pets.R;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
-import company.pepisha.find_yours_pets.photo.DownloadImage;
+import company.pepisha.find_yours_pets.photo.DownloadImageToView;
 import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class AnimalViews {
@@ -84,7 +84,7 @@ public class AnimalViews {
             ParcelableAnimal a = new ParcelableAnimal((JSONObject) entry.getValue());
             animalsList.put(animalId, a);
 
-            new DownloadImage(activity, animalId).execute(a.getPhoto());
+            new DownloadImageToView(activity, animalId).execute(a.getPhoto());
         }
 
         return animalsList;

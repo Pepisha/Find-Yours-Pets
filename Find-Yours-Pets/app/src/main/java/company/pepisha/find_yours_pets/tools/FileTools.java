@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class FileTools {
 
@@ -19,6 +21,20 @@ public class FileTools {
         }
 
         return img;
+    }
+
+    public static File bitmapToFile(Bitmap bitmap, File file) {
+        FileOutputStream fOut = null;
+        try {
+            if (file != null) {
+                fOut = new FileOutputStream(file);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return file;
     }
 
     public static String getFileExtension(File file) {
