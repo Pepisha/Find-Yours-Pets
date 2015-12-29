@@ -259,21 +259,25 @@
                         android:inputType="textMultiLine"
                         android:ems="10"
                         android:id="@+id/shelterComment" />
-
                 </TableRow>
 
                 <TableRow
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true">
-
-                <NumberPicker
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:angle="90"
-                    android:id="@+id/shelterNote" />
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RatingBar
+                            style="@style/fypRatingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:stepSize="0.5"
+                            android:numStars="5"
+                            android:id="@+id/shelterNote" />
+
+                    </RelativeLayout>
                 </TableRow>
 
                 <TableRow

@@ -2,7 +2,6 @@ package company.pepisha.find_yours_pets;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.json.JSONObject;
@@ -16,6 +15,7 @@ import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.opinion.Opinion;
 import company.pepisha.find_yours_pets.db.shelter.Shelter;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
+import company.pepisha.find_yours_pets.views.OpinionAdapter;
 
 public class ShelterCommentsActivity extends BaseActivity {
 
@@ -42,7 +42,7 @@ public class ShelterCommentsActivity extends BaseActivity {
             opinionObjects.add(o);
         }
 
-        ArrayAdapter<Opinion> listAdapter = new ArrayAdapter<Opinion>(this, android.R.layout.simple_list_item_1, opinionObjects);
+        OpinionAdapter listAdapter = new OpinionAdapter(this, R.layout.opinion_layout, opinionObjects);
         opinionsList.setAdapter(listAdapter);
     }
 

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -13,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.NumberPicker;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +34,7 @@ import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookManager;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
 import company.pepisha.find_yours_pets.socialNetworksManagers.TwitterManager;
 import company.pepisha.find_yours_pets.views.AnimalViews;
+import company.pepisha.find_yours_pets.views.OpinionAdapter;
 
 public class ShelterActivity extends BaseActivity {
 
@@ -146,7 +146,7 @@ public class ShelterActivity extends BaseActivity {
             opinionObjects.add(o);
         }
 
-        ArrayAdapter<Opinion> listAdapter = new ArrayAdapter<Opinion>(this, android.R.layout.simple_list_item_1, opinionObjects);
+        OpinionAdapter listAdapter = new OpinionAdapter(this, R.layout.opinion_layout, opinionObjects);
         opinionsList.setAdapter(listAdapter);
     }
 
@@ -184,19 +184,13 @@ public class ShelterActivity extends BaseActivity {
         });
     }
 
-    private void initialiseNoteNumberPicker() {
-        NumberPicker shelterNote = (NumberPicker) findViewById(R.id.shelterNote);
-        shelterNote.setMaxValue(5);
-        shelterNote.setMinValue(0);
-    }
-
     private void commentShelter() {
         String userNickname = session.getUserDetails().get("nickname");
         EditText commentBox = (EditText) findViewById(R.id.shelterComment);
         String comment = commentBox.getText().toString();
 
-        NumberPicker notePicker = (NumberPicker) findViewById(R.id.shelterNote);
-        String note = Integer.toString(notePicker.getValue());
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.shelterNote);
+        String note = Float.toString(ratingBar.getRating());
 
         HashMap<String, String> request = new HashMap<String, String>();
         request.put("idShelter", Integer.toString(shelter.getIdShelter()));
@@ -218,7 +212,6 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void initialiseShelterComment() {
-        initialiseNoteNumberPicker();
         onClickCommentButton();
     }
 
