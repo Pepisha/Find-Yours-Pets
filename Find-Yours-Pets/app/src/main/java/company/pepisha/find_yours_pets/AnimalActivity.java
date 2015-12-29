@@ -24,12 +24,15 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.news.News;
+import company.pepisha.find_yours_pets.db.shelter.Shelter;
+import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
 import company.pepisha.find_yours_pets.photo.DownloadImage;
 import company.pepisha.find_yours_pets.photo.DownloadImageToView;
 import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookManager;
@@ -150,6 +153,19 @@ public class AnimalActivity extends BaseActivity {
                 News news = new News((JSONObject) result.get("news"));
                 addNews(news);
             }
+        }
+    }
+
+    private class GetShelterDbOperation extends ServerDbOperation {
+        public GetShelterDbOperation(Context c) {
+            super(c, "getShelter");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+
+            ParcelableShelter s = new ParcelableShelter((JSONObject) result.get("shelter"));
+            addShelterButton(s);
         }
     }
 
@@ -471,7 +487,6 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void addAddNewsButtonIfNeeded() {
-
         if(animal.getState() == Animal.ADOPTED) {
             if (isUserAdmin) {
                addAddNewButton();
@@ -492,6 +507,33 @@ public class AnimalActivity extends BaseActivity {
         new GetAnimalsOwnerDbOperation(this).execute(request);
     }
 
+
+    private void addShelterButton(final ParcelableShelter shelter) {
+        Button shelterLink = new Button(this);
+        String shelterName = shelter.getName();
+
+        shelterLink.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent addNewsScreen = new Intent(getApplicationContext(), ShelterActivity.class);
+                addNewsScreen.putExtra("shelter", shelter);
+                startActivity(addNewsScreen);
+            }
+        });
+
+        shelterLink.setText(shelterName);
+
+        addToGrid(shelterLink, 14, 0, 1, 4);
+    }
+
+    private void addButtonToShelter() {
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idShelter", Integer.toString(animal.getIdShelter()));
+
+        new GetShelterDbOperation(this).execute(request);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -507,9 +549,11 @@ public class AnimalActivity extends BaseActivity {
         onClickShareOnFacebook();
         onClickShareOnTwitter();
 
+        addButtonToShelter();
         addAddNewsButtonIfNeeded();
         addUpdateAnimalStateButtonIfShelterAdministrator();
         addAnimalsNews();
+
 
         File outputDir = getCacheDir();
         File pictureFile = null;
