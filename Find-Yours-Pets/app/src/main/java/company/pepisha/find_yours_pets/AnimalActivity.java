@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -412,7 +413,7 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void onClickShareOnFacebook() {
-        final Button shareOnFacebook = (Button) findViewById(R.id.shareFacebookButton);
+        final ImageButton shareOnFacebook = (ImageButton) findViewById(R.id.shareFacebookButton);
         shareOnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -422,7 +423,7 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void onClickShareOnTwitter() {
-        final Button tweet = (Button) findViewById(R.id.tweetButton);
+        final ImageButton tweet = (ImageButton) findViewById(R.id.tweetButton);
         tweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
