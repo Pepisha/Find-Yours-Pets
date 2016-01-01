@@ -1,7 +1,9 @@
 package company.pepisha.find_yours_pets;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -23,7 +25,9 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -169,6 +173,23 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private class GetUsersDbOperation extends ServerDbOperation {
+        public GetUsersDbOperation(Context c) {
+            super(c, "getUsers");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+
+           List<String> usersNicknames = new ArrayList<>();
+           for (Map.Entry<String, Object> entry : result.entrySet()) {
+               usersNicknames.add(entry.getKey());
+           }
+
+            createDialogChooseAnimalsOwner(usersNicknames);
+        }
+    }
+
     private class DownloadImageToFile extends DownloadImage {
 
         private File file;
@@ -182,6 +203,27 @@ public class AnimalActivity extends BaseActivity {
                 FileTools.bitmapToFile(image, file);
             }
         }
+    }
+
+    private void createDialogChooseAnimalsOwner(final List<String> nicknamesUsers) {
+        String[] nicknamesArray = new String[nicknamesUsers.size()];
+        for(int i = 0; i < nicknamesArray.length; i++) {
+            nicknamesArray[i] = nicknamesUsers.get(i);
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.chooseOwnerFromUsers);
+        builder.setItems(nicknamesArray, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                updateAnimalsState(nicknamesUsers.get(item));
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void updateAnimalsState(String ownerNickname) {
+        int newStatus = animal.getState() == 1 ? 2 : 1;
+        changeAnimalState(newStatus, ownerNickname);
     }
 
     private void addToGrid(View v, int row, int col) {
@@ -254,6 +296,11 @@ public class AnimalActivity extends BaseActivity {
         addSeeMoreNewsButton();
     }
 
+    private void askAnimalsNewOwner() {
+        HashMap<String, String> request = new HashMap<>();
+        new GetUsersDbOperation(this).execute(request);
+    }
+
     private void addUpdateAnimalStateButton() {
         final Button updateStateButton = new Button(this);
         stateButtonId = new AtomicInteger(15).get();
@@ -265,8 +312,11 @@ public class AnimalActivity extends BaseActivity {
         updateStateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int newStatus = animal.getState() == 1 ? 2 : 1;
-                changeAnimalState(newStatus);
+                if(animal.getState() == Animal.ADOPTION) {
+                    askAnimalsNewOwner();
+                } else {
+                    changeAnimalState(Animal.ADOPTION,"");
+                }
             }
         });
     }
@@ -283,10 +333,11 @@ public class AnimalActivity extends BaseActivity {
                 ? getResources().getString(R.string.adopted) : getResources().getString(R.string.adoption));
     }
 
-    private void changeAnimalState(int state) {
+    private void changeAnimalState(int state, String nickname) {
         HashMap<String, String> request = new HashMap<>();
         request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
         request.put("newStatus", Integer.toString(state));
+        request.put("nickname", nickname);
 
         new ChangeAnimalStatusDbOperation(this).execute(request);
     }
@@ -312,6 +363,23 @@ public class AnimalActivity extends BaseActivity {
         } else {
             new UnfollowAnimalDbOperation(this).execute(request);
         }
+    }
+
+    private void addFolowButton() {
+        Button followButton = (Button) findViewById(R.id.followButton);
+        followButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                changeAnimalFollowing(!animal.isFollowed());
+            }
+        });
+    }
+
+    private void addAnimalPhoto() {
+        ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
+        animalPicture.setImageDrawable(getResources().getDrawable(animal.getDefaultImage()));
+        new DownloadImageToView(this, animalPicture.getId()).execute(animal.getPhoto());
     }
 
     private void fillAnimalFields() {
@@ -342,20 +410,9 @@ public class AnimalActivity extends BaseActivity {
 
         getAndAddAnimalsOwner();
 
-        ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
-        animalPicture.setImageDrawable(getResources().getDrawable(animal.getDefaultImage()));
-        new DownloadImageToView(this, animalPicture.getId()).execute(animal.getPhoto());
-
+        addAnimalPhoto();
         setAnimalFollowing(animal.isFollowed());
-
-        Button followButton = (Button) findViewById(R.id.followButton);
-        followButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                changeAnimalFollowing(!animal.isFollowed());
-            }
-        });
+        addFolowButton();
     }
 
     private void startPhotoIntent(Intent intent) {
