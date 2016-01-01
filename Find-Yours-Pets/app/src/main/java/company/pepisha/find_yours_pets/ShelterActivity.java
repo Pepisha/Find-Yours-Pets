@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -105,14 +104,14 @@ public class ShelterActivity extends BaseActivity {
 
     private void fillShelterFields() {
         TextView shelterName = (TextView) findViewById(R.id.shelterName);
-        if(shelter.getStars() != 0) {
-            shelterName.setText(shelter.getName()+" - "+shelter.getStars());
-        } else {
-            shelterName.setText(shelter.getName());
-            ImageView shelterStar = (ImageView) findViewById(R.id.shelterStar);
-            shelterStar.setVisibility(View.INVISIBLE);
-        }
+        shelterName.setText(shelter.getName());
 
+        RatingBar shelterNote = (RatingBar) findViewById(R.id.shelterNote);
+        if (shelter.getStars() != 0) {
+            shelterNote.setRating((float) shelter.getStars());
+        } else {
+            shelterNote.setVisibility(View.INVISIBLE);
+        }
 
         TextView shelterDescription = (TextView) findViewById(R.id.shelterDescription);
         shelterDescription.setText(shelter.getDescription());
@@ -189,7 +188,7 @@ public class ShelterActivity extends BaseActivity {
         EditText commentBox = (EditText) findViewById(R.id.shelterComment);
         String comment = commentBox.getText().toString();
 
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.shelterNote);
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.opinionNote);
         String note = Float.toString(ratingBar.getRating());
 
         HashMap<String, String> request = new HashMap<String, String>();

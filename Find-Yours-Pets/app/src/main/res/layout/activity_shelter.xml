@@ -23,11 +23,16 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/shelterName"/>
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/shelterStar"
-                android:src="@drawable/star"/>
+            <RatingBar
+                style="@style/fypRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10px"
+                android:paddingRight="10px"
+                android:stepSize="0.1"
+                android:numStars="5"
+                android:isIndicator="true"
+                android:id="@+id/shelterNote" />
         </LinearLayout>
 
 
@@ -275,7 +280,7 @@
                             android:layout_height="wrap_content"
                             android:stepSize="0.5"
                             android:numStars="5"
-                            android:id="@+id/shelterNote" />
+                            android:id="@+id/opinionNote" />
 
                     </RelativeLayout>
                 </TableRow>
