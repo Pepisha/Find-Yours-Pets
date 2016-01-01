@@ -92,4 +92,5 @@
     <string name="seeAllComments">Voir tous les commentaires</string>
     <string name="title_activity_shelter_animals">Animaux du refuge</string>
     <string name="title_activity_shelter_comments">Avis sur le refuge</string>
+    <string name="chooseOwnerFromUsers">Sélectionnez l\'adoptant de l\'animal s\'il est inscrit à l\'application</string>
 </resources>
