@@ -79,7 +79,7 @@ public class ShelterActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if(successResponse(result)) {
+            if (successResponse(result)) {
                 Toast.makeText(getApplicationContext(), "Comment added", Toast.LENGTH_SHORT).show();
                 Intent shelterScreen = new Intent(getApplicationContext(), ShelterActivity.class);
                 ParcelableShelter s = (ParcelableShelter) shelter;
