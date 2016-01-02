@@ -38,9 +38,9 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
     private Map<Integer, Animal> animalsList = new HashMap<>();
 
-    private class GetAnimalsDbOperation extends ServerDbOperation {
+    private class GetHomelessAnimalsDbOperation extends ServerDbOperation {
 
-        public GetAnimalsDbOperation(Context c) {
+        public GetHomelessAnimalsDbOperation(Context c) {
             super(c, "getHomelessAnimals");
         }
 
@@ -117,12 +117,16 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         if (requestCode == SEARCH_REQUEST && resultCode == RESULT_OK) {
             clear();
 
+            int idType = data.getIntExtra("idType", -1);
             float catsFriend = data.getFloatExtra("catsFriend", (float) -1.0);
             float dogsFriend = data.getFloatExtra("dogsFriend", (float) -1.0);
             float childrenFriend = data.getFloatExtra("childrenFriend", (float) -1.0);
 
             HashMap<String, String> request = new HashMap<String, String>();
             request.put("nickname", session.getUserDetails().get("nickname"));
+            if (idType != -1) {
+                request.put("idType", Integer.toString(idType));
+            }
             if (catsFriend != -1.0) {
                 request.put("catsFriend", Float.toString(catsFriend));
             }
@@ -133,11 +137,9 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
                 request.put("childrenFriend", Float.toString(childrenFriend));
             }
 
-            new GetAnimalsDbOperation(this).execute(request);
+            new GetHomelessAnimalsDbOperation(this).execute(request);
         }
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +155,7 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
         HashMap<String, String> request = new HashMap<String, String>();
         request.put("nickname", session.getUserDetails().get("nickname"));
-        new GetAnimalsDbOperation(this).execute(request);
+        new GetHomelessAnimalsDbOperation(this).execute(request);
 
         onClickSearchButton();
     }
