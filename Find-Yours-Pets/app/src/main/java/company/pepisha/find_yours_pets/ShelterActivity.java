@@ -166,7 +166,7 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void tweet() {
-        String website = shelter.getWebsite() == null ? "" : " - "+shelter.getWebsite();
+        String website = shelter.getWebsite() == null ? "" : " - " + shelter.getWebsite();
         String description = shelter.getDescription() + website;
         TwitterManager.tweetWithoutImage(description, this);
     }
@@ -275,6 +275,43 @@ public class ShelterActivity extends BaseActivity {
         });
     }
 
+    private void onClickSeeAllAdoptedAnimals() {
+        final Button seeAllAdoptedAnimalsButton = (Button) findViewById(R.id.seeAllAdoptedAnimalsButton);
+        seeAllAdoptedAnimalsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent animalsScreen = new Intent(getApplicationContext(), SheltersAdoptedAnimalsActivity.class);
+                ParcelableShelter s = (ParcelableShelter) shelter;
+                animalsScreen.putExtra("shelter", s);
+                startActivity(animalsScreen);
+            }
+        });
+    }
+
+    private void loadSheltersAnimals() {
+        HashMap<String, String> animalsRequest = new HashMap<String, String>();
+        animalsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        animalsRequest.put("nickname", session.getUserDetails().get("nickname"));
+        animalsRequest.put("numberOfAnimals", Integer.toString(3));
+        new GetSheltersAnimalsDbOperation(this).execute(animalsRequest);
+    }
+
+    private void loadSheltersOpinion() {
+        HashMap<String, String> opinionsRequest = new HashMap<String, String>();
+        opinionsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        opinionsRequest.put("numberOfOpinions", Integer.toString(3));
+        new GetOpinionsAboutShelterDbOperation(this).execute(opinionsRequest);
+    }
+
+    private void setOnClickListeners() {
+        onClickShareOnFacebook();
+        onClickTweet();
+        onClickCallShelter();
+        onClickSeeAllAnimals();
+        onClickSeeAllAdoptedAnimals();
+        onClickSeeAllComments();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -288,24 +325,11 @@ public class ShelterActivity extends BaseActivity {
 
         fillShelterFields();
 
-        HashMap<String, String> animalsRequest = new HashMap<String, String>();
-        animalsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
-        animalsRequest.put("nickname", session.getUserDetails().get("nickname"));
-        animalsRequest.put("numberOfAnimals", Integer.toString(3));
-        new GetSheltersAnimalsDbOperation(this).execute(animalsRequest);
+        loadSheltersAnimals();
+        loadSheltersOpinion();
 
-        HashMap<String, String> opinionsRequest = new HashMap<String, String>();
-        opinionsRequest.put("idShelter", Integer.toString(shelter.getIdShelter()));
-        opinionsRequest.put("numberOfOpinions", Integer.toString(3));
-        new GetOpinionsAboutShelterDbOperation(this).execute(opinionsRequest);
+        setOnClickListeners();
 
-        onClickShareOnFacebook();
-        onClickTweet();
-        onClickCallShelter();
-        onClickSeeAllAnimals();
-        onClickSeeAllComments();
         addAddAnimalButtonIfShelterAdministrator();
     }
-
-
 }

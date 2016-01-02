@@ -95,9 +95,10 @@
     <string name="comments">Comments</string>
     <string name="seeAllAnimals">See all animals</string>
     <string name="title_activity_shelter_animals">Shelter\'s animals</string>
-
     <string name="seeAllComments">See all comments</string>
     <string name="title_activity_shelter_comments">Shelter\'s opinions</string>
     <string name="chooseOwnerFromUsers">Choose animal\'s owner from application\'s users if exists</string>
+    <string name="title_activity_shelters_adopted_animals">Shelter\'s adopted animals</string>
+    <string name="seeAllAdoptedAnimals">See all adopted animals</string>
 
 </resources>
