@@ -7,7 +7,7 @@ public class UserConstants {
     public static final String ID_USER = "idUser";
     protected static final String NICKNAME = "nickname";
     protected static final String PASSWORD = "password";
-    protected static final String EMAIL = "email";
+    protected static final String EMAIL = "mail";
     protected static final String PHONE = "phone";
     protected static final String FIRSTNAME =  "firstname";
     protected static final String LASTNAME = "lastname";
