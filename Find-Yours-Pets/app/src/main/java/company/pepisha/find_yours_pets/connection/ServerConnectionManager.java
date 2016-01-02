@@ -72,7 +72,7 @@ public class ServerConnectionManager {
         return null;
     }
 
-    private static HashMap<String, Object> unmarshallReponse(String jsonData) {
+    public static HashMap<String, Object> unmarshallReponse(String jsonData) {
         HashMap<String, Object> response = new HashMap<String, Object>();
 
         try {

@@ -32,18 +32,45 @@
     </RelativeLayout>
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView2"
         android:layout_gravity="center_horizontal" >
 
-        <GridLayout
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/petsGrid"
-            android:columnCount="3">
-        </GridLayout>
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_centerHorizontal="true"
+                android:text="@string/followedAnimals" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/petsFollowedGrid"
+                android:columnCount="3"
+                >
+            </GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_centerHorizontal="true"
+                android:text="@string/suggestedAnimals" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/petsSuggestedGrid"
+                android:columnCount="3">
+            </GridLayout>
+        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>
