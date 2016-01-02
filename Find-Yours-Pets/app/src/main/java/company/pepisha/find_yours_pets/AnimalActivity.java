@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -50,6 +51,7 @@ public class AnimalActivity extends BaseActivity {
     private static final int PHOTO_CHANGE_REQUEST = 1;
 
     private Animal animal;
+    private ParcelableShelter s;
     private File pictureFile = null;
     private ShareDialog shareDialog;
     private int stateButtonId;
@@ -168,7 +170,7 @@ public class AnimalActivity extends BaseActivity {
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
 
-            ParcelableShelter s = new ParcelableShelter((JSONObject) result.get("shelter"));
+            s = new ParcelableShelter((JSONObject) result.get("shelter"));
             addShelterButton(s);
         }
     }
@@ -187,6 +189,25 @@ public class AnimalActivity extends BaseActivity {
            }
 
             createDialogChooseAnimalsOwner(usersNicknames);
+        }
+    }
+
+    private class DeleteAnimalDbOperation extends ServerDbOperation {
+        public DeleteAnimalDbOperation(Context c) {
+            super(c, "deleteAnimalFromShelter");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if(successResponse(result)) {
+                Toast.makeText(getApplicationContext(), "animal deleted", Toast.LENGTH_SHORT).show();
+                Intent shelterScreen = new Intent(getApplicationContext(), ShelterActivity.class);
+                shelterScreen.putExtra("shelter", s);
+                startActivity(shelterScreen);
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "animal not deleted", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -312,10 +333,10 @@ public class AnimalActivity extends BaseActivity {
         updateStateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(animal.getState() == Animal.ADOPTION) {
+                if (animal.getState() == Animal.ADOPTION) {
                     askAnimalsNewOwner();
                 } else {
-                    changeAnimalState(Animal.ADOPTION,"");
+                    changeAnimalState(Animal.ADOPTION, "");
                 }
             }
         });
@@ -591,6 +612,30 @@ public class AnimalActivity extends BaseActivity {
         new GetShelterDbOperation(this).execute(request);
     }
 
+    private void deleteAnimal() {
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idShelter", Integer.toString(animal.getIdShelter()));
+        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+        request.put("nickname", session.getUserDetails().get("nickname"));
+
+        new DeleteAnimalDbOperation(this).execute(request);
+    }
+
+    private void addDeleteButtonIfShelterAdministrator() {
+        final Button deleteAnimal = new Button(this);
+        deleteAnimal.setText(R.string.deleteAnimal);
+
+        deleteAnimal.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                deleteAnimal();
+            }
+        });
+
+        addToGrid(deleteAnimal, 15, 0, 1, 4);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -610,6 +655,7 @@ public class AnimalActivity extends BaseActivity {
         addAddNewsButtonIfNeeded();
         addUpdateAnimalStateButtonIfShelterAdministrator();
         addAnimalsNews();
+        addDeleteButtonIfShelterAdministrator();
 
 
         File outputDir = getCacheDir();
