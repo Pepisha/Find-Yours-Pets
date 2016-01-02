@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
@@ -34,36 +35,43 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
     private Sensor accelerometer = null;
 
-    private GridLayout petsGrid;
+    private GridLayout petsFollowedGrid;
+    private GridLayout petsSuggestedGrid;
 
-    private Map<Integer, Animal> animalsList = new HashMap<>();
+    private Map<Integer, Animal> followedAnimalsList = new HashMap<>();
+    private Map<Integer, Animal> suggestedAnimalsList = new HashMap<>();
 
-    private class GetHomelessAnimalsDbOperation extends ServerDbOperation {
+    private class GetHomePageAnimalsDbOperation extends ServerDbOperation {
 
-        public GetHomelessAnimalsDbOperation(Context c) {
-            super(c, "getHomelessAnimals");
+        public GetHomePageAnimalsDbOperation(Context c) {
+            super(c, "getHomePageAnimals");
         }
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
             if (result != null) {
-                addAnimals(result);
+                HashMap<String, Object> followedAnimals = ServerConnectionManager.unmarshallReponse(result.get("followedAnimals").toString());
+                addFollowedAnimals(followedAnimals);
+
+                HashMap<String, Object> suggestedAnimals = ServerConnectionManager.unmarshallReponse(result.get("suggestedAnimals").toString());
+                addSuggestedAnimals(suggestedAnimals);
             }
         }
     }
 
     private void clear() {
-        animalsList.clear();
-        petsGrid.removeAllViews();
+        followedAnimalsList.clear();
+        petsFollowedGrid.removeAllViews();
+        petsSuggestedGrid.removeAllViews();
     }
 
     private Animal getRandomAnimal() {
-        if (!animalsList.isEmpty()) {
+        if (!followedAnimalsList.isEmpty()) {
             Random r = new Random();
-            int i = r.nextInt(animalsList.size());
+            int i = r.nextInt(followedAnimalsList.size());
 
-            if (i < animalsList.size()) {
-                return animalsList.get(i);
+            if (i < followedAnimalsList.size()) {
+                return followedAnimalsList.get(i);
             }
         }
 
@@ -95,9 +103,14 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
     }
 
-    private void addAnimals(HashMap<String, Object> animals) {
-        animalsList = AnimalViews.getAnimalsList(this, animals);
-        AnimalViews.buildGrid(petsGrid, animalsList, session);
+    private void addFollowedAnimals(HashMap<String, Object> animals) {
+        followedAnimalsList = AnimalViews.getAnimalsList(this, animals);
+        AnimalViews.buildGrid(petsFollowedGrid, followedAnimalsList, session);
+    }
+
+    private void addSuggestedAnimals(HashMap<String, Object> animals) {
+        suggestedAnimalsList = AnimalViews.getAnimalsList(this, animals);
+        AnimalViews.buildGrid(petsSuggestedGrid, suggestedAnimalsList, session);
     }
 
     private void onClickSearchButton() {
@@ -137,8 +150,15 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
                 request.put("childrenFriend", Float.toString(childrenFriend));
             }
 
-            new GetHomelessAnimalsDbOperation(this).execute(request);
+            new GetHomePageAnimalsDbOperation(this).execute(request);
         }
+    }
+
+    private void loadAnimals() {
+        HashMap<String, String> request = new HashMap<String, String>();
+        request.put("nickname", session.getUserDetails().get("nickname"));
+        request.put("numberOfAnimals", Integer.toString(3));
+        new GetHomePageAnimalsDbOperation(this).execute(request);
     }
 
     @Override
@@ -152,10 +172,10 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        petsGrid = (GridLayout) findViewById(R.id.petsGrid);
-        HashMap<String, String> request = new HashMap<String, String>();
-        request.put("nickname", session.getUserDetails().get("nickname"));
-        new GetHomelessAnimalsDbOperation(this).execute(request);
+        petsFollowedGrid = (GridLayout) findViewById(R.id.petsFollowedGrid);
+        petsSuggestedGrid = (GridLayout) findViewById(R.id.petsSuggestedGrid);
+
+        loadAnimals();
 
         onClickSearchButton();
     }
