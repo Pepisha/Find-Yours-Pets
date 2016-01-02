@@ -98,4 +98,8 @@
     <string name="deleteAnimal">Supprimer</string>
     <string name="followedAnimals">Animaux suivis</string>
     <string name="suggestedAnimals">Animaux suggérés</string>
+    <string name="follow">Suivre</string>
+    <string name="unfollow">Ne plus suivre</string>
+    <string name="followShelter">Vous suivez ce refuge</string>
+    <string name="unfollowShelter">Vous ne suivez plus ce refuge</string>
 </resources>

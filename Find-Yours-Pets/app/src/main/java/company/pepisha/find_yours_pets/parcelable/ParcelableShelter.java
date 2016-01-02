@@ -26,6 +26,7 @@ public class ParcelableShelter extends Shelter implements Parcelable {
         out.writeString(getWebsite());
         out.writeString(getOperationalHours());
         out.writeDouble(getStars());
+        out.writeByte((byte) (isFollowed() ? 1 : 0));
     }
 
     public static final Parcelable.Creator<ParcelableShelter> CREATOR = new Parcelable.Creator<ParcelableShelter>() {
@@ -48,6 +49,7 @@ public class ParcelableShelter extends Shelter implements Parcelable {
         setWebsite(in.readString());
         setOperationalHours(in.readString());
         setStars(in.readDouble());
+        setFollowed(in.readByte() != 0);
     }
 
     public ParcelableShelter(JSONObject obj) {

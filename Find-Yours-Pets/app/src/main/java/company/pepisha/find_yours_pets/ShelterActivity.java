@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -73,6 +74,34 @@ public class ShelterActivity extends BaseActivity {
         }
     }
 
+    private class FollowShelterDbOperation extends ServerDbOperation {
+        public FollowShelterDbOperation(Context c) {
+            super(c, "followShelter");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (successResponse(result)) {
+                setShelterFollowing(true);
+                Toast.makeText(getApplicationContext(), R.string.followShelter, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class UnfollowShelterDbOperation extends ServerDbOperation {
+        public UnfollowShelterDbOperation(Context c) {
+            super(c, "unfollowShelter");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (successResponse(result)) {
+                setShelterFollowing(false);
+                Toast.makeText(getApplicationContext(), R.string.unfollowShelter, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private class AddCommentToShelterDbOperation extends ServerDbOperation {
 
         public AddCommentToShelterDbOperation(Context c) { super(c, "giveOpinionAboutShelter"); }
@@ -128,6 +157,30 @@ public class ShelterActivity extends BaseActivity {
             shelterWebsite.setText(shelter.getWebsite());
         }
 
+        setShelterFollowing(shelter.isFollowed());
+    }
+
+    private void setShelterFollowing(boolean followed) {
+        shelter.setFollowed(followed);
+
+        ImageView followingStar = (ImageView) findViewById(R.id.followingStar);
+        int starRes = shelter.isFollowed() ? R.drawable.star : 0;
+        followingStar.setImageResource(starRes);
+
+        Button followButton = (Button) findViewById(R.id.followShelterButton);
+        followButton.setText(shelter.isFollowed() ? getResources().getString(R.string.unfollow) : getResources().getString(R.string.follow));
+    }
+
+    private void changeShelterFollowing(boolean followed) {
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        request.put("nickname", session.getUserDetails().get("nickname"));
+
+        if (followed) {
+            new FollowShelterDbOperation(this).execute(request);
+        } else {
+            new UnfollowShelterDbOperation(this).execute(request);
+        }
     }
 
     private void addAnimals(HashMap<String, Object> animals) {
@@ -210,6 +263,17 @@ public class ShelterActivity extends BaseActivity {
 
     private void initialiseShelterComment() {
         onClickCommentButton();
+    }
+
+    private void onClickFollowShelter() {
+        Button followButton = (Button) findViewById(R.id.followShelterButton);
+        followButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                changeShelterFollowing(!shelter.isFollowed());
+            }
+        });
     }
 
     private void onClickCallShelter() {
@@ -306,6 +370,7 @@ public class ShelterActivity extends BaseActivity {
     private void setOnClickListeners() {
         onClickShareOnFacebook();
         onClickTweet();
+        onClickFollowShelter();
         onClickCallShelter();
         onClickSeeAllAnimals();
         onClickSeeAllAdoptedAnimals();

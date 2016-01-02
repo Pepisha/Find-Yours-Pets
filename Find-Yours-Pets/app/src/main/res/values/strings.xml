@@ -103,5 +103,9 @@
     <string name="deleteAnimal">Delete</string>
     <string name="followedAnimals">Followed animals</string>
     <string name="suggestedAnimals">Suggested animals</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="followShelter">You follow this shelter</string>
+    <string name="unfollowShelter">You are no longer following this shelter</string>
 
 </resources>

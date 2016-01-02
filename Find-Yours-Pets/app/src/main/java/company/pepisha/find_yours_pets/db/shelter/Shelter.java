@@ -14,6 +14,7 @@ public class Shelter {
     private String website;
     private String operationalHours;
     private double stars;
+    private boolean followed;
 
 
     public Shelter() {
@@ -31,6 +32,7 @@ public class Shelter {
             website = obj.getString("website");
             operationalHours = obj.getString("operationalHours");
             stars = obj.getDouble("average");
+            followed = obj.getBoolean("followed");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -102,6 +104,14 @@ public class Shelter {
 
     public void setIdShelter(int idShelter) {
         this.idShelter = idShelter;
+    }
+
+    public boolean isFollowed() {
+        return followed;
+    }
+
+    public void setFollowed(boolean followed) {
+        this.followed = followed;
     }
 
     public String toString() {

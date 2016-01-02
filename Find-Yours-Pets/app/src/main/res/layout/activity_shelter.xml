@@ -33,6 +33,11 @@
                 android:numStars="5"
                 android:isIndicator="true"
                 android:id="@+id/shelterNote" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/followingStar" />
         </LinearLayout>
 
 
@@ -161,6 +166,19 @@
                         android:src="@drawable/twitter"
                         android:background="@null"
                         android:layout_gravity="left"/>
+                </TableRow>
+
+                <TableRow
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/followShelterButton" />
+
                 </TableRow>
 
                 <TableRow
