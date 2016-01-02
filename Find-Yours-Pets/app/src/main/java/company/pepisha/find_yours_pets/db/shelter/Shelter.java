@@ -13,9 +13,6 @@ public class Shelter {
     private String mail;
     private String website;
     private String operationalHours;
-    private int idFacebook;
-    private int idTwitter;
-    private int idInstagram;
     private double stars;
 
 
@@ -33,9 +30,6 @@ public class Shelter {
             mail = obj.getString("mail");
             website = obj.getString("website");
             operationalHours = obj.getString("operationalHours");
-            idFacebook = obj.getInt("idFacebook");
-            idTwitter = obj.getInt("idTwitter");
-            idInstagram = obj.getInt("idInstagram");
             stars = obj.getDouble("average");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -48,30 +42,6 @@ public class Shelter {
 
     public void setStars(double stars) {
         this.stars = stars;
-    }
-
-    public int getIdInstagram() {
-        return idInstagram;
-    }
-
-    public void setIdInstagram(int idInstagram) {
-        this.idInstagram = idInstagram;
-    }
-
-    public int getIdFacebook() {
-        return idFacebook;
-    }
-
-    public void setIdFacebook(int idFacebook) {
-        this.idFacebook = idFacebook;
-    }
-
-    public int getIdTwitter() {
-        return idTwitter;
-    }
-
-    public void setIdTwitter(int idTwitter) {
-        this.idTwitter = idTwitter;
     }
 
     public String getOperationalHours() {

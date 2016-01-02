@@ -25,9 +25,6 @@ public class ParcelableShelter extends Shelter implements Parcelable {
         out.writeString(getMail());
         out.writeString(getWebsite());
         out.writeString(getOperationalHours());
-        out.writeInt(getIdFacebook());
-        out.writeInt(getIdTwitter());
-        out.writeInt(getIdInstagram());
         out.writeDouble(getStars());
     }
 
@@ -50,9 +47,6 @@ public class ParcelableShelter extends Shelter implements Parcelable {
         setMail(in.readString());
         setWebsite(in.readString());
         setOperationalHours(in.readString());
-        setIdFacebook(in.readInt());
-        setIdTwitter(in.readInt());
-        setIdInstagram(in.readInt());
         setStars(in.readDouble());
     }
 
