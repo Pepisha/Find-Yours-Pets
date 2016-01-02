@@ -100,5 +100,6 @@
     <string name="chooseOwnerFromUsers">Choose animal\'s owner from application\'s users if exists</string>
     <string name="title_activity_shelters_adopted_animals">Shelter\'s adopted animals</string>
     <string name="seeAllAdoptedAnimals">See all adopted animals</string>
+    <string name="deleteAnimal">Delete</string>
 
 </resources>
