@@ -16,8 +16,7 @@ public class ShelterOperation {
     private DataBaseWrapper dbHelper;
     private String[] SHELTER_TABLE_COLUMNS = { ShelterConstants.ID_SHELTER, ShelterConstants.NAME,
             ShelterConstants.PHONE, ShelterConstants.ID_ADDRESS, ShelterConstants.DESCRIPTION, ShelterConstants.MAIL,
-            ShelterConstants.OPERATIONAL_HOURS, ShelterConstants.ID_FACEBOOK, ShelterConstants.ID_TWITTER,
-            ShelterConstants.ID_INSTAGRAM };
+            ShelterConstants.OPERATIONAL_HOURS };
     private SQLiteDatabase database;
 
 
@@ -34,8 +33,7 @@ public class ShelterOperation {
     }
 
     public Shelter addShelter(String name, String phone, int idAddress, String description,
-                            String mail, String operationalHours, int idFacebook, int idTwitter,
-                              int idInstagram){
+                            String mail, String operationalHours){
         ContentValues values = new ContentValues();
 
         values.put(ShelterConstants.NAME, name);
@@ -44,9 +42,6 @@ public class ShelterOperation {
         values.put(ShelterConstants.DESCRIPTION, description);
         values.put(ShelterConstants.MAIL, mail);
         values.put(ShelterConstants.OPERATIONAL_HOURS, operationalHours);
-        values.put(ShelterConstants.ID_FACEBOOK, idFacebook);
-        values.put(ShelterConstants.ID_TWITTER, idTwitter);
-        values.put(ShelterConstants.ID_INSTAGRAM, idInstagram);
 
         long shelterId = database.insert(ShelterConstants.SHELTER, null, values);
 
@@ -98,9 +93,6 @@ public class ShelterOperation {
         shelter.setDescription(cursor.getString(4));
         shelter.setMail(cursor.getString(5));
         shelter.setOperationalHours(cursor.getString(6));
-        shelter.setIdFacebook(cursor.getInt(7));
-        shelter.setIdTwitter(cursor.getInt(8));
-        shelter.setIdInstagram(cursor.getInt(9));
 
         return shelter;
     }

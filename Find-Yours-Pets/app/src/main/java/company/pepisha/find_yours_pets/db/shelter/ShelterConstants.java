@@ -14,9 +14,6 @@ public class ShelterConstants {
     protected static final String DESCRIPTION = "description";
     protected static final String MAIL = "mail";
     protected static final String OPERATIONAL_HOURS = "operationalHours";
-    protected static final String ID_FACEBOOK = "idFacebook";
-    protected static final String ID_TWITTER = "idTwitter";
-    protected static final String ID_INSTAGRAM = "idInstagram";
 
 
     public static final String SHELTER_CREATE = "create table " + SHELTER
@@ -27,9 +24,6 @@ public class ShelterConstants {
             DESCRIPTION + " text, " +
             MAIL + " text not null, " +
             OPERATIONAL_HOURS + " text, " +
-            ID_FACEBOOK + " text not null, " +
-            ID_TWITTER + " text not null, " +
-            ID_INSTAGRAM + " text not null, " +
             "FOREIGN KEY(" + ID_ADDRESS + ") REFERENCES " + AddressConstants.ADDRESS
                         + " (" + AddressConstants.ID_ADDRESS + ")" +
             ")";
