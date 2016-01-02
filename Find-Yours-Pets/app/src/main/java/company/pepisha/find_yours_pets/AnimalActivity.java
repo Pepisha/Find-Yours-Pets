@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -36,7 +35,6 @@ import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.db.news.News;
-import company.pepisha.find_yours_pets.db.shelter.Shelter;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
 import company.pepisha.find_yours_pets.photo.DownloadImage;
 import company.pepisha.find_yours_pets.photo.DownloadImageToView;
@@ -51,7 +49,7 @@ public class AnimalActivity extends BaseActivity {
     private static final int PHOTO_CHANGE_REQUEST = 1;
 
     private Animal animal;
-    private ParcelableShelter s;
+    private ParcelableShelter shelter;
     private File pictureFile = null;
     private ShareDialog shareDialog;
     private int stateButtonId;
@@ -169,9 +167,8 @@ public class AnimalActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-
-            s = new ParcelableShelter((JSONObject) result.get("shelter"));
-            addShelterButton(s);
+            shelter = new ParcelableShelter((JSONObject) result.get("shelter"));
+            addShelterButton();
         }
     }
 
@@ -199,10 +196,10 @@ public class AnimalActivity extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if(successResponse(result)) {
+            if (successResponse(result)) {
                 Toast.makeText(getApplicationContext(), "animal deleted", Toast.LENGTH_SHORT).show();
                 Intent shelterScreen = new Intent(getApplicationContext(), ShelterActivity.class);
-                shelterScreen.putExtra("shelter", s);
+                shelterScreen.putExtra("shelter", shelter);
                 startActivity(shelterScreen);
                 finish();
             } else {
@@ -228,7 +225,7 @@ public class AnimalActivity extends BaseActivity {
 
     private void createDialogChooseAnimalsOwner(final List<String> nicknamesUsers) {
         String[] nicknamesArray = new String[nicknamesUsers.size()];
-        for(int i = 0; i < nicknamesArray.length; i++) {
+        for (int i = 0; i < nicknamesArray.length; i++) {
             nicknamesArray[i] = nicknamesUsers.get(i);
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -370,8 +367,8 @@ public class AnimalActivity extends BaseActivity {
         int starRes = animal.isFollowed() ? R.drawable.star : 0;
         followingStar.setImageResource(starRes);
 
-        Button followButton = (Button) findViewById(R.id.followButton);
-        followButton.setText(animal.isFollowed() ? "Unfollow" : "Follow");
+        Button followButton = (Button) findViewById(R.id.followAnimalButton);
+        followButton.setText(animal.isFollowed() ? getResources().getString(R.string.unfollow) : getResources().getString(R.string.follow));
     }
 
     private void changeAnimalFollowing(boolean followed) {
@@ -386,8 +383,8 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
-    private void addFolowButton() {
-        Button followButton = (Button) findViewById(R.id.followButton);
+    private void addFollowButton() {
+        Button followButton = (Button) findViewById(R.id.followAnimalButton);
         followButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -433,7 +430,7 @@ public class AnimalActivity extends BaseActivity {
 
         addAnimalPhoto();
         setAnimalFollowing(animal.isFollowed());
-        addFolowButton();
+        addFollowButton();
     }
 
     private void startPhotoIntent(Intent intent) {
@@ -586,7 +583,7 @@ public class AnimalActivity extends BaseActivity {
     }
 
 
-    private void addShelterButton(final ParcelableShelter shelter) {
+    private void addShelterButton() {
         Button shelterLink = new Button(this);
         String shelterName = shelter.getName();
 
@@ -608,6 +605,7 @@ public class AnimalActivity extends BaseActivity {
     private void addButtonToShelter() {
         HashMap<String, String> request = new HashMap<>();
         request.put("idShelter", Integer.toString(animal.getIdShelter()));
+        request.put("nickname", session.getUserDetails().get("nickname"));
 
         new GetShelterDbOperation(this).execute(request);
     }

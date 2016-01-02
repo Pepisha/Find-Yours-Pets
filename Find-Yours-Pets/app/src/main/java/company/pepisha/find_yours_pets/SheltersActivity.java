@@ -111,7 +111,9 @@ public class SheltersActivity extends BaseActivity implements SensorEventListene
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        new GetSheltersDbOperation(getApplicationContext()).execute(new HashMap<String, String>());
+        HashMap<String, String> request = new HashMap<>();
+        request.put("nickname", session.getUserDetails().get("nickname"));
+        new GetSheltersDbOperation(getApplicationContext()).execute(request);
 
         sheltersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
