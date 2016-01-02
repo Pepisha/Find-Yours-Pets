@@ -88,10 +88,6 @@
             android:label="@string/title_activity_update_user_profile" >
         </activity>
         <activity
-            android:name=".socialNetworksManagers.FacebookLogin"
-            android:label="@string/title_activity_facebook_login" >
-        </activity>
-        <activity
             android:name=".AnimalNewsActivity"
             android:label="@string/title_activity_animal_news" >
         </activity>

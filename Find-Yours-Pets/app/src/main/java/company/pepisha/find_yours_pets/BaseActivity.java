@@ -8,7 +8,6 @@ import android.view.MenuItem;
 
 import com.facebook.appevents.AppEventsLogger;
 
-import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookLogin;
 import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class BaseActivity extends Activity {
@@ -63,11 +62,6 @@ public class BaseActivity extends Activity {
             startActivity(petsPreferencesScreen);
         }
         else if (id == R.id.action_settings) {
-            return true;
-        }
-        else if (id == R.id.action_facebook_login) {
-            Intent loginFacebookScreen = new Intent(getApplicationContext(), FacebookLogin.class);
-            startActivity(loginFacebookScreen);
             return true;
         }
         else if (id == R.id.action_add_shelter) {
