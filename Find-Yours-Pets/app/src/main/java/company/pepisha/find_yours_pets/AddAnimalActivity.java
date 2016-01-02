@@ -12,22 +12,18 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 
 import com.facebook.share.widget.ShareDialog;
-import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import java.util.HashMap;
-import java.util.List;
 
 import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.AnimalConstants;
-import company.pepisha.find_yours_pets.db.animal.animalType.AnimalType;
-import company.pepisha.find_yours_pets.db.animal.animalType.AnimalTypeOperation;
 import company.pepisha.find_yours_pets.socialNetworksManagers.FacebookManager;
 import company.pepisha.find_yours_pets.socialNetworksManagers.TwitterManager;
+import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class AddAnimalActivity extends BaseActivity {
 
-    private AnimalTypeOperation animalTypeDbOperation;
     ShareDialog shareDialog;
 
     private class AddAnimalDbOperation extends ServerDbOperation {
@@ -123,7 +119,8 @@ public class AddAnimalActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_animal);
 
-        createTypesRadioButtons();
+        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroupAnimalTypes);
+        AnimalViews.createTypesRadioButtons(radioGroup);
 
         Button createButton = (Button) findViewById(R.id.addAnimalButton);
 
@@ -134,23 +131,4 @@ public class AddAnimalActivity extends BaseActivity {
             }
         });
     }
-
-    public void createTypesRadioButtons(){
-
-        animalTypeDbOperation = new AnimalTypeOperation(this);
-        animalTypeDbOperation.open();
-        List<AnimalType> animalTypes = animalTypeDbOperation.getAllAnimalTypes();
-        animalTypeDbOperation.close();
-
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroupAnimalTypes);
-
-        for(AnimalType type : animalTypes){
-            RadioButton rb = new RadioButton(this);
-            rb.setText(type.getName());
-            rb.setId(type.getIdAnimalType());
-            radioGroup.addView(rb);
-        }
-    }
-
-
 }

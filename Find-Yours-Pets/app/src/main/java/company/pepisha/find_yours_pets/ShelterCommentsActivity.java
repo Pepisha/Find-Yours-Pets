@@ -34,6 +34,7 @@ public class ShelterCommentsActivity extends BaseActivity {
             addOpinions(result);
         }
     }
+
     private void addOpinions(HashMap<String, Object> opinions) {
         List<Opinion> opinionObjects = new ArrayList<Opinion>();
 
