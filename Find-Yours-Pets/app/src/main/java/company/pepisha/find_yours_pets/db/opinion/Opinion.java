@@ -8,6 +8,7 @@ public class Opinion {
     private int idOpinion;
     private int stars;
     private String comment;
+    private String date;
     private int idShelter;
     private int idUser;
 

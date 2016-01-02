@@ -9,17 +9,22 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import company.pepisha.find_yours_pets.AnimalActivity;
 import company.pepisha.find_yours_pets.R;
 import company.pepisha.find_yours_pets.db.animal.Animal;
+import company.pepisha.find_yours_pets.db.animal.animalType.AnimalType;
+import company.pepisha.find_yours_pets.db.animal.animalType.AnimalTypeOperation;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
 import company.pepisha.find_yours_pets.photo.DownloadImageToView;
 import company.pepisha.find_yours_pets.session.SessionManager;
@@ -88,6 +93,20 @@ public class AnimalViews {
         }
 
         return animalsList;
+    }
+
+    public static void createTypesRadioButtons(RadioGroup radioGroup) {
+        AnimalTypeOperation animalTypeDbOperation = new AnimalTypeOperation(radioGroup.getContext());
+        animalTypeDbOperation.open();
+        List<AnimalType> animalTypes = animalTypeDbOperation.getAllAnimalTypes();
+        animalTypeDbOperation.close();
+
+        for (AnimalType type : animalTypes) {
+            RadioButton rb = new RadioButton(radioGroup.getContext());
+            rb.setText(type.getName());
+            rb.setId(type.getIdAnimalType());
+            radioGroup.addView(rb);
+        }
     }
 }
 
