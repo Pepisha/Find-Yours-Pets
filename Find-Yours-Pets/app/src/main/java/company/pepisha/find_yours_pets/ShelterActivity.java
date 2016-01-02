@@ -81,10 +81,8 @@ public class ShelterActivity extends BaseActivity {
         protected void onPostExecute(HashMap<String, Object> result) {
             if (successResponse(result)) {
                 Toast.makeText(getApplicationContext(), "Comment added", Toast.LENGTH_SHORT).show();
-                Intent shelterScreen = new Intent(getApplicationContext(), ShelterActivity.class);
-                ParcelableShelter s = (ParcelableShelter) shelter;
-                shelterScreen.putExtra("shelter", s);
-                startActivity(shelterScreen);
+                shelter = new ParcelableShelter((JSONObject) result.get("shelter"));
+                fillShelterFields();
             }
         }
     }
@@ -125,7 +123,7 @@ public class ShelterActivity extends BaseActivity {
         TextView shelterPhone = (TextView) findViewById(R.id.shelterPhone);
         shelterPhone.setText(shelter.getPhone());
 
-        if(shelter.getWebsite() != null) {
+        if (shelter.getWebsite() != null) {
             TextView shelterWebsite = (TextView) findViewById(R.id.shelterWebSite);
             shelterWebsite.setText(shelter.getWebsite());
         }
