@@ -74,6 +74,10 @@ public class BaseActivity extends Activity {
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainScreen);
             return true;
+        } else if (id == R.id.action_connection) {
+            Intent loginScreen = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(loginScreen);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

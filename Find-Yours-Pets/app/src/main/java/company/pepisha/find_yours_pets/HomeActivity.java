@@ -11,6 +11,10 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,9 +41,11 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
     private GridLayout petsFollowedGrid;
     private GridLayout petsSuggestedGrid;
+    private GridLayout searchResultGrid;
 
     private Map<Integer, Animal> followedAnimalsList = new HashMap<>();
     private Map<Integer, Animal> suggestedAnimalsList = new HashMap<>();
+    private Map<Integer, Animal> searchResultList = new HashMap<>();
 
     private class GetHomePageAnimalsDbOperation extends ServerDbOperation {
 
@@ -50,13 +56,50 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
             if (result != null) {
+
                 HashMap<String, Object> followedAnimals = ServerConnectionManager.unmarshallReponse(result.get("followedAnimals").toString());
-                addFollowedAnimals(followedAnimals);
+
+                if(result.get("followedAnimals").toString() != "null") {
+                    addFollowedAnimals(followedAnimals);
+
+                } else {
+                    TextView title = (TextView) findViewById(R.id.petsFollowedText);
+                    title.setVisibility(View.INVISIBLE);
+                }
 
                 HashMap<String, Object> suggestedAnimals = ServerConnectionManager.unmarshallReponse(result.get("suggestedAnimals").toString());
                 addSuggestedAnimals(suggestedAnimals);
             }
         }
+    }
+
+    private class GetHomelessAnimalsDbOperation extends ServerDbOperation {
+
+        public GetHomelessAnimalsDbOperation(Context c) {
+            super(c, "getHomelessAnimals");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (result != null) {
+                addAnimals(result);
+            }
+        }
+    }
+
+    private void addAnimals(HashMap<String,Object> animals) {
+        TextView titleFollowed = (TextView) findViewById(R.id.petsFollowedText);
+        titleFollowed.setVisibility(View.INVISIBLE);
+        GridLayout petsFollowedGrid = (GridLayout) findViewById(R.id.petsFollowedGrid);
+        petsFollowedGrid.setVisibility(View.INVISIBLE);
+
+        TextView titleSuggested = (TextView) findViewById(R.id.petsSuggestedText);
+        titleSuggested.setVisibility(View.INVISIBLE);
+        GridLayout petsSuggestedGrid = (GridLayout) findViewById(R.id.petsSuggestedGrid);
+        petsSuggestedGrid.setVisibility(View.INVISIBLE);
+
+        searchResultList = AnimalViews.getAnimalsList(this, animals);
+        AnimalViews.buildGrid(searchResultGrid, searchResultList, session);
     }
 
     private void clear() {
@@ -150,7 +193,7 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
                 request.put("childrenFriend", Float.toString(childrenFriend));
             }
 
-            new GetHomePageAnimalsDbOperation(this).execute(request);
+            new GetHomelessAnimalsDbOperation(this).execute(request);
         }
     }
 
@@ -174,6 +217,7 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
         petsFollowedGrid = (GridLayout) findViewById(R.id.petsFollowedGrid);
         petsSuggestedGrid = (GridLayout) findViewById(R.id.petsSuggestedGrid);
+        searchResultGrid = (GridLayout) findViewById(R.id.searchResultGrid);
 
         loadAnimals();
 
