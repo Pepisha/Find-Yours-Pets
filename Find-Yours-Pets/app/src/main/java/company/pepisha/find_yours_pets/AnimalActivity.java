@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -218,7 +219,7 @@ public class AnimalActivity extends BaseActivity {
 
         protected void onPostExecute(Bitmap image) {
             if (image != null) {
-                FileTools.bitmapToFile(image, file);
+                file = FileTools.bitmapToFile(image, file);
             }
         }
     }
@@ -657,10 +658,10 @@ public class AnimalActivity extends BaseActivity {
         addDeleteButtonIfShelterAdministrator();
 
 
-        File outputDir = getCacheDir();
-        File pictureFile = null;
+        File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
         try {
-            pictureFile = File.createTempFile(animal.getName(), "jpg", outputDir);
+            pictureFile = File.createTempFile(animal.getName(), ".jpg", outputDir);
         } catch (IOException e) {
             e.printStackTrace();
         }

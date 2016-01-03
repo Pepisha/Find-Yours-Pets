@@ -209,8 +209,6 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        TwitterManager.prepareTwitter(getApplicationContext());
-
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
