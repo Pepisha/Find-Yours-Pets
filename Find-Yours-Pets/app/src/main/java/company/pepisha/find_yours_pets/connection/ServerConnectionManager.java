@@ -182,13 +182,13 @@ public class ServerConnectionManager {
                 imageWriter.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileToUpload.getName() + "\"" + lineEnd);
                 imageWriter.writeBytes(lineEnd);
 
-                Bitmap bitmap = FileTools.fileToBitmap(fileToUpload);
+                Bitmap bitmap = FileTools.fileToScaledBitmap(fileToUpload, 300, 300);
                 String extension = FileTools.getFileExtension(fileToUpload);
 
                 if (extension.toLowerCase().equals("jpg")) {
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, imageWriter);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, imageWriter);
                 } else if (extension.toLowerCase().equals("png")) {
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, imageWriter);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 80, imageWriter);
                 }
 
                 imageWriter.writeBytes(lineEnd);
