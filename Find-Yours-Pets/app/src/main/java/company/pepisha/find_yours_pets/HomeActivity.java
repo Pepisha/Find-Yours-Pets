@@ -11,6 +11,8 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,8 +52,16 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
             if (result != null) {
+
                 HashMap<String, Object> followedAnimals = ServerConnectionManager.unmarshallReponse(result.get("followedAnimals").toString());
-                addFollowedAnimals(followedAnimals);
+
+                if(result.get("followedAnimals").toString() != "null") {
+                    addFollowedAnimals(followedAnimals);
+
+                } else {
+                    TextView title = (TextView) findViewById(R.id.petsFollowedText);
+                    title.setVisibility(View.INVISIBLE);
+                }
 
                 HashMap<String, Object> suggestedAnimals = ServerConnectionManager.unmarshallReponse(result.get("suggestedAnimals").toString());
                 addSuggestedAnimals(suggestedAnimals);
