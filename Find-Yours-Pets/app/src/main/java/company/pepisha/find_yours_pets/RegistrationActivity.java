@@ -17,6 +17,8 @@ import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 
 public class RegistrationActivity extends BaseActivity {
 
+    private String nickname;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class RegistrationActivity extends BaseActivity {
 
             public void onClick(View v) {
 
-                EditText nickname = (EditText) findViewById(R.id.nickname);
+                EditText nicknameEdit = (EditText) findViewById(R.id.nickname);
                 EditText password = (EditText) findViewById(R.id.password);
                 EditText passwordConfirmation = (EditText) findViewById(R.id.passwordConfirmation);
                 EditText mail = (EditText) findViewById(R.id.mail);
@@ -36,8 +38,10 @@ public class RegistrationActivity extends BaseActivity {
                 EditText firstname = (EditText) findViewById(R.id.firstname);
                 EditText lastname = (EditText) findViewById(R.id.lastname);
 
+                nickname = nicknameEdit.getText().toString();
+
                 HashMap<String, String> request = new HashMap<String, String>();
-                request.put("nickname", nickname.getText().toString());
+                request.put("nickname", nickname);
                 request.put("password1", password.getText().toString());
                 request.put("password2", passwordConfirmation.getText().toString());
                 request.put("mail", mail.getText().toString());
@@ -60,8 +64,10 @@ public class RegistrationActivity extends BaseActivity {
             if (successResponse(result)) {
                 Toast.makeText(getApplicationContext(), "Inscription réussie", Toast.LENGTH_LONG).show();
 
+                session.createLoginSession(nickname,false);
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(homeScreen);
+                finish();
             } else {
                 Toast.makeText(getApplicationContext(), result.get("error").toString(), Toast.LENGTH_LONG).show();
             }
