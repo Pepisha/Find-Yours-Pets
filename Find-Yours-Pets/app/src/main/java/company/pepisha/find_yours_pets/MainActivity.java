@@ -73,6 +73,7 @@ public class MainActivity extends BaseActivity {
                 session.createLoginSession(nickname,isAdmin);
                 Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(homeScreen);
+                finish();
             } else {
                 toastText = getString(R.string.failureConnection);
             }
