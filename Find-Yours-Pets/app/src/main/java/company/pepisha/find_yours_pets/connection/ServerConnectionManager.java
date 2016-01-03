@@ -32,6 +32,7 @@ import company.pepisha.find_yours_pets.tools.FileTools;
 public class ServerConnectionManager {
 
     public static final String url = "http://www.find-yours-pets.esy.es/";
+    public static final String imagesUrl = url + "images/";
 
     private static final String lineEnd = "\r\n";
     private static final String twoHyphens = "--";
@@ -209,7 +210,7 @@ public class ServerConnectionManager {
     }
 
     public static Bitmap downloadImage(String filename) {
-        HttpURLConnection urlConnection = connectToServer(url + "images/" + filename);
+        HttpURLConnection urlConnection = connectToServer(imagesUrl + filename);
         if (urlConnection != null) {
 
             InputStream input = null;
