@@ -108,9 +108,7 @@ public class AddAnimalActivity extends BaseActivity {
         CheckBox facebookShare = (CheckBox) findViewById(R.id.checkBoxFacebook);
         if(facebookShare.isChecked()) {
             shareDialog = new ShareDialog(this);
-            shareDialog.show(FacebookManager.share(postTitle, postContent, ServerConnectionManager.url));
-
-            //TODO ajouter image quand l'upload d'images marchera
+            shareDialog.show(FacebookManager.share(postTitle, postContent, ServerConnectionManager.url, null));
         }
     }
 

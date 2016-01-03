@@ -32,6 +32,7 @@ import company.pepisha.find_yours_pets.tools.FileTools;
 public class ServerConnectionManager {
 
     public static final String url = "http://www.find-yours-pets.esy.es/";
+    public static final String imagesUrl = url + "images/";
 
     private static final String lineEnd = "\r\n";
     private static final String twoHyphens = "--";
@@ -182,13 +183,13 @@ public class ServerConnectionManager {
                 imageWriter.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileToUpload.getName() + "\"" + lineEnd);
                 imageWriter.writeBytes(lineEnd);
 
-                Bitmap bitmap = FileTools.fileToBitmap(fileToUpload);
+                Bitmap bitmap = FileTools.fileToScaledBitmap(fileToUpload, 300, 300);
                 String extension = FileTools.getFileExtension(fileToUpload);
 
                 if (extension.toLowerCase().equals("jpg")) {
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, imageWriter);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, imageWriter);
                 } else if (extension.toLowerCase().equals("png")) {
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, imageWriter);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 80, imageWriter);
                 }
 
                 imageWriter.writeBytes(lineEnd);
@@ -209,7 +210,7 @@ public class ServerConnectionManager {
     }
 
     public static Bitmap downloadImage(String filename) {
-        HttpURLConnection urlConnection = connectToServer(url + "images/" + filename);
+        HttpURLConnection urlConnection = connectToServer(imagesUrl + filename);
         if (urlConnection != null) {
 
             InputStream input = null;

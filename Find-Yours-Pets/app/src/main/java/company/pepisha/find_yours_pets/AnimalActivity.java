@@ -497,10 +497,11 @@ public class AnimalActivity extends BaseActivity {
                 + animal.getAge()+"\n"
                 + animal.getCatsFriend()+"\n"
                 + animal.getDogsFriend()+"\n"
-                + animal.getChildrenFriend() +"\n"
+                + animal.getChildrenFriend()+"\n"
                 + animal.getDescription();
         shareDialog = new ShareDialog(this);
-        shareDialog.show(FacebookManager.share(title, description, ServerConnectionManager.url));
+        shareDialog.show(FacebookManager.share(title, description, ServerConnectionManager.url,
+                    ServerConnectionManager.imagesUrl + animal.getPhoto()));
     }
 
     private void onClickShareOnFacebook() {

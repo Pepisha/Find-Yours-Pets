@@ -205,7 +205,7 @@ public class ShelterActivity extends BaseActivity {
         String description = shelter.getDescription();
         String url = shelter.getWebsite() == null ? ServerConnectionManager.url : shelter.getWebsite();
         shareDialog = new ShareDialog(this);
-        shareDialog.show(FacebookManager.share(title, description, url));
+        shareDialog.show(FacebookManager.share(title, description, url, null));
     }
 
     private void onClickShareOnFacebook() {
