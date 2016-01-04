@@ -110,4 +110,6 @@
     <string name="title_activity_message_activuty">Message</string>
     <string name="from">From</string>
     <string name="animal">Animal</string>
+    <string name="title_activity_shelter_messages">ShelterMessagesActivity</string>
+    <string name="seeMessages">See messages</string>
 </resources>

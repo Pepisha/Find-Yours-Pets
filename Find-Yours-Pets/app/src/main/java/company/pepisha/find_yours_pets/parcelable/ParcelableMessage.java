@@ -21,6 +21,7 @@ public class ParcelableMessage extends Message implements Parcelable {
         out.writeInt(getIdShelter());
         out.writeString(getContent());
         out.writeString(getDateMessage());
+        out.writeByte((byte) (isMessageRead() ? 1 : 0));
         out.writeString(getNickname());
         out.writeString(getAnimalName());
     }
@@ -41,6 +42,7 @@ public class ParcelableMessage extends Message implements Parcelable {
         setIdShelter(in.readInt());
         setContent(in.readString());
         setDateMessage(in.readString());
+        setMessageRead(in.readByte() != 0);
         setNickname(in.readString());
         setAnimalName(in.readString());
     }

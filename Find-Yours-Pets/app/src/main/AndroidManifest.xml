@@ -28,6 +28,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="9mKJiWsZFpZdU4XSErqVuWelv" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -122,6 +125,10 @@
         <activity
             android:name=".MessageActivity"
             android:label="@string/title_activity_message_activuty" >
+        </activity>
+        <activity
+            android:name=".ShelterMessagesActivity"
+            android:label="@string/title_activity_shelter_messages" >
         </activity>
     </application>
 

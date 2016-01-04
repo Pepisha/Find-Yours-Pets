@@ -8,6 +8,7 @@ public class Message {
     private int idMessage;
     private String content;
     private String dateMessage;
+    private boolean messageRead;
     private String nickname;
     private int idShelter;
     private int idAnimal;
@@ -22,10 +23,14 @@ public class Message {
             idMessage = obj.getInt("idMessage");
             content = obj.getString("content");
             dateMessage = obj.getString("dateMessage");
+            messageRead = obj.getBoolean("messageRead");
             nickname = obj.getString("nickname");
             idShelter = obj.getInt("idShelter");
             idAnimal = obj.getInt("idAnimal");
-            animalName = obj.getString("animalName");
+
+            if (obj.has("animalName")) {
+                animalName = obj.getString("animalName");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -85,5 +90,13 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public boolean isMessageRead() {
+        return messageRead;
+    }
+
+    public void setMessageRead(boolean messageRead) {
+        this.messageRead = messageRead;
     }
 }
