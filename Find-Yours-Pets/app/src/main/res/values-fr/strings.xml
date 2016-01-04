@@ -105,4 +105,5 @@
     <string name="from">De</string>
     <string name="animal">Animal</string>
     <string name="title_activity_message_activuty">Message</string>
+    <string name="seeMessages">Voir les messages</string>
 </resources>

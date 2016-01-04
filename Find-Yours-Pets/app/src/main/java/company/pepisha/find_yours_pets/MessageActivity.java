@@ -54,9 +54,9 @@ public class MessageActivity extends BaseActivity {
     }
 
     private void addAnimalIfKnown() {
-        if(message.getIdAnimal() != -1) {
+        if (message.getIdAnimal() != 0) {
             HashMap<String, String> request = new HashMap<>();
-            request.put("idShelter", Integer.toString(message.getIdAnimal()));
+            request.put("idAnimal", Integer.toString(message.getIdAnimal()));
             request.put("nickname", session.getUserDetails().get("nickname"));
 
             new GetAnimalDbOperation(this).execute(request);

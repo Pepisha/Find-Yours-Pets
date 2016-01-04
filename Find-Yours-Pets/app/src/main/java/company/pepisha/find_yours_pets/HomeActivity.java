@@ -59,9 +59,8 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
                 HashMap<String, Object> followedAnimals = ServerConnectionManager.unmarshallReponse(result.get("followedAnimals").toString());
 
-                if(result.get("followedAnimals").toString() != "null") {
+                if (result.get("followedAnimals").toString() != "null") {
                     addFollowedAnimals(followedAnimals);
-
                 } else {
                     TextView title = (TextView) findViewById(R.id.petsFollowedText);
                     title.setVisibility(View.INVISIBLE);

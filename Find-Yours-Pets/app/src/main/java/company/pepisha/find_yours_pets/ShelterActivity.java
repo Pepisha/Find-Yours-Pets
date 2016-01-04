@@ -125,6 +125,7 @@ public class ShelterActivity extends BaseActivity {
         protected void onPostExecute(HashMap<String, Object> result) {
             if (result.get("admin").equals(true)) {
                 addCreateAnimalButton();
+                addSeeShelterMessagesButton();
             }
         }
     }
@@ -309,6 +310,22 @@ public class ShelterActivity extends BaseActivity {
 
                 addAnimalScreen.putExtra("idShelter", shelter.getIdShelter());
                 startActivity(addAnimalScreen);
+            }
+        });
+    }
+
+    private void addSeeShelterMessagesButton() {
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
+        Button seeMessagesButton = new Button(this);
+        seeMessagesButton.setText(getResources().getString(R.string.seeMessages));
+        layout.addView(seeMessagesButton);
+
+        seeMessagesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent messagesScreen = new Intent(getApplicationContext(), ShelterMessagesActivity.class);
+                messagesScreen.putExtra("idShelter", shelter.getIdShelter());
+                startActivity(messagesScreen);
             }
         });
     }
