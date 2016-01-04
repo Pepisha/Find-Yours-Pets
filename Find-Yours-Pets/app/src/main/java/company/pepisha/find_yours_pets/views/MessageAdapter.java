@@ -33,7 +33,6 @@ public class MessageAdapter extends ArrayAdapter<Message> {
             messageView = mInflater.inflate(R.layout.message_layout, null);
         }
 
-        ImageView icon = (ImageView) messageView.findViewById(R.id.messageIcon);
         TextView authorName = (TextView) messageView.findViewById(R.id.authorName);
         TextView animalName = (TextView) messageView.findViewById(R.id.animalName);
         TextView messageDate = (TextView) messageView.findViewById(R.id.messageDate);
@@ -44,10 +43,9 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         messageDate.setText(message.getDateMessage());
 
         if (!message.isMessageRead()) {
-            icon.setImageDrawable(messageView.getResources().getDrawable(R.drawable.message));
-            authorName.setTypeface(null, Typeface.BOLD);
-            animalName.setTypeface(null, Typeface.BOLD);
-            messageDate.setTypeface(null, Typeface.BOLD);
+            setMessageUnread(messageView);
+        } else {
+            setMessageRead(messageView);
         }
 
         return messageView;
@@ -63,5 +61,17 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         authorName.setTypeface(Typeface.SERIF);
         animalName.setTypeface(Typeface.SERIF);
         messageDate.setTypeface(Typeface.SERIF);
+    }
+
+    public void setMessageUnread(View messageView) {
+        ImageView icon = (ImageView) messageView.findViewById(R.id.messageIcon);
+        TextView authorName = (TextView) messageView.findViewById(R.id.authorName);
+        TextView animalName = (TextView) messageView.findViewById(R.id.animalName);
+        TextView messageDate = (TextView) messageView.findViewById(R.id.messageDate);
+
+        icon.setImageDrawable(messageView.getResources().getDrawable(R.drawable.message));
+        authorName.setTypeface(null, Typeface.BOLD);
+        animalName.setTypeface(null, Typeface.BOLD);
+        messageDate.setTypeface(null, Typeface.BOLD);
     }
 }

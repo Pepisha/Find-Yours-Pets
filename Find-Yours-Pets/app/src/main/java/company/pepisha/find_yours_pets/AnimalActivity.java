@@ -130,6 +130,7 @@ public class AnimalActivity extends BaseActivity {
             if (result.get("admin").equals(true)) {
                 isUserAdmin = true;
                 addUpdateAnimalStateButton();
+                addSeeAnimalMessagesButton();
             }
         }
     }
@@ -336,6 +337,21 @@ public class AnimalActivity extends BaseActivity {
                 } else {
                     changeAnimalState(Animal.ADOPTION, "");
                 }
+            }
+        });
+    }
+
+    private void addSeeAnimalMessagesButton() {
+        Button seeMessagesButton = new Button(this);
+        seeMessagesButton.setText(getResources().getString(R.string.seeMessages));
+
+        addToGrid(seeMessagesButton, 16, 3, 1, 4);
+        seeMessagesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent messagesScreen = new Intent(getApplicationContext(), ShelterMessagesActivity.class);
+                messagesScreen.putExtra("idAnimal", animal.getIdAnimal());
+                startActivity(messagesScreen);
             }
         });
     }
