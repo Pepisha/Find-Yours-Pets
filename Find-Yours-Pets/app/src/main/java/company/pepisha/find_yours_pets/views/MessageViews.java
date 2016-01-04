@@ -10,6 +10,7 @@ import android.widget.ListView;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class MessageViews {
     }
 
     public static void createMessagesList(ListView list, List<Message> messages) {
-        MessageAdapter listAdapter = new MessageAdapter(list.getContext(), R.layout.message_layout, messages);
+        final MessageAdapter listAdapter = new MessageAdapter(list.getContext(), R.layout.message_layout, messages);
         list.setAdapter(listAdapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -37,15 +38,17 @@ public class MessageViews {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 Message message = (Message) adapter.getItemAtPosition(position);
 
-                /*if (!message.isMessageRead()) {
-                    HashMap<String, String> request = new HashMap<>();
-                    request.put("idMessage", Integer.toString(message.getIdMessage()));
-                    new SetMessageReadDbOperation(view.getContext()).execute(request);
-                }*/
-
                 Intent messageScreen = new Intent(view.getContext(), MessageActivity.class);
                 messageScreen.putExtra("message", (ParcelableMessage) message);
                 view.getContext().startActivity(messageScreen);
+
+                if (!message.isMessageRead()) {
+                    HashMap<String, String> request = new HashMap<>();
+                    request.put("idMessage", Integer.toString(message.getIdMessage()));
+                    new SetMessageReadDbOperation(view.getContext()).execute(request);
+                }
+
+                listAdapter.setMessageRead(view);
             }
         });
     }
