@@ -119,6 +119,10 @@
             android:name=".SheltersAdoptedAnimalsActivity"
             android:label="@string/title_activity_shelters_adopted_animals" >
         </activity>
+        <activity
+            android:name=".MessageActivity"
+            android:label="@string/title_activity_message_activuty" >
+        </activity>
     </application>
 
 </manifest>
