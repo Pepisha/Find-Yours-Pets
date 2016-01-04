@@ -111,6 +111,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save"
-        android:id="@+id/savePreferencesButton" />
+        android:layout_marginTop="15dp"
+        android:layout_gravity="right"
+        android:id="@+id/savePreferencesButton"
+        android:background="@drawable/button_brown_style"/>
 
 </LinearLayout>
