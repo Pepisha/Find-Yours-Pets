@@ -8,8 +8,10 @@ public class Message {
     private int idMessage;
     private String content;
     private String dateMessage;
-    private int idUser;
+    private String nickname;
     private int idShelter;
+    private int idAnimal;
+    private String animalName;
 
     public Message() {
 
@@ -20,8 +22,10 @@ public class Message {
             idMessage = obj.getInt("idMessage");
             content = obj.getString("content");
             dateMessage = obj.getString("dateMessage");
-            idUser = obj.getInt("idUser");
+            nickname = obj.getString("nickname");
             idShelter = obj.getInt("idShelter");
+            idAnimal = obj.getInt("idAnimal");
+            animalName = obj.getString("animalName");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -35,12 +39,28 @@ public class Message {
         this.idMessage = idMessage;
     }
 
-    public int getIdUser() {
-        return idUser;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getIdAnimal() {
+        return idAnimal;
+    }
+
+    public void setIdAnimal(int idAnimal) {
+        this.idAnimal = idAnimal;
+    }
+
+    public String getAnimalName() {
+        return animalName;
+    }
+
+    public void setAnimalName(String animalName) {
+        this.animalName = animalName;
     }
 
     public int getIdShelter() {
