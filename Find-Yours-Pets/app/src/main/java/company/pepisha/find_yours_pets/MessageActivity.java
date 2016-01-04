@@ -2,11 +2,13 @@ package company.pepisha.find_yours_pets;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -69,6 +71,8 @@ public class MessageActivity extends BaseActivity {
 
         Button animalButton = new Button(this);
         animalButton.setText(message.getAnimalName());
+        animalButton.setBackground(null);
+        animalButton.setTextColor(Color.BLUE);
         animalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,8 +82,8 @@ public class MessageActivity extends BaseActivity {
             }
         });
 
-        addToGrid(animalText, 2, 0, 0, 0);
-        addToGrid(animalButton, 2, 1, 0, 3);
+        addToGrid(animalText, 2, 0, 1, 1);
+        addToGrid(animalButton, 2, 1, 1, 1);
     }
 
     private void onClickSeeUser() {
