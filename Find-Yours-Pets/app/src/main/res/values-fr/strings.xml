@@ -106,4 +106,6 @@
     <string name="animal">Animal</string>
     <string name="title_activity_message_activuty">Message</string>
     <string name="seeMessages">Voir les messages</string>
+    <string name="date">Date</string>
+    <string name="title_activity_shelter_messages">Messages du refuge</string>
 </resources>

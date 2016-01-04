@@ -76,17 +76,19 @@ public class ServerConnectionManager {
     public static HashMap<String, Object> unmarshallReponse(String jsonData) {
         HashMap<String, Object> response = new HashMap<String, Object>();
 
-        try {
-            JSONObject jsonObject = new JSONObject(jsonData);
+        if (!jsonData.isEmpty() && !jsonData.equals("null")) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonData);
 
-            for (Iterator iterator = jsonObject.keys(); iterator.hasNext();) {
-                Object jsonKey = iterator.next();
-                Object val = jsonObject.get(String.valueOf(jsonKey));
+                for (Iterator iterator = jsonObject.keys(); iterator.hasNext(); ) {
+                    Object jsonKey = iterator.next();
+                    Object val = jsonObject.get(String.valueOf(jsonKey));
 
-                response.put(jsonKey.toString(), val);
+                    response.put(jsonKey.toString(), val);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
 
         return response;
