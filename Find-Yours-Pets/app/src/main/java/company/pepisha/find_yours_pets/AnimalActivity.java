@@ -257,13 +257,20 @@ public class AnimalActivity extends BaseActivity {
         animalLayout.addView(v, params);
     }
 
-    private void addAnimalsOwner(String ownerNickname) {
+    private void addAnimalsOwner(final String ownerNickname) {
         TextView owner = new TextView(this);
         owner.setText(R.string.owner);
 
-        TextView animalsOwner = new TextView(this);
+        final Button animalsOwner = new Button(this);
         animalsOwner.setText(ownerNickname);
-        animalsOwner.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+        animalsOwner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent userProfile = new Intent(getApplicationContext(), UserProfileActivity.class);
+                userProfile.putExtra("nickname", ownerNickname);
+                startActivity(userProfile);
+            }
+        });
 
         addToGrid(owner, 4, 0);
         addToGrid(animalsOwner, 4, 1, 1, 3);
