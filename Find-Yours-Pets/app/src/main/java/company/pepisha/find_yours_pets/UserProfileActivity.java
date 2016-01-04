@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -24,6 +25,8 @@ public class UserProfileActivity  extends BaseActivity {
 
     private User user;
 
+    private String nickname;
+
     private GridLayout petsGrid;
 
     private Map<Integer, Animal> animalsList = new HashMap<>();
@@ -37,6 +40,7 @@ public class UserProfileActivity  extends BaseActivity {
         protected void onPostExecute(HashMap<String, Object> result) {
             user = new User((JSONObject)result.get(session.getUserDetails().get("nickname")));
             fillUserFields();
+            addUpdateProfileIfAllowed();
         }
     }
 
@@ -75,17 +79,6 @@ public class UserProfileActivity  extends BaseActivity {
         AnimalViews.buildGrid(petsGrid, animalsList, session);
     }
 
-    private void oncClickExecuteUpdateProfileActivity() {
-        Button update = (Button) findViewById(R.id.updtateButton);
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent update = new Intent(getApplicationContext(), UpdateUserProfileActivity.class);
-                startActivity(update);
-            }
-        });
-    }
-
     private void onClickCallUser() {
         final ImageButton callButton = (ImageButton) findViewById(R.id.callButton);
         callButton.setOnClickListener(new View.OnClickListener() {
@@ -99,17 +92,32 @@ public class UserProfileActivity  extends BaseActivity {
     }
 
     private void getUsersAnimals() {
-        String nicknameUser = session.getUserDetails().get("nickname");
-        HashMap<String, String> animalsRequest = new HashMap<String, String>();
-        animalsRequest.put("nickname", nicknameUser);
+        HashMap<String, String> animalsRequest = new HashMap<>();
+        animalsRequest.put("nickname", nickname);
         new GetUsersAnimalsDbOperation(this).execute(animalsRequest);
     }
 
-    private void getUsersInformations() {
+    private void getUsersInformations(String nickname) {
         HashMap<String,String> userRequest = new HashMap<>();
-        String nicknameUser = session.getUserDetails().get("nickname");
-        userRequest.put("nickname", nicknameUser);
+        userRequest.put("nickname", nickname);
         new GetUserInformationsDbOperation(getApplicationContext()).execute(userRequest);
+    }
+
+    private void addUpdateProfileIfAllowed() {
+        if(user.getNickname().equals(session.getUserDetails().get("nickname"))) {
+            Button update = new Button(this);
+            update.setText(R.string.modifyProfile);
+            update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent update = new Intent(getApplicationContext(), UpdateUserProfileActivity.class);
+                    startActivity(update);
+                }
+            });
+
+            TableLayout layoutUserProfile = (TableLayout) findViewById(R.id.layoutUser);
+            layoutUserProfile.addView(update);
+        }
     }
 
     @Override
@@ -119,10 +127,14 @@ public class UserProfileActivity  extends BaseActivity {
 
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
 
-        getUsersInformations();
+        nickname = getIntent().getParcelableExtra("nickname");
+        if (nickname == null) {
+            nickname = session.getUserDetails().get("nickname");
+        }
+
+        getUsersInformations(nickname);
         getUsersAnimals();
 
-        oncClickExecuteUpdateProfileActivity();
         onClickCallUser();
     }
 }
