@@ -40,6 +40,7 @@ public class AnimalViews {
             petPicture.setImageResource(entry.getValue().getDefaultImage());
             petPicture.setId(entry.getKey());
             petPicture.setMinimumHeight(250);
+            petPicture.setBackground(null);
 
             TextView petName = new TextView(grid.getContext());
             petName.setText(entry.getValue().getName());

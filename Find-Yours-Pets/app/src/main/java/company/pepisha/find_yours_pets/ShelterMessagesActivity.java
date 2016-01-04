@@ -17,11 +17,9 @@ public class ShelterMessagesActivity extends BaseActivity {
 
     private ListView messagesList;
 
-    private int idShelter;
+    private class GetSheltersMessagesDbOperation extends ServerDbOperation {
 
-    private class GetSheltersMessages extends ServerDbOperation {
-
-        public GetSheltersMessages(Context c) {
+        public GetSheltersMessagesDbOperation(Context c) {
             super(c, "getSheltersMessages");
         }
 
@@ -45,21 +43,44 @@ public class ShelterMessagesActivity extends BaseActivity {
         }
     }
 
-    private void loadMessages() {
-        HashMap<String, String> messagesRequest = new HashMap<String, String>();
-        messagesRequest.put("idShelter", Integer.toString(idShelter));
-        new GetSheltersMessages(this).execute(messagesRequest);
+    private class GetMessagesAboutAnimalDbOperation extends ServerDbOperation {
+
+        public GetMessagesAboutAnimalDbOperation(Context c) {
+            super(c, "getMessagesAboutAnimal");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (result != null) {
+                MessageViews.createMessagesList(messagesList, MessageViews.getMessagesList(result));
+            }
+        }
     }
 
+    private void loadShelterMessages(int idShelter) {
+        HashMap<String, String> messagesRequest = new HashMap<String, String>();
+        messagesRequest.put("idShelter", Integer.toString(idShelter));
+        new GetSheltersMessagesDbOperation(this).execute(messagesRequest);
+    }
+
+    private void loadAnimalMessages(int idAnimal) {
+        HashMap<String, String> messagesRequest = new HashMap<String, String>();
+        messagesRequest.put("idAnimal", Integer.toString(idAnimal));
+        new GetMessagesAboutAnimalDbOperation(this).execute(messagesRequest);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_messages);
 
-        idShelter = getIntent().getIntExtra("idShelter", 1);
         messagesList = (ListView) findViewById(R.id.messagesList);
 
-        loadMessages();
+        if (getIntent().hasExtra("idShelter")) {
+            loadShelterMessages(getIntent().getIntExtra("idShelter", 1));
+        }
+        else if (getIntent().hasExtra("idAnimal")) {
+            loadAnimalMessages(getIntent().getIntExtra("idAnimal", 1));
+        }
     }
 }
