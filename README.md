@@ -29,7 +29,7 @@ Application permettant à un utilisateur de trouver l'animal de ses rêves dans 
 - Recherche de chiens à partir d'un lieu (géolocalisation) et/ou de critères
 - Signalement lorsqu'un chien compatible est à l'adoption
 - Signalement d'un chien auquel on est intéressé (+ proposition d'une rencontre à partir des horaires de la SPA)
-- Ajout de nouvelles pour les chiens adoptés et suivi des autres
+- [x] Ajout de nouvelles pour les chiens adoptés et suivi des autres
 - [x] Avis sur les refuges
 - [x] Quand l'utilisateur secoue son portable : proposition aléatoire d'un chien
 - Quand l'utilisateur secoue son portable : d'un refuge proche de chez lui.
