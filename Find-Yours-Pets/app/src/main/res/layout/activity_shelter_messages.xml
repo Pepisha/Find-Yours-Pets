@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:text="From"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
 
