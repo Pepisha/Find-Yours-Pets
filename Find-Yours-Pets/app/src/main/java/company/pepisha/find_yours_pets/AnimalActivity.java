@@ -91,6 +91,7 @@ public class AnimalActivity extends BaseActivity {
         protected void onPostExecute(HashMap<String, Object> result) {
             if (result.get("nickname") != null && !result.get("nickname").toString().equals("null")) {
                 addAnimalsOwner(result.get("nickname").toString());
+                hideInterestedButton();
             }
         }
 
@@ -278,6 +279,11 @@ public class AnimalActivity extends BaseActivity {
         grid.addView(v, params);
     }
 
+    private void hideInterestedButton() {
+        Button interested = (Button) findViewById(R.id.interestedButton);
+        interested.setVisibility(View.INVISIBLE);
+    }
+
     private void addAnimalsOwner(final String ownerNickname) {
         TextView owner = new TextView(this);
         owner.setText(R.string.owner);
@@ -369,7 +375,7 @@ public class AnimalActivity extends BaseActivity {
 
     private void addUpdateAnimalStateButton() {
         final Button updateStateButton = new Button(this);
-        stateButtonId = new AtomicInteger(15).get();
+        stateButtonId = new AtomicInteger(16).get();
         updateStateButton.setId(stateButtonId);
         updateStateButton.setBackgroundResource(R.drawable.button_brown_style);
 
