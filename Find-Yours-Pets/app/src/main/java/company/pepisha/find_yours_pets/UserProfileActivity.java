@@ -38,7 +38,7 @@ public class UserProfileActivity  extends BaseActivity {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            user = new User((JSONObject)result.get(session.getUserDetails().get("nickname")));
+            user = new User((JSONObject) result.get(nickname));
             fillUserFields();
             addUpdateProfileIfAllowed();
         }
@@ -104,7 +104,7 @@ public class UserProfileActivity  extends BaseActivity {
     }
 
     private void addUpdateProfileIfAllowed() {
-        if(user.getNickname().equals(session.getUserDetails().get("nickname"))) {
+        if (user.getNickname().equals(session.getUserDetails().get("nickname"))) {
             Button update = new Button(this);
             update.setText(R.string.modifyProfile);
             update.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +127,7 @@ public class UserProfileActivity  extends BaseActivity {
 
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
 
-        nickname = getIntent().getParcelableExtra("nickname");
+        nickname = getIntent().getStringExtra("nickname");
         if (nickname == null) {
             nickname = session.getUserDetails().get("nickname");
         }
