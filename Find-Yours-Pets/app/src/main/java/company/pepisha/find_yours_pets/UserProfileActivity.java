@@ -2,12 +2,17 @@ package company.pepisha.find_yours_pets;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -41,6 +46,7 @@ public class UserProfileActivity  extends BaseActivity {
             user = new User((JSONObject) result.get(nickname));
             fillUserFields();
             addUpdateProfileIfAllowed();
+            addCallButton();
         }
     }
 
@@ -79,18 +85,6 @@ public class UserProfileActivity  extends BaseActivity {
         AnimalViews.buildGrid(petsGrid, animalsList);
     }
 
-    private void onClickCallUser() {
-        final ImageButton callButton = (ImageButton) findViewById(R.id.callButton);
-        callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + user.getPhone()));
-                startActivity(callIntent);
-            }
-        });
-    }
-
     private void getUsersAnimals() {
         HashMap<String, String> animalsRequest = new HashMap<>();
         animalsRequest.put("nickname", nickname);
@@ -105,8 +99,9 @@ public class UserProfileActivity  extends BaseActivity {
 
     private void addUpdateProfileIfAllowed() {
         if (user.getNickname().equals(session.getUserDetails().get("nickname"))) {
-            Button update = new Button(this);
-            update.setText(R.string.modifyProfile);
+            ImageButton update = new ImageButton(this);
+            update.setImageResource(R.drawable.edit);
+            update.setBackground(null);
             update.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -115,8 +110,37 @@ public class UserProfileActivity  extends BaseActivity {
                 }
             });
 
-            TableLayout layoutUserProfile = (TableLayout) findViewById(R.id.layoutUser);
-            layoutUserProfile.addView(update);
+            RelativeLayout layoutProfile = (RelativeLayout) findViewById(R.id.layoutProfile);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE );
+            layoutProfile.addView(update, params);
+        }
+    }
+
+    private void addCallButton() {
+        if(!user.getNickname().equals(session.getUserDetails().get("nickname"))) {
+            ImageButton call = new ImageButton(this);
+            call.setImageResource(R.drawable.phone);
+            call.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + user.getPhone()));
+                    startActivity(callIntent);
+                    }
+            });
+
+            RelativeLayout layoutProfile = (RelativeLayout) findViewById(R.id.layoutProfile);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+            layoutProfile.addView(call, params);
+        }
+    }
+
+    private void getNickname() {
+        nickname = getIntent().getStringExtra("nickname");
+        if (nickname == null) {
+            nickname = session.getUserDetails().get("nickname");
         }
     }
 
@@ -127,14 +151,9 @@ public class UserProfileActivity  extends BaseActivity {
 
         petsGrid = (GridLayout) findViewById(R.id.petsGrid);
 
-        nickname = getIntent().getStringExtra("nickname");
-        if (nickname == null) {
-            nickname = session.getUserDetails().get("nickname");
-        }
+        getNickname();
 
         getUsersInformations(nickname);
         getUsersAnimals();
-
-        onClickCallUser();
     }
 }
