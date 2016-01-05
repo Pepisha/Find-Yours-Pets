@@ -37,7 +37,7 @@ public class ShelterAnimalsActivity extends BaseActivity {
 
     private void addAnimals(HashMap<String, Object> animals) {
         animalsList = AnimalViews.getAnimalsList(this, animals);
-        AnimalViews.buildGrid(petsGrid, animalsList, session);
+        AnimalViews.buildGrid(petsGrid, animalsList);
     }
 
     private void loadAnimals() {
