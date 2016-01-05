@@ -10,54 +10,57 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import company.pepisha.find_yours_pets.AnimalActivity;
 import company.pepisha.find_yours_pets.R;
+import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.db.animal.Animal;
+import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
+import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class NotifyService extends Service {
 
     private final int UPDATE_INTERVAL = 60 * 1000;
     private final int NOTIFICATION_ID = 1;
+    private Timer timer = new Timer();
+
+    private class GetAnimalCorrespondingToUserPreferences extends ServerDbOperation {
+        public GetAnimalCorrespondingToUserPreferences(Context c) {
+            super(c, "getAnimalCorrespondingToUserPreferences");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (result.get("animal") != null && !result.get("animal").toString().equals("null")) {
+                Animal animal = new Animal((JSONObject)result.get("animal"));
+                sendNotification(animal);
+            }
+        }
+
+    }
+
 
     public NotifyService() {
     }
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Toast.makeText(this,"Service created", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onStart(Intent intent, int startId) {
-        super.onCreate();
-        Toast.makeText(this,"Service started", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Toast.makeText(this,"Service destroyed", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    private void sendNotification(Animal animal) {
+//        ParcelableAnimal animalToSend = (ParcelableAnimal) animal;
 
         //Création de la notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.notification_icon)
-                        .setContentTitle("My notification") //TODO faire un titre
-                        .setContentText("Hello World!"); //TODO faire un contenu
+                        .setContentTitle("An animal matching your preferences was found") //TODO faire un titre
+                        .setContentText(animal.getName()+", "+animal.getBreed()+", "+animal.getAge()); //TODO faire un contenu
 
         //Lien vers la vue de l'animal concerné
         Intent animalScreen = new Intent(this, AnimalActivity.class);
-        //TODO ajouter le ParcelableAnimal dans l'intent
+        //animalScreen.putExtra("animal", animalToSend);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(AnimalActivity.class);
@@ -73,9 +76,46 @@ public class NotifyService extends Service {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-
-        return super.onStartCommand(intent, flags, startId);
     }
 
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        timer.scheduleAtFixedRate(
+                new TimerTask() {
+                    public void run() {
+                        askDataToServer();
+                    }
+                },
+                0,
+                UPDATE_INTERVAL);
+        Toast.makeText(this,"Service created", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStart(Intent intent, int startId) {
+        super.onCreate();
+        Toast.makeText(this,"Service started", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(this,"Service destroyed", Toast.LENGTH_LONG).show();
+    }
+
+    private void askDataToServer() {
+        SessionManager session = new SessionManager(getApplicationContext());
+        HashMap<String, String> request = new HashMap<>();
+        request.put("nickname", session.getUserDetails().get("nickname"));
+
+        new GetAnimalCorrespondingToUserPreferences(this).execute(request);
+    }
 }
