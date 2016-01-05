@@ -128,6 +128,8 @@ public class ShelterActivity extends BaseActivity {
             if (result.get("admin").equals(true)) {
                 addCreateAnimalButton();
                 addSeeShelterMessagesButton();
+            } else {
+                addSendShelterMessageButton();
             }
         }
     }
@@ -372,6 +374,28 @@ public class ShelterActivity extends BaseActivity {
                 Intent messagesScreen = new Intent(getApplicationContext(), ShelterMessagesActivity.class);
                 messagesScreen.putExtra("idShelter", shelter.getIdShelter());
                 startActivity(messagesScreen);
+            }
+        });
+    }
+
+    private void addSendShelterMessageButton() {
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.shelterLayout);
+        final ImageButton sendMessageButton = new ImageButton(this);
+        sendMessageButton.setImageResource(R.drawable.send_message);
+        sendMessageButton.setBackground(null);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        params.topMargin = -27;
+
+        layout.addView(sendMessageButton, params);
+
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendMessageScreen = new Intent(getApplicationContext(), SendMessageActivity.class);
+                sendMessageScreen.putExtra("idShelter", shelter.getIdShelter());
+                startActivity(sendMessageScreen);
             }
         });
     }

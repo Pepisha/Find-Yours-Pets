@@ -107,7 +107,7 @@
             android:label="@string/title_activity_pets_preferences" >
         </activity>
         <activity
-            android:name=".AnimalMessageActivity"
+            android:name=".SendMessageActivity"
             android:label="@string/title_activity_animal_message" >
         </activity>
         <activity

@@ -109,4 +109,5 @@
     <string name="date">Date</string>
     <string name="title_activity_shelter_messages">Messages du refuge</string>
     <string name="favorite">Coup de coeur</string>
+    <string name="emptyMessage">Le message est vide</string>
 </resources>

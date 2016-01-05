@@ -114,4 +114,5 @@
     <string name="seeMessages">See messages</string>
     <string name="date">Date</string>
     <string name="favorite">Favorite</string>
+    <string name="emptyMessage">Message is empty</string>
 </resources>
