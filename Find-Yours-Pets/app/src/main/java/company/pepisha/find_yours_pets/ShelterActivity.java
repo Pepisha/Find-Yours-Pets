@@ -5,14 +5,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -253,7 +254,7 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void onClickCommentButton() {
-        final Button commentButton = (Button) findViewById(R.id.commentButton);
+        final ImageButton commentButton = (ImageButton) findViewById(R.id.commentButton);
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,10 +299,15 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void addCreateAnimalButton() {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-        final Button addAnimalButton = new Button(this);
-        addAnimalButton.setText(getResources().getString(R.string.addAnimal));
-        layout.addView(addAnimalButton);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.animalsLayout);
+        final ImageButton addAnimalButton = new ImageButton(this);
+        addAnimalButton.setImageResource(R.drawable.add);
+        addAnimalButton.setBackground(null);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+        layout.addView(addAnimalButton, params);
 
         addAnimalButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,10 +321,16 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void addSeeShelterMessagesButton() {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-        Button seeMessagesButton = new Button(this);
-        seeMessagesButton.setText(getResources().getString(R.string.seeMessages));
-        layout.addView(seeMessagesButton);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.shelterLayout);
+        final ImageButton seeMessagesButton = new ImageButton(this);
+        seeMessagesButton.setImageResource(R.drawable.message);
+        seeMessagesButton.setBackground(null);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        params.topMargin = -27;
+
+        layout.addView(seeMessagesButton, params);
 
         seeMessagesButton.setOnClickListener(new View.OnClickListener() {
             @Override

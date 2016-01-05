@@ -69,7 +69,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
         TextView animalName = (TextView) messageView.findViewById(R.id.animalName);
         TextView messageDate = (TextView) messageView.findViewById(R.id.messageDate);
 
-        icon.setImageDrawable(messageView.getResources().getDrawable(R.drawable.message));
+        icon.setImageResource(R.drawable.message);
         authorName.setTypeface(null, Typeface.BOLD);
         animalName.setTypeface(null, Typeface.BOLD);
         messageDate.setTypeface(null, Typeface.BOLD);
