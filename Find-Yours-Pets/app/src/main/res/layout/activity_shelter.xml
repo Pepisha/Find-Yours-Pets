@@ -83,7 +83,6 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/shelterMail"
-                    android:layout_span="2"
                     android:layout_marginLeft="5dp" />
 
             </TableRow>
@@ -138,8 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/shelterAddress"
-                    android:layout_span="2" />
+                    android:id="@+id/shelterAddress" />
 
             </TableRow>
 
@@ -159,7 +157,6 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:id="@+id/shelterDescription"
-                    android:layout_span="2"
                     android:layout_marginLeft="5dp" />
 
             </TableRow>
@@ -208,17 +205,10 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_gravity="center_horizontal" />
 
-            <TableRow
+            <company.pepisha.find_yours_pets.views.NonScrollListView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <company.pepisha.find_yours_pets.views.NonScrollListView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/opinionsList"
-                    android:layout_span="3" />
-
-            </TableRow>
+                android:layout_height="fill_parent"
+                android:id="@+id/opinionsList" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -232,28 +222,32 @@
                 android:layout_marginTop="15dp"
                 android:background="@android:color/holo_blue_dark"/>
 
-            <TableRow
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/commentText"
                     android:text = "@string/comment"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            </TableRow>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/commentButton"
+                    android:src="@drawable/comment"
+                    android:background="@null"
+                    android:layout_alignParentRight="true" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:ems="10"
-                android:id="@+id/shelterComment" />
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/shelterComment"
+                    android:layout_below="@+id/commentText" />
 
                 <RatingBar
                     style="@style/fypRatingBar"
@@ -261,16 +255,10 @@
                     android:layout_height="wrap_content"
                     android:stepSize="0.5"
                     android:numStars="5"
-                    android:id="@+id/opinionNote" />
+                    android:id="@+id/opinionNote"
+                    android:layout_below="@+id/shelterComment" />
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/commentButton"
-                    android:src="@drawable/comment"
-                    android:background="@null" />
-
-            </TableRow>
+            </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
