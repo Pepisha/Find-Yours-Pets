@@ -17,18 +17,18 @@ Application permettant à un utilisateur de trouver l'animal de ses rêves dans 
 
 ## Gestionnaire de SPA
 
-- Gestion des chiens (profil, description, photos, vidéos)
-- Communication automatique sur différents réseaux sociaux à partir d'une photo/vidéo (nouveau chien, adoption, coup de coeur...)
+- [x] Gestion des chiens (profil, description, photos, vidéos)
+- [x] Communication automatique sur différents réseaux sociaux à partir d'une photo/vidéo (nouveau chien, adoption, coup de coeur...)
 - [x] Ajout de nouveaux chiens
 - alertes aux utilisateurs cherchant un chien quand un nouveau chien correspondant aux critères est ajouté
-- Possibilité de mise en avant de chiens
+- [x] Possibilité de mise en avant de chiens
 - [x] Statut chien (adopté / à l'adoption)
 
 ## Utilisateur simple
 
 - Recherche de chiens à partir d'un lieu (géolocalisation) et/ou de critères
 - Signalement lorsqu'un chien compatible est à l'adoption
-- Signalement d'un chien auquel on est intéressé (+ proposition d'une rencontre à partir des horaires de la SPA)
+- [x] Signalement d'un chien auquel on est intéressé (+ proposition d'une rencontre à partir des horaires de la SPA)
 - [x] Ajout de nouvelles pour les chiens adoptés et suivi des autres
 - [x] Avis sur les refuges
 - [x] Quand l'utilisateur secoue son portable : proposition aléatoire d'un chien
