@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="@string/shareOnFacebook"
         android:id="@+id/shareFacebookButton"
-        android:src="@drawable/faceboook"
+        android:src="@drawable/facebook"
         android:background="@null"
         android:layout_marginRight="5dp"
         android:layout_toRightOf="@+id/animalName"/>

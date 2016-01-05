@@ -5,14 +5,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,8 +128,44 @@ public class ShelterActivity extends BaseActivity {
             if (result.get("admin").equals(true)) {
                 addCreateAnimalButton();
                 addSeeShelterMessagesButton();
+            } else {
+                addSendShelterMessageButton();
             }
         }
+    }
+
+    private void addWebsiteRow(final String website) {
+        TableRow websiteRow = (TableRow) findViewById(R.id.websiteRow);
+
+        TextView websiteText = new TextView(this);
+        websiteText.setText(getResources().getString(R.string.website));
+        websiteText.setTextAppearance(this, android.R.style.TextAppearance_Small);
+
+        TextView websiteView = new TextView(this);
+        websiteView.setText(website);
+        websiteView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+
+        ImageButton browserButton = new ImageButton(this);
+        browserButton.setImageResource(R.drawable.browser);
+        browserButton.setBackground(null);
+
+        browserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = website;
+
+                if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                    url = "http://" + url;
+                }
+
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browserIntent);
+            }
+        });
+
+        websiteRow.addView(websiteText);
+        websiteRow.addView(websiteView);
+        websiteRow.addView(browserButton);
     }
 
     private void fillShelterFields() {
@@ -154,8 +192,7 @@ public class ShelterActivity extends BaseActivity {
         shelterPhone.setText(shelter.getPhone());
 
         if (shelter.getWebsite() != null) {
-            TextView shelterWebsite = (TextView) findViewById(R.id.shelterWebSite);
-            shelterWebsite.setText(shelter.getWebsite());
+            addWebsiteRow(shelter.getWebsite());
         }
 
         setShelterFollowing(shelter.isFollowed());
@@ -253,7 +290,7 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void onClickCommentButton() {
-        final Button commentButton = (Button) findViewById(R.id.commentButton);
+        final ImageButton commentButton = (ImageButton) findViewById(R.id.commentButton);
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -298,10 +335,15 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void addCreateAnimalButton() {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-        final Button addAnimalButton = new Button(this);
-        addAnimalButton.setText(getResources().getString(R.string.addAnimal));
-        layout.addView(addAnimalButton);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.animalsLayout);
+        final ImageButton addAnimalButton = new ImageButton(this);
+        addAnimalButton.setImageResource(R.drawable.add);
+        addAnimalButton.setBackground(null);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+        layout.addView(addAnimalButton, params);
 
         addAnimalButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,10 +357,16 @@ public class ShelterActivity extends BaseActivity {
     }
 
     private void addSeeShelterMessagesButton() {
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearLayout);
-        Button seeMessagesButton = new Button(this);
-        seeMessagesButton.setText(getResources().getString(R.string.seeMessages));
-        layout.addView(seeMessagesButton);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.shelterLayout);
+        final ImageButton seeMessagesButton = new ImageButton(this);
+        seeMessagesButton.setImageResource(R.drawable.message);
+        seeMessagesButton.setBackground(null);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        params.topMargin = -27;
+
+        layout.addView(seeMessagesButton, params);
 
         seeMessagesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -326,6 +374,28 @@ public class ShelterActivity extends BaseActivity {
                 Intent messagesScreen = new Intent(getApplicationContext(), ShelterMessagesActivity.class);
                 messagesScreen.putExtra("idShelter", shelter.getIdShelter());
                 startActivity(messagesScreen);
+            }
+        });
+    }
+
+    private void addSendShelterMessageButton() {
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.shelterLayout);
+        final ImageButton sendMessageButton = new ImageButton(this);
+        sendMessageButton.setImageResource(R.drawable.send_message);
+        sendMessageButton.setBackground(null);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        params.topMargin = -27;
+
+        layout.addView(sendMessageButton, params);
+
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendMessageScreen = new Intent(getApplicationContext(), SendMessageActivity.class);
+                sendMessageScreen.putExtra("idShelter", shelter.getIdShelter());
+                startActivity(sendMessageScreen);
             }
         });
     }

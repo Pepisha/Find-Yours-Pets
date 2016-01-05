@@ -18,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +27,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -502,7 +500,7 @@ public class AnimalActivity extends BaseActivity {
 
     private void addAnimalPhoto() {
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
-        animalPicture.setImageDrawable(getResources().getDrawable(animal.getDefaultImage()));
+        animalPicture.setImageResource(animal.getDefaultImage());
         new DownloadImageToView(this, animalPicture.getId()).execute(animal.getPhoto());
     }
 
@@ -580,7 +578,7 @@ public class AnimalActivity extends BaseActivity {
             public void onClick(View v) {
                 ImageView image = (ImageView) findViewById(R.id.animalPicture);
 
-                Intent animalMessageScreen = new Intent(v.getContext(), AnimalMessageActivity.class);
+                Intent animalMessageScreen = new Intent(v.getContext(), SendMessageActivity.class);
                 animalMessageScreen.putExtra("animal", (ParcelableAnimal) animal);
                 animalMessageScreen.putExtra("photo", ((BitmapDrawable) image.getDrawable()).getBitmap());
                 startActivity(animalMessageScreen);

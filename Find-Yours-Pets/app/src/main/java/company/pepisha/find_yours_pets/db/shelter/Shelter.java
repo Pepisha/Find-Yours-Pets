@@ -29,7 +29,7 @@ public class Shelter {
             idAddress = obj.getInt("idAddress");
             description = obj.getString("description");
             mail = obj.getString("mail");
-            website = obj.getString("website");
+            website = (obj.getString("website") != "null") ? obj.getString("website") : null;
             operationalHours = obj.getString("operationalHours");
             stars = obj.getDouble("average");
             followed = obj.getBoolean("followed");
