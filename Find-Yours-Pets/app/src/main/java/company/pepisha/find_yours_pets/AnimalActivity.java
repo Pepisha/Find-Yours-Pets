@@ -502,7 +502,7 @@ public class AnimalActivity extends BaseActivity {
 
     private void addAnimalPhoto() {
         ImageView animalPicture = (ImageView) findViewById(R.id.animalPicture);
-        animalPicture.setImageDrawable(getResources().getDrawable(animal.getDefaultImage()));
+        animalPicture.setImageResource(animal.getDefaultImage());
         new DownloadImageToView(this, animalPicture.getId()).execute(animal.getPhoto());
     }
 

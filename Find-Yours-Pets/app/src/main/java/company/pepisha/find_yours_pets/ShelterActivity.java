@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -155,8 +156,23 @@ public class ShelterActivity extends BaseActivity {
         shelterPhone.setText(shelter.getPhone());
 
         if (shelter.getWebsite() != null) {
-            TextView shelterWebsite = (TextView) findViewById(R.id.shelterWebSite);
-            shelterWebsite.setText(shelter.getWebsite());
+            TableRow websiteRow = (TableRow) findViewById(R.id.websiteRow);
+
+            TextView websiteText = new TextView(this);
+            websiteText.setText(getResources().getString(R.string.website));
+            websiteText.setTextAppearance(this, android.R.style.TextAppearance_Small);
+
+            TextView website = new TextView(this);
+            website.setText(shelter.getWebsite());
+            website.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+
+            TableRow.LayoutParams param = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                                                    TableRow.LayoutParams.WRAP_CONTENT);
+            param.leftMargin = 10;
+            param.span = 4;
+
+            websiteRow.addView(websiteText);
+            websiteRow.addView(website, param);
         }
 
         setShelterFollowing(shelter.isFollowed());
