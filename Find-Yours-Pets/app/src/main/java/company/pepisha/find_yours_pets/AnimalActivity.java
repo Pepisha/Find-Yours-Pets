@@ -16,7 +16,9 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +60,7 @@ public class AnimalActivity extends BaseActivity {
     private boolean isUserAdmin = false;
 
     private GridLayout animalLayout;
+    private GridLayout animalLayoutAdoptedInformations;
 
     private class ChangeAnimalStatusDbOperation extends ServerDbOperation {
         public ChangeAnimalStatusDbOperation(Context c) {
@@ -142,9 +146,12 @@ public class AnimalActivity extends BaseActivity {
         protected void onPostExecute(HashMap<String, Object> result) {
             if (result.get("admin").equals(true)) {
                 isUserAdmin = true;
-                addUpdateAnimalStateButton();
+
                 addFavoriteButton();
                 addSeeAnimalMessagesButton();
+                addDeleteButtonIfShelterAdministrator();
+                addUpdatePictureButton();
+                addUpdateAnimalStateButton();
             }
         }
     }
@@ -260,15 +267,15 @@ public class AnimalActivity extends BaseActivity {
         changeAnimalState(newStatus, ownerNickname);
     }
 
-    private void addToGrid(View v, int row, int col) {
-        addToGrid(v, row, col, 1, 1);
+    private void addToGrid(View v, int row, int col, GridLayout grid) {
+        addToGrid(v, row, col, 1, 1, grid);
     }
 
-    private void addToGrid(View v, int row, int col, int rowSpan, int colSpan) {
+    private void addToGrid(View v, int row, int col, int rowSpan, int colSpan, GridLayout grid) {
         GridLayout.LayoutParams params = new GridLayout.LayoutParams(GridLayout.spec(row, rowSpan),
                 GridLayout.spec(col, colSpan));
 
-        animalLayout.addView(v, params);
+        grid.addView(v, params);
     }
 
     private void addAnimalsOwner(final String ownerNickname) {
@@ -276,6 +283,7 @@ public class AnimalActivity extends BaseActivity {
         owner.setText(R.string.owner);
 
         final Button animalsOwner = new Button(this);
+        animalsOwner.setBackgroundResource(R.drawable.button_brown_style);
         animalsOwner.setText(ownerNickname);
         animalsOwner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -286,13 +294,29 @@ public class AnimalActivity extends BaseActivity {
             }
         });
 
-        addToGrid(owner, 4, 0);
-        addToGrid(animalsOwner, 4, 1, 1, 3);
+        addToGrid(owner, 7, 0, animalLayoutAdoptedInformations);
+        addToGrid(animalsOwner, 7, 1, 1, 1, animalLayoutAdoptedInformations);
+    }
+
+    private void addUpdatePictureButton() {
+        ImageButton updatePicture = new ImageButton(this);
+        updatePicture.setImageResource(R.drawable.pictureedit);
+        updatePicture.setBackground(null);
+        updatePicture.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                photoSelectionDialog();
+            }
+        });
+
+        LinearLayout iconsLayout = (LinearLayout) findViewById(R.id.iconsLayout);
+        iconsLayout.addView(updatePicture);
+
     }
 
     private void addAddNewButton() {
         Button addNews = new Button(this);
         addNews.setText(R.string.addNews);
+        addNews.setBackgroundResource(R.drawable.button_brown_style);
         addNews.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -303,11 +327,12 @@ public class AnimalActivity extends BaseActivity {
             }
         });
 
-        addToGrid(addNews, 15, 4, 1, 4);
+        addToGrid(addNews, 8, 0, 1, 1, animalLayoutAdoptedInformations);
     }
 
     private void addSeeMoreNewsButton() {
         Button seeMore = new Button(this);
+        seeMore.setBackgroundResource(R.drawable.button_brown_style);
         seeMore.setText(R.string.seeMore);
         seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -319,7 +344,7 @@ public class AnimalActivity extends BaseActivity {
             }
         });
 
-        addToGrid(seeMore, 15, 0, 1, 4);
+        addToGrid(seeMore, 11, 0, 1, 1, animalLayoutAdoptedInformations);
     }
 
     private void addNews(News news) {
@@ -331,8 +356,8 @@ public class AnimalActivity extends BaseActivity {
         dateView.setText(news.getDateNews());
         dateView.setTextColor(Color.GRAY);
 
-        addToGrid(descriptionView, 14, 0, 1, 6);
-        addToGrid(dateView, 14, 4);
+        addToGrid(descriptionView, 9, 0, 1, 2, animalLayoutAdoptedInformations);
+        addToGrid(dateView, 10, 0, animalLayoutAdoptedInformations);
 
         addSeeMoreNewsButton();
     }
@@ -346,8 +371,9 @@ public class AnimalActivity extends BaseActivity {
         final Button updateStateButton = new Button(this);
         stateButtonId = new AtomicInteger(15).get();
         updateStateButton.setId(stateButtonId);
+        updateStateButton.setBackgroundResource(R.drawable.button_brown_style);
 
-        addToGrid(updateStateButton, 12, 3, 1, 4);
+        addToGrid(updateStateButton, 10, 1, 1, 1, animalLayout);
         setAnimalState(animal.getState());
 
         updateStateButton.setOnClickListener(new View.OnClickListener() {
@@ -363,10 +389,12 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void addSeeAnimalMessagesButton() {
-        Button seeMessagesButton = new Button(this);
-        seeMessagesButton.setText(getResources().getString(R.string.seeMessages));
+        ImageButton seeMessagesButton = new ImageButton(this);
+        seeMessagesButton.setImageResource(R.drawable.messageanimalview);
+        seeMessagesButton.setBackground(null);
 
-        addToGrid(seeMessagesButton, 16, 3, 1, 4);
+        LinearLayout iconsLayout = (LinearLayout) findViewById(R.id.iconsLayout);
+        iconsLayout.addView(seeMessagesButton);
         seeMessagesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -449,12 +477,14 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void addFavoriteButton() {
-        final Button favoriteButton = new Button(this);
+        final ImageButton favoriteButton = new ImageButton(this);
         stateButtonId = new AtomicInteger(15).get();
         favoriteButton.setId(stateButtonId);
-        favoriteButton.setText(getResources().getString(R.string.favorite));
+        favoriteButton.setImageResource(R.drawable.favoriteanimalview);
+        favoriteButton.setBackground(null);
 
-        addToGrid(favoriteButton, 17, 0, 1, 4);
+        LinearLayout iconsLayout = (LinearLayout) findViewById(R.id.iconsLayout);
+        iconsLayout.addView(favoriteButton);
 
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -535,15 +565,6 @@ public class AnimalActivity extends BaseActivity {
         });
 
         dialog.show();
-    }
-
-    private void onClickChangeAnimalPhoto() {
-        Button changeAnimalPhoto = (Button) findViewById(R.id.pictureButton);
-        changeAnimalPhoto.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                photoSelectionDialog();
-            }
-        });
     }
 
     private void onClickInterestedOnAnimal() {
@@ -658,6 +679,7 @@ public class AnimalActivity extends BaseActivity {
     private void addShelterButton() {
         Button shelterLink = new Button(this);
         String shelterName = shelter.getName();
+        shelterLink.setBackgroundResource(R.drawable.button_brown_style);
 
         shelterLink.setOnClickListener(new View.OnClickListener() {
 
@@ -671,7 +693,7 @@ public class AnimalActivity extends BaseActivity {
 
         shelterLink.setText(shelterName);
 
-        addToGrid(shelterLink, 14, 0, 1, 4);
+        addToGrid(shelterLink, 11, 0, 1, 4, animalLayout);
     }
 
     private void addButtonToShelter() {
@@ -692,9 +714,9 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void addDeleteButtonIfShelterAdministrator() {
-        final Button deleteAnimal = new Button(this);
-        deleteAnimal.setText(R.string.deleteAnimal);
-
+        final ImageButton deleteAnimal = new ImageButton(this);
+        deleteAnimal.setImageResource(R.drawable.delete);
+        deleteAnimal.setBackground(null);
         deleteAnimal.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -703,7 +725,8 @@ public class AnimalActivity extends BaseActivity {
             }
         });
 
-        addToGrid(deleteAnimal, 15, 0, 1, 4);
+        LinearLayout iconsLayout = (LinearLayout) findViewById(R.id.iconsLayout);
+        iconsLayout.addView(deleteAnimal);
     }
 
     @Override
@@ -712,11 +735,12 @@ public class AnimalActivity extends BaseActivity {
         setContentView(R.layout.activity_animal);
 
         animalLayout = (GridLayout) findViewById(R.id.animalLayout);
+        animalLayoutAdoptedInformations = (GridLayout) findViewById(R.id.animalLayoutAdoptedInformations);
         animal = (ParcelableAnimal) getIntent().getParcelableExtra("animal");
+
 
         fillAnimalFields();
 
-        onClickChangeAnimalPhoto();
         onClickInterestedOnAnimal();
         onClickShareOnFacebook();
         onClickShareOnTwitter();
@@ -725,7 +749,6 @@ public class AnimalActivity extends BaseActivity {
         addAddNewsButtonIfNeeded();
         addUpdateAnimalStateButtonIfShelterAdministrator();
         addAnimalsNews();
-        addDeleteButtonIfShelterAdministrator();
 
 
         File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
