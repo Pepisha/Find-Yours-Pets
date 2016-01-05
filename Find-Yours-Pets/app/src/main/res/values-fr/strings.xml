@@ -108,4 +108,5 @@
     <string name="seeMessages">Voir les messages</string>
     <string name="date">Date</string>
     <string name="title_activity_shelter_messages">Messages du refuge</string>
+    <string name="favorite">Coup de coeur</string>
 </resources>

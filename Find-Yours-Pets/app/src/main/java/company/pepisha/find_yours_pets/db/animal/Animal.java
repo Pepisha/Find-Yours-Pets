@@ -27,6 +27,7 @@ public class Animal {
     private int idState;
     private String photo;
     private boolean followed;
+    private boolean favorite;
 
     private int idShelter;
 
@@ -50,6 +51,7 @@ public class Animal {
             photo = obj.getString("photo");
             followed = obj.getBoolean("followed");
             idShelter = obj.getInt("idShelter");
+            favorite = obj.getBoolean("favorite");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -154,6 +156,14 @@ public class Animal {
 
     public void setFollowed(boolean followed) {
         this.followed = followed;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     public int getIdShelter() {

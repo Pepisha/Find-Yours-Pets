@@ -120,6 +120,19 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private class SetAnimalFavoriteDbOperation extends ServerDbOperation {
+        public SetAnimalFavoriteDbOperation(Context c) {
+            super(c, "setAnimalFavorite");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (successResponse(result)) {
+                setAnimalFavorite(!animal.isFavorite());
+            }
+        }
+    }
+
     private class IsShelterAdministratorDbOperation extends ServerDbOperation {
         public IsShelterAdministratorDbOperation(Context c) {
             super(c, "isShelterAdministrator");
@@ -130,6 +143,7 @@ public class AnimalActivity extends BaseActivity {
             if (result.get("admin").equals(true)) {
                 isUserAdmin = true;
                 addUpdateAnimalStateButton();
+                addFavoriteButton();
                 addSeeAnimalMessagesButton();
             }
         }
@@ -407,6 +421,22 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private void setAnimalFavorite(boolean favorite) {
+        animal.setFavorite(favorite);
+
+        ImageView favoriteImage = (ImageView) findViewById(R.id.favorite);
+        int favoriteRes = animal.isFavorite() ? R.drawable.favorite : 0;
+        favoriteImage.setImageResource(favoriteRes);
+    }
+
+    private void changeAnimalFavorite(boolean favorite) {
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+        request.put("favorite", Boolean.toString(favorite));
+
+        new SetAnimalFavoriteDbOperation(this).execute(request);
+    }
+
     private void addFollowButton() {
         Button followButton = (Button) findViewById(R.id.followAnimalButton);
         followButton.setOnClickListener(new View.OnClickListener() {
@@ -414,6 +444,22 @@ public class AnimalActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 changeAnimalFollowing(!animal.isFollowed());
+            }
+        });
+    }
+
+    private void addFavoriteButton() {
+        final Button favoriteButton = new Button(this);
+        stateButtonId = new AtomicInteger(15).get();
+        favoriteButton.setId(stateButtonId);
+        favoriteButton.setText(getResources().getString(R.string.favorite));
+
+        addToGrid(favoriteButton, 17, 0, 1, 4);
+
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeAnimalFavorite(!animal.isFavorite());
             }
         });
     }
@@ -454,6 +500,7 @@ public class AnimalActivity extends BaseActivity {
 
         addAnimalPhoto();
         setAnimalFollowing(animal.isFollowed());
+        setAnimalFavorite(animal.isFavorite());
         addFollowButton();
     }
 

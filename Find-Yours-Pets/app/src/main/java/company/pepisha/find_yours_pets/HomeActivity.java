@@ -12,9 +12,6 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +21,6 @@ import company.pepisha.find_yours_pets.connection.ServerConnectionManager;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.animal.Animal;
 import company.pepisha.find_yours_pets.parcelable.ParcelableAnimal;
-import company.pepisha.find_yours_pets.socialNetworksManagers.TwitterManager;
 import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class HomeActivity extends BaseActivity implements SensorEventListener {
@@ -98,7 +94,7 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
         petsSuggestedGrid.setVisibility(View.INVISIBLE);
 
         searchResultList = AnimalViews.getAnimalsList(this, animals);
-        AnimalViews.buildGrid(searchResultGrid, searchResultList, session);
+        AnimalViews.buildGrid(searchResultGrid, searchResultList);
     }
 
     private void clear() {
@@ -147,12 +143,12 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
     private void addFollowedAnimals(HashMap<String, Object> animals) {
         followedAnimalsList = AnimalViews.getAnimalsList(this, animals);
-        AnimalViews.buildGrid(petsFollowedGrid, followedAnimalsList, session);
+        AnimalViews.buildGrid(petsFollowedGrid, followedAnimalsList);
     }
 
     private void addSuggestedAnimals(HashMap<String, Object> animals) {
         suggestedAnimalsList = AnimalViews.getAnimalsList(this, animals);
-        AnimalViews.buildGrid(petsSuggestedGrid, suggestedAnimalsList, session);
+        AnimalViews.buildGrid(petsSuggestedGrid, suggestedAnimalsList);
     }
 
     private void onClickSearchButton() {
