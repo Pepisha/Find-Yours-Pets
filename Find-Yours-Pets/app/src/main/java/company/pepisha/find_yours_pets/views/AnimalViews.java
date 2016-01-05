@@ -31,7 +31,7 @@ import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class AnimalViews {
 
-    public static void buildGrid(GridLayout grid, final Map<Integer, Animal> animals, SessionManager session) {
+    public static void buildGrid(GridLayout grid, final Map<Integer, Animal> animals) {
 
         for (Map.Entry<Integer, Animal> entry : animals.entrySet()) {
             RelativeLayout petLayout = new RelativeLayout(grid.getContext());
@@ -41,6 +41,7 @@ public class AnimalViews {
             petPicture.setId(entry.getKey());
             petPicture.setMinimumHeight(250);
             petPicture.setBackground(null);
+            petPicture.setPadding(30, 0, 30, 0);
 
             TextView petName = new TextView(grid.getContext());
             petName.setText(entry.getValue().getName());
@@ -50,6 +51,11 @@ public class AnimalViews {
             ImageView star = new ImageView(grid.getContext());
             if (entry.getValue().isFollowed()) {
                 star.setImageResource(R.drawable.star);
+            }
+
+            ImageView favorite = new ImageView(grid.getContext());
+            if (entry.getValue().isFavorite()) {
+                favorite.setImageResource(R.drawable.favorite);
             }
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -67,6 +73,11 @@ public class AnimalViews {
 
             params = new RelativeLayout.LayoutParams(60, 60);
             petLayout.addView(star, params);
+
+            params = new RelativeLayout.LayoutParams(60, 60);
+            params.addRule(RelativeLayout.ALIGN_RIGHT, petPicture.getId());
+            params.topMargin = 3;
+            petLayout.addView(favorite, params);
 
             grid.addView(petLayout);
 
