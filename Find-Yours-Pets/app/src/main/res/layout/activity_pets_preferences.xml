@@ -107,6 +107,25 @@
         android:layout_height="wrap_content"
         android:id="@+id/childrenPrefRatingBar" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/notifications" />
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notificationSwitch"
+            android:checked="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,6 +133,6 @@
         android:layout_marginTop="15dp"
         android:layout_gravity="right"
         android:id="@+id/savePreferencesButton"
-        android:background="@drawable/button_brown_style"/>
+        android:background="@drawable/button_brown_style" />
 
 </LinearLayout>

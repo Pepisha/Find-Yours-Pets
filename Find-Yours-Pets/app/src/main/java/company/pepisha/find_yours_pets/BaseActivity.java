@@ -11,12 +11,15 @@ import com.facebook.appevents.AppEventsLogger;
 import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class BaseActivity extends Activity {
-    protected SessionManager session;
+    protected static SessionManager session = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        session = new SessionManager(getApplicationContext());
+
+        if (session == null) {
+            session = new SessionManager(getApplicationContext());
+        }
     }
 
     @Override

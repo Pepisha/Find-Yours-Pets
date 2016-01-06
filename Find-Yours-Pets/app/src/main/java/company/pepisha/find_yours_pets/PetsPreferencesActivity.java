@@ -1,6 +1,7 @@
 package company.pepisha.find_yours_pets;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +14,12 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.service.NotifyService;
 import company.pepisha.find_yours_pets.views.AnimalViews;
 
 public class PetsPreferencesActivity extends BaseActivity {
 
+    private Switch notificationSwitch;
     private Switch catsSwitch;
     private Switch dogsSwitch;
     private Switch childrenSwitch;
@@ -123,6 +126,15 @@ public class PetsPreferencesActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+                if (notificationSwitch.isChecked() && !NotifyService.isActive) {
+                    startService(new Intent(getApplicationContext(), NotifyService.class));
+                }
+                else if (!notificationSwitch.isChecked() && NotifyService.isActive) {
+                    stopService(new Intent(getApplicationContext(), NotifyService.class));
+                }
+
+                session.setNotification(notificationSwitch.isChecked());
+
                 HashMap<String, String> request = new HashMap<String, String>();
                 request.put("nickname", session.getUserDetails().get("nickname"));
 
@@ -151,6 +163,9 @@ public class PetsPreferencesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pets_preferences);
+
+        notificationSwitch = (Switch) findViewById(R.id.notificationSwitch);
+        notificationSwitch.setChecked(session.isNotificationsEnabled());
 
         typeSwitch = (Switch) findViewById(R.id.typeSwitch);
         catsSwitch = (Switch) findViewById(R.id.catsSwitch);

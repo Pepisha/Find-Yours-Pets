@@ -22,7 +22,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        startService(new Intent(this, NotifyService.class));
+        if (session.isNotificationsEnabled()) {
+            startService(new Intent(this, NotifyService.class));
+        }
 
         TwitterManager.prepareTwitter(this);
 

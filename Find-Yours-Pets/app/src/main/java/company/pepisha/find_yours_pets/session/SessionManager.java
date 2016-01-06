@@ -32,7 +32,10 @@ public class SessionManager {
     public static final String KEY_NAME = "nickname";
 
     // User type (admin or not)
-    public  static final String IS_ADMIN = "isAdmin";
+    public static final String IS_ADMIN = "isAdmin";
+
+    // Notifications
+    public static final String NOTIFICATION = "notification";
 
 
     // Constructor
@@ -52,8 +55,18 @@ public class SessionManager {
         // Storing name in pref
         editor.putString(KEY_NAME, name);
         editor.putBoolean(IS_ADMIN, isAdmin);
+        editor.putBoolean(NOTIFICATION, true);
 
         // commit changes
+        editor.commit();
+    }
+
+    public boolean isNotificationsEnabled() {
+        return pref.getBoolean(NOTIFICATION, true);
+    }
+
+    public void setNotification(boolean notification) {
+        editor.putBoolean(NOTIFICATION, notification);
         editor.commit();
     }
 

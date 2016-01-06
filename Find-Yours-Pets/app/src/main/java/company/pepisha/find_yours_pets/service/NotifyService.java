@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -30,6 +28,8 @@ public class NotifyService extends Service {
     private final int NOTIFICATION_ID = 1;
     private Timer timer = new Timer();
 
+    public static boolean isActive = false;
+
     private class GetAnimalCorrespondingToUserPreferences extends ServerDbOperation {
         public GetAnimalCorrespondingToUserPreferences(Context c) {
             super(c, "getAnimalCorrespondingToUserPreferences");
@@ -37,7 +37,7 @@ public class NotifyService extends Service {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if (result.get("animal") != null && !result.get("animal").toString().equals("null")) {
+            if (result != null && !result.get("animal").toString().equals("null")) {
                 ParcelableAnimal animal = new ParcelableAnimal((JSONObject)result.get("animal"));
                 sendNotification(animal);
             }
@@ -85,6 +85,7 @@ public class NotifyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        isActive = true;
 
         timer.scheduleAtFixedRate(
                 new TimerTask() {
@@ -94,6 +95,12 @@ public class NotifyService extends Service {
                 },
                 0,
                 UPDATE_INTERVAL);
+    }
+
+    public void onDestroy() {
+        timer.cancel();
+        timer = null;
+        isActive = false;
     }
 
     private void askDataToServer() {
