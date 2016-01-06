@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
+import company.pepisha.find_yours_pets.service.NotifyService;
 import company.pepisha.find_yours_pets.socialNetworksManagers.TwitterManager;
 
 public class MainActivity extends BaseActivity {
@@ -20,6 +21,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        startService(new Intent(this, NotifyService.class));
 
         TwitterManager.prepareTwitter(this);
 
