@@ -20,7 +20,7 @@ public class ParcelableShelter extends Shelter implements Parcelable {
         out.writeInt(getIdShelter());
         out.writeString(getName());
         out.writeString(getPhone());
-        out.writeInt(getIdAddress());
+        out.writeString(getAddress());
         out.writeString(getDescription());
         out.writeString(getMail());
         out.writeString(getWebsite());
@@ -43,7 +43,7 @@ public class ParcelableShelter extends Shelter implements Parcelable {
         setIdShelter(in.readInt());
         setName(in.readString());
         setPhone(in.readString());
-        setIdAddress(in.readInt());
+        setAddress(in.readString());
         setDescription(in.readString());
         setMail(in.readString());
         setWebsite(in.readString());

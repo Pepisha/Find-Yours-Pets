@@ -8,7 +8,7 @@ public class Shelter {
     private int idShelter;
     private String name;
     private String phone;
-    private int idAddress;
+    private String address;
     private String description;
     private String mail;
     private String website;
@@ -26,7 +26,7 @@ public class Shelter {
             idShelter = obj.getInt("idShelter");
             name = obj.getString("name");
             phone = obj.getString("phone");
-            idAddress = obj.getInt("idAddress");
+            address = obj.getString("address");
             description = obj.getString("description");
             mail = obj.getString("mail");
             website = (obj.getString("website") != "null") ? obj.getString("website") : null;
@@ -70,12 +70,12 @@ public class Shelter {
         this.phone = phone;
     }
 
-    public int getIdAddress() {
-        return idAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setIdAddress(int idAddress) {
-        this.idAddress = idAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getDescription() {
