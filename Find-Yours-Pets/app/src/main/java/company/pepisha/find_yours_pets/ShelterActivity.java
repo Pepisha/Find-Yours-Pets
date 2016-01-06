@@ -183,7 +183,7 @@ public class ShelterActivity extends BaseActivity {
         shelterDescription.setText(shelter.getDescription());
 
         TextView shelterAddress = (TextView) findViewById(R.id.shelterAddress);
-        shelterAddress.setText(Integer.toString(shelter.getIdAddress()));
+        shelterAddress.setText(shelter.getAddress());
 
         TextView shelterMail = (TextView) findViewById(R.id.shelterMail);
         shelterMail.setText(shelter.getMail());

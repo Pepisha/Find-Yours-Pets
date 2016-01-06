@@ -89,7 +89,7 @@ public class ShelterOperation {
         shelter.setIdShelter(cursor.getInt(0));
         shelter.setName(cursor.getString(1));
         shelter.setPhone(cursor.getString(2));
-        shelter.setIdAddress(cursor.getInt(3));
+        shelter.setAddress(cursor.getString(3));
         shelter.setDescription(cursor.getString(4));
         shelter.setMail(cursor.getString(5));
         shelter.setOperationalHours(cursor.getString(6));
