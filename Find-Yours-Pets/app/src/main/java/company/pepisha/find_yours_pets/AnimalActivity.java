@@ -245,6 +245,12 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private class HaveSeenAnimalDbOperation extends ServerDbOperation {
+        public HaveSeenAnimalDbOperation(Context c) {
+            super(c, "haveSeenAnimal");
+        }
+    }
+
     private void createDialogChooseAnimalsOwner(final List<String> nicknamesUsers) {
         String[] nicknamesArray = new String[nicknamesUsers.size()];
         for (int i = 0; i < nicknamesArray.length; i++) {
@@ -733,6 +739,13 @@ public class AnimalActivity extends BaseActivity {
         iconsLayout.addView(deleteAnimal);
     }
 
+    private void setAnimalSeen() {
+        HashMap<String, String> request = new HashMap<>();
+        request.put("nickname", session.getUserDetails().get("nickname"));
+        request.put("idAnimal", Integer.toString(animal.getIdAnimal()));
+        new HaveSeenAnimalDbOperation(this).execute(request);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -742,6 +755,7 @@ public class AnimalActivity extends BaseActivity {
         animalLayoutAdoptedInformations = (GridLayout) findViewById(R.id.animalLayoutAdoptedInformations);
         animal = (ParcelableAnimal) getIntent().getParcelableExtra("animal");
 
+        setAnimalSeen();
 
         fillAnimalFields();
 
