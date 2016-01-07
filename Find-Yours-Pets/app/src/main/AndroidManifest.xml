@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
         android:required="false" />
@@ -39,7 +40,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenSize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,87 +50,108 @@
         </activity>
         <activity
             android:name=".RegistrationActivity"
-            android:label="@string/title_activity_registration" >
+            android:label="@string/title_activity_registration"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home" >
+            android:label="@string/title_activity_home"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".AddAnimalActivity"
-            android:label="@string/title_activity_add_animal" >
+            android:label="@string/title_activity_add_animal"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".AnimalActivity"
-            android:label="@string/title_activity_animal" >
+            android:label="@string/title_activity_animal"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".CameraActivity"
-            android:label="@string/title_activity_camera" >
+            android:label="@string/title_activity_camera"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SheltersActivity"
-            android:label="@string/title_activity_shelters" >
+            android:label="@string/title_activity_shelters"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".AddShelterActivity"
-            android:label="@string/title_activity_add_shelter" >
+            android:label="@string/title_activity_add_shelter"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".UserProfileActivity"
-            android:label="@string/title_activity_user_profile" >
+            android:label="@string/title_activity_user_profile"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".ShelterActivity"
-            android:label="@string/title_activity_shelter" >
+            android:label="@string/title_activity_shelter"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".fileExplorer.FileExplorer"
-            android:label="@string/title_activity_file_explorer" >
+            android:label="@string/title_activity_file_explorer"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".UpdateUserProfileActivity"
-            android:label="@string/title_activity_update_user_profile" >
+            android:label="@string/title_activity_update_user_profile"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".AnimalNewsActivity"
-            android:label="@string/title_activity_animal_news" >
+            android:label="@string/title_activity_animal_news"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".SearchAnimalActivity"
-            android:label="@string/title_activity_search_animal" >
+            android:label="@string/title_activity_search_animal"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".AnimalAddNewsActivity"
-            android:label="@string/title_activity_animal_add_news" >
+            android:label="@string/title_activity_animal_add_news"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".PetsPreferencesActivity"
-            android:label="@string/title_activity_pets_preferences" >
+            android:label="@string/title_activity_pets_preferences"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".SendMessageActivity"
-            android:label="@string/title_activity_animal_message" >
+            android:label="@string/title_activity_animal_message"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".ShelterAnimalsActivity"
-            android:label="@string/title_activity_shelter_animals" >
+            android:label="@string/title_activity_shelter_animals"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".ShelterCommentsActivity"
-            android:label="@string/title_activity_shelter_comments" >
+            android:label="@string/title_activity_shelter_comments"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".SheltersAdoptedAnimalsActivity"
-            android:label="@string/title_activity_shelters_adopted_animals" >
+            android:label="@string/title_activity_shelters_adopted_animals"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".MessageActivity"
-            android:label="@string/title_activity_message_activuty" >
+            android:label="@string/title_activity_message_activuty"
+            android:configChanges="orientation|screenSize" >
         </activity>
         <activity
             android:name=".ShelterMessagesActivity"
-            android:label="@string/title_activity_shelter_messages" >
+            android:label="@string/title_activity_shelter_messages"
+            android:configChanges="orientation|screenSize" >
         </activity>
 
         <service
