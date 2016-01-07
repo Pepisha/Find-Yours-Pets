@@ -3,6 +3,7 @@ package company.pepisha.find_yours_pets.tools;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,6 +36,16 @@ public class FileTools {
         }
 
         return file;
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Bitmap retVal;
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+        return retVal;
     }
 
     public static String getFileExtension(File file) {

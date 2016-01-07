@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,6 +29,8 @@ import java.util.HashMap;
 import company.pepisha.find_yours_pets.camera.CameraPreview;
 import company.pepisha.find_yours_pets.photo.PhotoConfirmationWindow;
 import company.pepisha.find_yours_pets.photo.UploadImageOperation;
+import company.pepisha.find_yours_pets.tools.FileTools;
+import company.pepisha.find_yours_pets.views.ErrorView;
 
 public class CameraActivity extends BaseActivity {
 
@@ -53,8 +59,23 @@ public class CameraActivity extends BaseActivity {
 
             try {
                 FileOutputStream fos = new FileOutputStream(pictureFile);
-                fos.write(data);
+
+                Bitmap realImage = BitmapFactory.decodeByteArray(data, 0, data.length);
+                ExifInterface exif = new ExifInterface(pictureFile.toString());
+
+                if(exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("6")) {
+                    realImage= FileTools.rotateImage(realImage, 90);
+                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("8")) {
+                    realImage= FileTools.rotateImage(realImage, 270);
+                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("3")) {
+                    realImage= FileTools.rotateImage(realImage, 180);
+                } else if (exif.getAttribute(ExifInterface.TAG_ORIENTATION).equalsIgnoreCase("0")) {
+                    realImage= FileTools.rotateImage(realImage, 90);
+                }
+
+                realImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.close();
+
                 Toast.makeText(getApplicationContext(),"Picture saved : " + pictureFile.getPath(), Toast.LENGTH_LONG).show();
 
                 currentPicture = pictureFile;
@@ -112,12 +133,35 @@ public class CameraActivity extends BaseActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        releaseCamera();
+    }
+
+    private void releaseCamera(){
+        if (mCamera != null) {
+            mCamera.release();
+            mCamera = null;
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!checkCameraHardware(context)) {
+            ErrorView.errorPage(this, "Pas d'appareil photo !");
+            return;
+        }
+
         setContentView(R.layout.activity_camera);
 
         // Create an instance of Camera
         mCamera = getCameraInstance();
+        if (mCamera == null) {
+            ErrorView.errorPage(this, "Appareil photo non disponible");
+            return;
+        }
 
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this, mCamera);
@@ -135,12 +179,12 @@ public class CameraActivity extends BaseActivity {
     public static Camera getCameraInstance(){
         Camera c = null;
         try {
-            c = Camera.open(); // attempt to get a Camera instance
+            c = Camera.open();
         }
         catch (Exception e){
             // Camera is not available (in use or does not exist)
         }
-        return c; // returns null if camera is unavailable
+        return c;
     }
 
     /** Check if this device has a camera */
