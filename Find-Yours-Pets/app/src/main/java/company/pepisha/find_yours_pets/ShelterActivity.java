@@ -220,8 +220,10 @@ public class ShelterActivity extends BaseActivity {
             }
         });
 
+        TableRow.LayoutParams p = new TableRow.LayoutParams(150, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         websiteRow.addView(websiteText);
-        websiteRow.addView(websiteView);
+        websiteRow.addView(websiteView, p);
         websiteRow.addView(browserButton);
     }
 
