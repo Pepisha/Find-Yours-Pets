@@ -447,7 +447,7 @@ public class ShelterActivity extends BaseActivity {
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        params.topMargin = -27;
+        params.addRule(RelativeLayout.BELOW, R.id.shelterName);
 
         layout.addView(seeMessagesButton, params);
 
@@ -469,7 +469,7 @@ public class ShelterActivity extends BaseActivity {
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        params.topMargin = -27;
+        params.addRule(RelativeLayout.BELOW, R.id.shelterName);
 
         layout.addView(sendMessageButton, params);
 

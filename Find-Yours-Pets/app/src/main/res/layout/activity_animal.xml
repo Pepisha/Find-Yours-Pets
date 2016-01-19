@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/iconsLayout"
         android:orientation="horizontal"
+        android:layout_below="@+id/shareFacebookButton"
         android:layout_alignParentRight="true"
         android:showDividers="none">
 
