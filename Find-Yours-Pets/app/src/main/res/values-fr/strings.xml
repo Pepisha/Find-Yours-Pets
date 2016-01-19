@@ -101,7 +101,7 @@
     <string name="follow">Suivre</string>
     <string name="unfollow">Ne plus suivre</string>
     <string name="followShelter">Vous suivez ce refuge</string>
-    <string name="unfollowShdelter">Vous ne suivez plus ce refuge</string>
+    <string name="unfollowShelter">Vous ne suivez plus ce refuge</string>
     <string name="from">De</string>
     <string name="animal">Animal</string>
     <string name="title_activity_message_activuty">Message</string>

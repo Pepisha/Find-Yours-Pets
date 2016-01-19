@@ -3,7 +3,4 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="company.pepisha.find_yours_pets.HomeActivity">
 
-    <item android:id="@+id/action_connection" android:title="@string/connectionText"
-        android:orderInCategory="100" app:showAsAction="never" />
-
 </menu>
