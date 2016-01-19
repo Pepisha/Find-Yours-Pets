@@ -172,8 +172,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_blue_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
                 android:id="@+id/followShelterButton" />
 
             <RelativeLayout
@@ -185,6 +185,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text = "@string/discoverOurAnimals"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </RelativeLayout>
@@ -194,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/petsGrid"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="15dp"
                 android:columnCount="3"></GridLayout>
 
             <Button
@@ -210,16 +212,19 @@
                 android:layout_height="wrap_content"
                 android:text="@string/seeAllAdoptedAnimals"
                 android:background="@drawable/button_brown_style"
+                android:layout_marginBottom="15dp"
                 android:id="@+id/seeAllAdoptedAnimalsButton" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text = "@string/comments"
-                android:layout_marginBottom="5dp"
-
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="30dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_gravity="center_horizontal" />
+                />
 
             <company.pepisha.find_yours_pets.views.NonScrollListView
                 android:layout_width="fill_parent"
@@ -238,7 +243,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:background="@android:color/holo_blue_dark"/>
 
             <RelativeLayout
@@ -250,6 +255,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/commentText"
                     android:text = "@string/comment"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <ImageButton
