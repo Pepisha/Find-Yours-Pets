@@ -34,8 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:background="@null"
-                android:textColor="@color/com_facebook_blue"
+                android:background="@drawable/button_brown_style"
                 android:id="@+id/userNickname" />
 
             <TextView

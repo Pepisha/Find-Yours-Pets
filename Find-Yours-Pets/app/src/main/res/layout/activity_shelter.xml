@@ -162,8 +162,11 @@
             </TableRow>
 
             <Button
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_blue_style"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:id="@+id/followShelterButton" />
 
             <RelativeLayout
@@ -184,36 +187,45 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/petsGrid"
+                android:layout_marginBottom="5dp"
                 android:columnCount="3"></GridLayout>
 
             <Button
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/seeAllAnimals"
+                android:background="@drawable/button_brown_style"
+                android:layout_marginBottom="5dp"
                 android:id="@+id/seeAllAnimalsButton" />
 
             <Button
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/seeAllAdoptedAnimals"
+                android:background="@drawable/button_brown_style"
                 android:id="@+id/seeAllAdoptedAnimalsButton" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text = "@string/comments"
+                android:layout_marginBottom="5dp"
+
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_gravity="center_horizontal" />
 
             <company.pepisha.find_yours_pets.views.NonScrollListView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:id="@+id/opinionsList" />
+                android:id="@+id/opinionsList"
+                android:layout_marginBottom="5dp"
+                />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/seeAllComments"
+                android:background="@drawable/button_brown_style"
                 android:id="@+id/seeAllCommentsButton" />
 
             <View
