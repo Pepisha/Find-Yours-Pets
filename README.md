@@ -27,7 +27,7 @@ Application permettant à un utilisateur de trouver l'animal de ses rêves dans 
 ## Utilisateur simple
 
 - Recherche de chiens à partir d'un lieu (géolocalisation) et/ou de critères
-- Signalement lorsqu'un chien compatible est à l'adoption
+- [x] Signalement lorsqu'un chien compatible est à l'adoption
 - [x] Signalement d'un chien auquel on est intéressé (+ proposition d'une rencontre à partir des horaires de la SPA)
 - [x] Ajout de nouvelles pour les chiens adoptés et suivi des autres
 - [x] Avis sur les refuges
@@ -43,7 +43,7 @@ Application permettant à un utilisateur de trouver l'animal de ses rêves dans 
 - GPS (géolocalisation et tracé GPS)
 - [x] Secousse du portable
 - [x] Appels via l'application
-- notifications
+- [x] Notifications
 - [x] Internationalisation (Anglais / Français)
 - L'application doit s'adapter aux portables / tablettes (fragments)
 
