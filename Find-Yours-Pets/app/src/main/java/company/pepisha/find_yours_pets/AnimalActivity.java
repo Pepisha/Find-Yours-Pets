@@ -92,7 +92,6 @@ public class AnimalActivity extends BaseActivity {
                 hideInterestedButton();
             }
         }
-
     }
 
     private class FollowAnimalDbOperation extends ServerDbOperation {
@@ -150,7 +149,9 @@ public class AnimalActivity extends BaseActivity {
                     addFavoriteButton();
                 }
 
-                addSeeAnimalMessagesButton();
+                if (animal.hasMessages()) {
+                    addSeeAnimalMessagesButton();
+                }
                 addDeleteButtonIfShelterAdministrator();
                 addUpdatePictureButton();
                 addUpdateAnimalStateButton();
