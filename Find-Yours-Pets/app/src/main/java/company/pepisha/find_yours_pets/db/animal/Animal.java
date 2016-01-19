@@ -28,6 +28,7 @@ public class Animal {
     private String photo;
     private boolean followed;
     private boolean favorite;
+    private boolean messages;
 
     private int idShelter;
 
@@ -52,6 +53,7 @@ public class Animal {
             followed = obj.getBoolean("followed");
             idShelter = obj.getInt("idShelter");
             favorite = obj.getBoolean("favorite");
+            messages = obj.getBoolean("messages");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -172,6 +174,14 @@ public class Animal {
 
     public void setIdShelter(int idShelter) {
         this.idShelter = idShelter;
+    }
+
+    public boolean hasMessages() {
+        return messages;
+    }
+
+    public void setMessages(boolean messages) {
+        this.messages = messages;
     }
 
     public int getDefaultImage() {
