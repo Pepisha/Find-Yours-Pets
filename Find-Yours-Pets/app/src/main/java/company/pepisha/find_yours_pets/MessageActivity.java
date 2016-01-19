@@ -71,8 +71,7 @@ public class MessageActivity extends BaseActivity {
 
         Button animalButton = new Button(this);
         animalButton.setText(message.getAnimalName());
-        animalButton.setBackground(null);
-        animalButton.setTextColor(Color.BLUE);
+        animalButton.setBackgroundResource(R.drawable.button_brown_style);
         animalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

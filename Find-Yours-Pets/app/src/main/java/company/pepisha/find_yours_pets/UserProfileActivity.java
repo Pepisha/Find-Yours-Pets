@@ -121,6 +121,7 @@ public class UserProfileActivity  extends BaseActivity {
         if(!user.getNickname().equals(session.getUserDetails().get("nickname"))) {
             ImageButton call = new ImageButton(this);
             call.setImageResource(R.drawable.phone);
+            call.setBackground(null);
             call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
