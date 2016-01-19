@@ -182,6 +182,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/modifyProfile"
                 android:id="@+id/updtateButton"
+                android:background="@drawable/button_blue_style"
                 android:layout_gravity="right" />
 
         </TableLayout>
