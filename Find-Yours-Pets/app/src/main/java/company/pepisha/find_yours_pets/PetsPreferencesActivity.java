@@ -102,6 +102,15 @@ public class PetsPreferencesActivity extends BaseActivity {
         dogsSwitch.setChecked(result.containsKey("dogsFriend"));
         childrenSwitch.setChecked(result.containsKey("childrenFriend"));
 
+        if (!typeSwitch.isChecked()) {
+            for (int i = 0; i < typeRadioGroup.getChildCount(); i++) {
+                (typeRadioGroup.getChildAt(i)).setEnabled(typeSwitch.isChecked());
+            }
+        }
+        catsRatingBar.setEnabled(catsSwitch.isChecked());
+        dogsRatingBar.setEnabled(dogsSwitch.isChecked());
+        childrenRatingBar.setEnabled(childrenSwitch.isChecked());
+
         if (result.containsKey("idType")) {
             RadioButton button = (RadioButton) typeRadioGroup.getChildAt(Integer.parseInt(result.get("idType").toString()) - 1);
             button.setChecked(true);
