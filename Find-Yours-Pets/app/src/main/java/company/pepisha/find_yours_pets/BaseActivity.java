@@ -44,25 +44,27 @@ public class BaseActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        boolean newPage = false;
 
         if (id == R.id.action_animals) {
             Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(homeScreen);
-            return true;
+            newPage = true;
         }
         else if (id == R.id.action_shelters) {
             Intent sheltersScreen = new Intent(getApplicationContext(), SheltersActivity.class);
             startActivity(sheltersScreen);
-            return true;
+            newPage = true;
         }
         else if (id == R.id.action_user_profile) {
             Intent userProfileScreen = new Intent(getApplicationContext(), UserProfileActivity.class);
             startActivity(userProfileScreen);
-            return true;
+            newPage = true;
         }
         else if (id == R.id.ation_pets_preferences) {
             Intent petsPreferencesScreen = new Intent(getApplicationContext(), PetsPreferencesActivity.class);
             startActivity(petsPreferencesScreen);
+            return true;
         }
         else if (id == R.id.action_settings) {
             return true;
@@ -70,17 +72,18 @@ public class BaseActivity extends Activity {
         else if (id == R.id.action_add_shelter) {
             Intent addShelterScreen = new Intent(getApplicationContext(), AddShelterActivity.class);
             startActivity(addShelterScreen);
-            return true;
+            newPage = true;
         }
         else if (id == R.id.action_disconnection) {
             session.logoutUser();
             Intent mainScreen = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainScreen);
-            return true;
-        } else if (id == R.id.action_connection) {
-            Intent loginScreen = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(loginScreen);
-            return true;
+            newPage = true;
+        }
+
+        if (newPage) {
+            finish();
+            return newPage;
         }
 
         return super.onOptionsItemSelected(item);

@@ -294,7 +294,14 @@ public class ShelterActivity extends BaseActivity {
         commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commentShelter();
+                EditText commentBox = (EditText) findViewById(R.id.shelterComment);
+                String comment = commentBox.getText().toString();
+
+                if (!comment.isEmpty()) {
+                    commentShelter();
+                } else {
+                    Toast.makeText(v.getContext(), getResources().getString(R.string.emptyComment), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

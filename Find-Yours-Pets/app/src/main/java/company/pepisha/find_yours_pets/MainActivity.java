@@ -18,6 +18,12 @@ public class MainActivity extends BaseActivity {
 
     private String nickname;
 
+    private void startHomeActivity() {
+        Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(homeScreen);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +35,7 @@ public class MainActivity extends BaseActivity {
         TwitterManager.prepareTwitter(this);
 
         if (session.isLoggedIn()) {
-            Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
-            startActivity(homeScreen);
+            startHomeActivity();
             return;
         }
 
@@ -79,9 +84,7 @@ public class MainActivity extends BaseActivity {
                 toastText = getString(R.string.successConnection);
                 Boolean isAdmin =  Boolean.valueOf(result.get("isAdmin").toString());
                 session.createLoginSession(nickname,isAdmin);
-                Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(homeScreen);
-                finish();
+                startHomeActivity();
             } else {
                 toastText = getString(R.string.failureConnection);
             }
