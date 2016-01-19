@@ -146,7 +146,10 @@ public class AnimalActivity extends BaseActivity {
             if (result.get("admin").equals(true)) {
                 isUserAdmin = true;
 
-                addFavoriteButton();
+                if (animal.getState() == Animal.ADOPTION) {
+                    addFavoriteButton();
+                }
+
                 addSeeAnimalMessagesButton();
                 addDeleteButtonIfShelterAdministrator();
                 addUpdatePictureButton();
@@ -400,7 +403,7 @@ public class AnimalActivity extends BaseActivity {
 
     private void addSeeAnimalMessagesButton() {
         ImageButton seeMessagesButton = new ImageButton(this);
-        seeMessagesButton.setImageResource(R.drawable.messageanimalview);
+        seeMessagesButton.setImageResource(R.drawable.message);
         seeMessagesButton.setBackground(null);
 
         LinearLayout iconsLayout = (LinearLayout) findViewById(R.id.iconsLayout);
