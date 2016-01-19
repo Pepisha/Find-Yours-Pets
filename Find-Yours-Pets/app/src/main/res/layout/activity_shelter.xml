@@ -19,24 +19,6 @@
         android:id="@+id/shelterName"
         android:layout_toRightOf="@id/followingStar" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/shareFacebookButton"
-        android:src="@drawable/facebook"
-        android:background="@null"
-        android:layout_marginRight="3dp"
-        android:layout_toLeftOf="@+id/tweetButton" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tweetButton"
-        android:src="@drawable/twitter"
-        android:background="@null"
-        android:layout_marginRight="40dp"
-        android:layout_alignParentRight="true" />
-
     <RatingBar
         style="@style/fypRatingBar"
         android:layout_width="wrap_content"
@@ -47,6 +29,28 @@
         android:id="@+id/shelterNote"
         android:layout_below="@id/shelterName"
         android:layout_marginTop="3dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/shareFacebookButton"
+        android:src="@drawable/facebook"
+        android:background="@null"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="3dp"
+        android:layout_below="@id/shelterName"
+        android:layout_toLeftOf="@+id/tweetButton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tweetButton"
+        android:src="@drawable/twitter"
+        android:background="@null"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@id/shelterName"
+        android:layout_alignParentRight="true" />
 
     <View
         android:layout_width="fill_parent"
