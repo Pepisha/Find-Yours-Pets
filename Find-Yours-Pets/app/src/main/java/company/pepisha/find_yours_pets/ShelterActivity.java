@@ -1,6 +1,8 @@
 package company.pepisha.find_yours_pets;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -118,6 +121,36 @@ public class ShelterActivity extends BaseActivity {
         }
     }
 
+    private class GetUsersDbOperation extends ServerDbOperation {
+        public GetUsersDbOperation(Context c) {
+            super(c, "getUsers");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+
+            List<String> usersNicknames = new ArrayList<>();
+            for (Map.Entry<String, Object> entry : result.entrySet()) {
+                usersNicknames.add(entry.getKey());
+            }
+
+            createDialogChooseShelterAdministrator(usersNicknames);
+        }
+    }
+
+    private class AddShelterAdministratorDbOperation extends ServerDbOperation {
+        public AddShelterAdministratorDbOperation(Context c) {
+            super(c, "addShelterAdministrator");
+        }
+
+        @Override
+        protected void onPostExecute(HashMap<String, Object> result) {
+            if (successResponse(result)) {
+                Toast.makeText(getApplicationContext(), R.string.administratorAdded, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private class IsShelterAdministratorDbOperation extends ServerDbOperation {
         public IsShelterAdministratorDbOperation(Context c) {
             super(c, "isShelterAdministrator");
@@ -128,10 +161,34 @@ public class ShelterActivity extends BaseActivity {
             if (result.get("admin").equals(true)) {
                 addCreateAnimalButton();
                 addSeeShelterMessagesButton();
+                addAddAdministratorButton();
             } else {
                 addSendShelterMessageButton();
             }
         }
+    }
+
+    private void createDialogChooseShelterAdministrator(final List<String> nicknamesUsers) {
+        String[] nicknamesArray = new String[nicknamesUsers.size()];
+        for (int i = 0; i < nicknamesArray.length; i++) {
+            nicknamesArray[i] = nicknamesUsers.get(i);
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.chooseAdministratorFromUsers);
+        builder.setItems(nicknamesArray, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                addShelterAdministrator(nicknamesUsers.get(item));
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void addShelterAdministrator(String nickname) {
+        HashMap<String, String> request = new HashMap<>();
+        request.put("idShelter", Integer.toString(shelter.getIdShelter()));
+        request.put("nickname", nickname);
+        new AddShelterAdministratorDbOperation(this).execute(request);
     }
 
     private void addWebsiteRow(final String website) {
@@ -339,6 +396,25 @@ public class ShelterActivity extends BaseActivity {
         request.put("nickname", session.getUserDetails().get("nickname"));
 
         new IsShelterAdministratorDbOperation(this).execute(request);
+    }
+
+    private void addAddAdministratorButton() {
+        Button addAdminButton = new Button(this);
+        addAdminButton.setText(getResources().getString(R.string.addAdmin));
+        addAdminButton.setBackgroundResource(R.drawable.button_green_style);
+        addAdminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashMap<String, String> request = new HashMap<>();
+                new GetUsersDbOperation(v.getContext()).execute(request);
+            }
+        });
+
+        TableLayout parent = (TableLayout) findViewById(R.id.shelterTableLayout);
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
+                                                                        TableLayout.LayoutParams.WRAP_CONTENT);
+        params.topMargin = 15;
+        parent.addView(addAdminButton, params);
     }
 
     private void addCreateAnimalButton() {

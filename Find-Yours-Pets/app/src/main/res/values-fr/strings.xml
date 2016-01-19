@@ -112,4 +112,7 @@
     <string name="emptyMessage">Le message est vide</string>
     <string name="notifications">Notifications</string>
     <string name="emptyComment">Le commentaire est vide</string>
+    <string name="chooseAdministratorFromUsers">Sélectionnez l\'administrateur du refuge</string>
+    <string name="administratorAdded">L\'administrateur a bien été ajouté</string>
+    <string name="addAdmin">Ajouter un administrateur</string>
 </resources>

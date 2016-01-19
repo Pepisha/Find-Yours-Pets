@@ -117,4 +117,7 @@
     <string name="emptyMessage">Message is empty</string>
     <string name="notifications">Notifications</string>
     <string name="emptyComment">Comment is empty</string>
+    <string name="chooseAdministratorFromUsers">Choose shelter\'s administrator</string>
+    <string name="administratorAdded">Administrator correctly added</string>
+    <string name="addAdmin">Add administrator</string>
 </resources>
