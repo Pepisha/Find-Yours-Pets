@@ -139,11 +139,11 @@ public class ShelterActivity extends BaseActivity {
 
         TextView websiteText = new TextView(this);
         websiteText.setText(getResources().getString(R.string.website));
-        websiteText.setTextAppearance(this, android.R.style.TextAppearance_Small);
+        websiteText.setTextAppearance(this, android.R.style.TextAppearance_Medium);
 
         TextView websiteView = new TextView(this);
         websiteView.setText(website);
-        websiteView.setTextAppearance(this, android.R.style.TextAppearance_Medium);
+        websiteView.setTextAppearance(this, android.R.style.TextAppearance_Small);
 
         ImageButton browserButton = new ImageButton(this);
         browserButton.setImageResource(R.drawable.browser);
