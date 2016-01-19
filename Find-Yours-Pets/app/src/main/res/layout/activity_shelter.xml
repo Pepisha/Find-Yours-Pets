@@ -84,7 +84,7 @@
                     android:text="@string/mail" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:id="@+id/shelterMail"
@@ -142,6 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_span="2"
                     android:id="@+id/shelterAddress" />
 
             </TableRow>
@@ -162,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:id="@+id/shelterDescription"
-                    android:layout_columnSpan="2"
+                    android:layout_span="2"
                     android:layout_marginLeft="5dp" />
 
             </TableRow>
