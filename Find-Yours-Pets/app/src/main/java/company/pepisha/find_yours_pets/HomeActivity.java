@@ -51,7 +51,7 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if (result != null) {
+            if (result != null && result.get("followedAnimals") != null) {
 
                 HashMap<String, Object> followedAnimals = ServerConnectionManager.unmarshallReponse(result.get("followedAnimals").toString());
 
