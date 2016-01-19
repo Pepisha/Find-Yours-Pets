@@ -24,6 +24,7 @@ import java.util.Random;
 import company.pepisha.find_yours_pets.connection.ServerDbOperation;
 import company.pepisha.find_yours_pets.db.shelter.Shelter;
 import company.pepisha.find_yours_pets.parcelable.ParcelableShelter;
+import company.pepisha.find_yours_pets.views.ShelterAdapter;
 
 public class SheltersActivity extends BaseActivity implements SensorEventListener {
 
@@ -98,7 +99,7 @@ public class SheltersActivity extends BaseActivity implements SensorEventListene
             shelterObjects.add(s);
         }
 
-        ArrayAdapter<Shelter> listAdapter = new ArrayAdapter<Shelter>(this, android.R.layout.simple_list_item_1, shelterObjects);
+        ShelterAdapter listAdapter = new ShelterAdapter(this, R.layout.shelter_layout, shelterObjects);
         sheltersList.setAdapter(listAdapter);
     }
 
