@@ -35,9 +35,7 @@ public class AddAnimalActivity extends BaseActivity {
         protected void onPostExecute(HashMap<String, Object> result) {
             if (successResponse(result)) {
 
-                Intent homeScreen = new Intent(getApplicationContext(), HomeActivity.class);
-                startActivity(homeScreen);
-
+                finish();
                 shareOnSocialNetworks();
             }
         }
