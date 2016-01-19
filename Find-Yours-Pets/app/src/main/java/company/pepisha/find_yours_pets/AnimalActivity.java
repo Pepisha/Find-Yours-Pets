@@ -594,16 +594,16 @@ public class AnimalActivity extends BaseActivity {
 
     private void shareOnFacebook() {
         String title = animal.getName();
-        String description = animal.getName() + "\n"
-                + animal.getBreed()+"\n"
-                + animal.getAge()+"\n"
-                + animal.getCatsFriend()+"\n"
-                + animal.getDogsFriend()+"\n"
-                + animal.getChildrenFriend()+"\n"
-                + animal.getDescription();
+        String description = "<center>" + animal.getName() + "</center>"
+                + "<center>" + animal.getBreed()+"</center>"
+                + "<center>âge : " + animal.getAge()+"</center>"
+                + "<center>ententes chats : " + animal.getCatsFriend()+"/5</center>"
+                + "<center>ententes chiens : " + animal.getDogsFriend()+"/5</center>"
+                + "<center>ententes enfants : " + animal.getChildrenFriend()+"/5</center>"
+                + "<center>" + animal.getDescription()+"</center>";
         shareDialog = new ShareDialog(this);
         shareDialog.show(FacebookManager.share(title, description, ServerConnectionManager.url,
-                    ServerConnectionManager.imagesUrl + animal.getPhoto()));
+                ServerConnectionManager.imagesUrl + animal.getPhoto()));
     }
 
     private void onClickShareOnFacebook() {
@@ -627,13 +627,13 @@ public class AnimalActivity extends BaseActivity {
     }
 
     private void tweet() {
-        String description = animal.getName() + "\n"
-                + animal.getBreed()+"\n"
-                + animal.getAge()+"\n"
-                + animal.getCatsFriend()+"\n"
-                + animal.getDogsFriend()+"\n"
-                + animal.getChildrenFriend() +"\n"
-                + animal.getDescription();
+        String description = "nom : " + animal.getName() + "\n"
+                + "race : " + animal.getBreed()+"\n"
+                + "âge : " + animal.getAge()+"\n"
+                + "ententes chats : " + animal.getCatsFriend()+"/5\n"
+                + "ententes chiens : " + animal.getDogsFriend()+"/5\n"
+                + "ententes enfants : " + animal.getChildrenFriend() +"/5\n"
+                + "description : " + animal.getDescription();
         TwitterManager.tweetWithImage(description, Uri.fromFile(pictureFile), this);
     }
 
@@ -746,6 +746,17 @@ public class AnimalActivity extends BaseActivity {
         new HaveSeenAnimalDbOperation(this).execute(request);
     }
 
+    private void downloadImageInTempFiles() {
+        File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        try {
+            pictureFile = File.createTempFile(animal.getName(), ".jpg", outputDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        new DownloadImageToFile(pictureFile).execute(animal.getPhoto());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -768,14 +779,6 @@ public class AnimalActivity extends BaseActivity {
         addUpdateAnimalStateButtonIfShelterAdministrator();
         addAnimalsNews();
 
-
-        File outputDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
-        try {
-            pictureFile = File.createTempFile(animal.getName(), ".jpg", outputDir);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        new DownloadImageToFile(pictureFile).execute(animal.getPhoto());
+        downloadImageInTempFiles();
     }
 }
