@@ -37,7 +37,7 @@ public class NotifyService extends Service {
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            if (result != null && !result.get("animal").toString().equals("null")) {
+            if (result != null && result.get("animal")!= null && !result.get("animal").toString().equals("null") ) {
                 ParcelableAnimal animal = new ParcelableAnimal((JSONObject)result.get("animal"));
                 sendNotification(animal);
             }
