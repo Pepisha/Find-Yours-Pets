@@ -116,7 +116,7 @@ public class ShelterActivity extends BaseActivity {
             if (successResponse(result)) {
                 Toast.makeText(getApplicationContext(), "Comment added", Toast.LENGTH_SHORT).show();
                 shelter = new ParcelableShelter((JSONObject) result.get("shelter"));
-                fillShelterFields();
+                updateShelterNote();
             }
         }
     }
@@ -227,16 +227,20 @@ public class ShelterActivity extends BaseActivity {
         websiteRow.addView(browserButton);
     }
 
-    private void fillShelterFields() {
-        TextView shelterName = (TextView) findViewById(R.id.shelterName);
-        shelterName.setText(shelter.getName());
-
+    private void updateShelterNote() {
         RatingBar shelterNote = (RatingBar) findViewById(R.id.shelterNote);
         if (shelter.getStars() != 0) {
             shelterNote.setRating((float) shelter.getStars());
         } else {
             shelterNote.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void fillShelterFields() {
+        TextView shelterName = (TextView) findViewById(R.id.shelterName);
+        shelterName.setText(shelter.getName());
+
+        updateShelterNote();
 
         TextView shelterDescription = (TextView) findViewById(R.id.shelterDescription);
         shelterDescription.setText(shelter.getDescription());
