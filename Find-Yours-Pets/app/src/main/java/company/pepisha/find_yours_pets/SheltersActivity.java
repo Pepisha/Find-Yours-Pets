@@ -45,7 +45,9 @@ public class SheltersActivity extends BaseActivity implements SensorEventListene
 
         @Override
         protected void onPostExecute(HashMap<String, Object> result) {
-            addShelters(result);
+            if (result != null) {
+                addShelters(result);
+            }
         }
     }
 
