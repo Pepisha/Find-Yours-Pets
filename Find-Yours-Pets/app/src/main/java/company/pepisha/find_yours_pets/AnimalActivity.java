@@ -607,13 +607,13 @@ public class AnimalActivity extends BaseActivity {
 
     private void shareOnFacebook() {
         String title = animal.getName();
-        String description = "<center>" + animal.getName() + "</center>"
-                + "<center>" + animal.getBreed()+"</center>"
-                + "<center>âge : " + animal.getAge()+"</center>"
-                + "<center>ententes chats : " + animal.getCatsFriend()+"/5</center>"
-                + "<center>ententes chiens : " + animal.getDogsFriend()+"/5</center>"
-                + "<center>ententes enfants : " + animal.getChildrenFriend()+"/5</center>"
-                + "<center>" + animal.getDescription()+"</center>";
+        String description = "" + animal.getName() + ", "
+                + "" + animal.getBreed()+", "
+                + "" + animal.getAge()+", "
+                + "ententes chats : " + animal.getCatsFriend()+"/5, "
+                + "ententes chiens : " + animal.getDogsFriend()+"/5, "
+                + "ententes enfants : " + animal.getChildrenFriend()+"/5, "
+                + "" + animal.getDescription()+"";
         shareDialog = new ShareDialog(this);
         shareDialog.show(FacebookManager.share(title, description, ServerConnectionManager.url,
                 ServerConnectionManager.imagesUrl + animal.getPhoto()));
