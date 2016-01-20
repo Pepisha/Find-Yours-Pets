@@ -89,7 +89,6 @@ public class AnimalActivity extends BaseActivity {
         protected void onPostExecute(HashMap<String, Object> result) {
             if (result.get("nickname") != null && !result.get("nickname").toString().equals("null")) {
                 addAnimalsOwner(result.get("nickname").toString());
-                hideInterestedButton();
             }
         }
     }
@@ -155,9 +154,17 @@ public class AnimalActivity extends BaseActivity {
                 addDeleteButtonIfShelterAdministrator();
                 addUpdatePictureButton();
                 addUpdateAnimalStateButton();
+            } else {
+                if(animal.getState() == Animal.ADOPTION) {
+
+                    addInterestedButton();
+
+                }
             }
         }
     }
+
+
 
     private class IsUserAnimalsOwnerDbOperation extends ServerDbOperation {
         public IsUserAnimalsOwnerDbOperation(Context c) {
@@ -255,6 +262,29 @@ public class AnimalActivity extends BaseActivity {
         }
     }
 
+    private void addInterestedButton() {
+        Button interestedButton = new Button(this);
+        String interestedButtonName = "Je suis intéressé";
+        interestedButton.setBackgroundResource(R.drawable.button_green_style);
+
+        interestedButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ImageView image = (ImageView) findViewById(R.id.animalPicture);
+
+                Intent animalMessageScreen = new Intent(v.getContext(), SendMessageActivity.class);
+                animalMessageScreen.putExtra("animal", (ParcelableAnimal) animal);
+                animalMessageScreen.putExtra("photo", ((BitmapDrawable) image.getDrawable()).getBitmap());
+                startActivity(animalMessageScreen);
+            }
+        });
+
+        interestedButton.setText(interestedButtonName);
+
+        addToGrid(interestedButton, 5, 1, animalLayout);
+    }
+
     private void createDialogChooseAnimalsOwner(final List<String> nicknamesUsers) {
         String[] nicknamesArray = new String[nicknamesUsers.size()];
         for (int i = 0; i < nicknamesArray.length; i++) {
@@ -285,11 +315,6 @@ public class AnimalActivity extends BaseActivity {
                 GridLayout.spec(col, colSpan));
 
         grid.addView(v, params);
-    }
-
-    private void hideInterestedButton() {
-        Button interested = (Button) findViewById(R.id.interestedButton);
-        interested.setVisibility(View.INVISIBLE);
     }
 
     private void addAnimalsOwner(final String ownerNickname) {
@@ -581,21 +606,6 @@ public class AnimalActivity extends BaseActivity {
         dialog.show();
     }
 
-    private void onClickInterestedOnAnimal() {
-        Button interestedButton = (Button) findViewById(R.id.interestedButton);
-        interestedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ImageView image = (ImageView) findViewById(R.id.animalPicture);
-
-                Intent animalMessageScreen = new Intent(v.getContext(), SendMessageActivity.class);
-                animalMessageScreen.putExtra("animal", (ParcelableAnimal) animal);
-                animalMessageScreen.putExtra("photo", ((BitmapDrawable) image.getDrawable()).getBitmap());
-                startActivity(animalMessageScreen);
-            }
-        });
-    }
-
     private void shareOnFacebook() {
         String title = animal.getName();
         String description = "<center>" + animal.getName() + "</center>"
@@ -774,7 +784,6 @@ public class AnimalActivity extends BaseActivity {
 
         fillAnimalFields();
 
-        onClickInterestedOnAnimal();
         onClickShareOnFacebook();
         onClickShareOnTwitter();
 

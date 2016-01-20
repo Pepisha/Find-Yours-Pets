@@ -24,7 +24,7 @@ import company.pepisha.find_yours_pets.session.SessionManager;
 
 public class NotifyService extends Service {
 
-    private final int UPDATE_INTERVAL = 600 * 1000;
+    private final int UPDATE_INTERVAL = 60 * 1000;
     private final int NOTIFICATION_ID = 1;
     private Timer timer = new Timer();
 
