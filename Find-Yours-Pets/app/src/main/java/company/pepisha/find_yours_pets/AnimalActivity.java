@@ -57,6 +57,7 @@ public class AnimalActivity extends BaseActivity {
     private int stateButtonId;
     private boolean isUserAdmin = false;
 
+    private GridLayout animalLayoutDescription;
     private GridLayout animalLayout;
     private GridLayout animalLayoutAdoptedInformations;
 
@@ -156,9 +157,7 @@ public class AnimalActivity extends BaseActivity {
                 addUpdateAnimalStateButton();
             } else {
                 if(animal.getState() == Animal.ADOPTION) {
-
                     addInterestedButton();
-
                 }
             }
         }
@@ -282,7 +281,7 @@ public class AnimalActivity extends BaseActivity {
 
         interestedButton.setText(interestedButtonName);
 
-        addToGrid(interestedButton, 5, 1, animalLayout);
+        addToGrid(interestedButton, 5, 1, animalLayoutDescription);
     }
 
     private void createDialogChooseAnimalsOwner(final List<String> nicknamesUsers) {
@@ -777,6 +776,7 @@ public class AnimalActivity extends BaseActivity {
         setContentView(R.layout.activity_animal);
 
         animalLayout = (GridLayout) findViewById(R.id.animalLayout);
+        animalLayoutDescription = (GridLayout) findViewById(R.id.animalLayoutDescription);
         animalLayoutAdoptedInformations = (GridLayout) findViewById(R.id.animalLayoutAdoptedInformations);
         animal = (ParcelableAnimal) getIntent().getParcelableExtra("animal");
 
