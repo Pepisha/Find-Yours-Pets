@@ -104,12 +104,14 @@ public class HomeActivity extends BaseActivity implements SensorEventListener {
     }
 
     private Animal getRandomAnimal() {
-        if (!followedAnimalsList.isEmpty()) {
+        if (!suggestedAnimalsList.isEmpty()) {
             Random r = new Random();
-            int i = r.nextInt(followedAnimalsList.size());
+            Object[] values = suggestedAnimalsList.values().toArray();
 
-            if (i < followedAnimalsList.size()) {
-                return followedAnimalsList.get(i);
+            int i = r.nextInt(suggestedAnimalsList.size());
+
+            if (i < suggestedAnimalsList.size()) {
+                return (Animal) values[i];
             }
         }
 
